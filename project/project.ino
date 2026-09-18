@@ -70,11 +70,8 @@ static void create_ui()
     lv_obj_add_event_cb(t2, on_tile2_clicked, LV_EVENT_CLICKED, NULL);
   }
 
-  //Här skriver jag en kommentar som jag ska följa. -Adam
-  //Test 2
 
-  //Test 4
-  //TEst 5 is here
+
 }
 
 // Function: Connects to WIFI
