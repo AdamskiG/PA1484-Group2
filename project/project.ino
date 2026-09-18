@@ -69,6 +69,9 @@ static void create_ui()
     lv_obj_add_flag(t2, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_add_event_cb(t2, on_tile2_clicked, LV_EVENT_CLICKED, NULL);
   }
+
+  //Här skriver jag en kommentar som jag ska följa. -Adam
+
 }
 
 // Function: Connects to WIFI
