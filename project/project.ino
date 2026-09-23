@@ -19,7 +19,6 @@ static lv_obj_t* t3;
 static lv_obj_t* t1_label;
 static lv_obj_t* t2_label;
 static lv_obj_t* t3_label;
-static lv_obj_t* t3_btn;
 static bool t2_dark = false;  // start tile #2 in light mode
 
 // Function: Tile #2 Color change
@@ -40,6 +39,13 @@ static void on_tile2_clicked(lv_event_t* e)
   apply_tile_colors(t2, t2_label, t2_dark);
 }
 
+static void on_t3_btn_clicked(lv_event_t* e)
+{
+  LV_UNUSED(e);
+  // Placeholder for future functionality
+  Serial.println("Tile #3 clicked.");
+}
+
 // Function: Creates UI
 static void create_ui()
 {
@@ -56,7 +62,7 @@ static void create_ui()
   // Tile #1
   {
     t1_label = lv_label_create(t1);
-    lv_label_set_text(t1_label, "Public Transport Information and Interaction on ESP32 \n Group 2 Version 1.0 \n Napatpong Chokwatthananon \n Li Holma, Tim Säterby \n Adam Gunnarsson, Kimi Grubisic");
+    lv_label_set_text(t1_label, "Public Transport Information \n and \n Interaction on ESP32 \n Group 2 Version 1.0 \n Napatpong Chokwatthananon \n Li Holma, Tim Säterby \n Adam Gunnarsson, Kimi Grubisic");
     lv_obj_set_style_text_font(t1_label, &lv_font_montserrat_28, 0);
     lv_obj_center(t1_label);
     apply_tile_colors(t1, t1_label, /*dark=*/false);
@@ -76,12 +82,9 @@ static void create_ui()
   // Tile #3
   {
     t3_label = lv_label_create(t3);
-    t3_btn = lv_obj_create(t3);
     lv_label_set_text(t3_label, "Settings page, change stations here");
-    lv_obj_add_flag(t3_btn, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_center(t3_btn);
+    lv_obj_center(t3_label);
     lv_obj_set_style_text_font(t3_label, &lv_font_montserrat_28, 0);
-    lv_obj_set_content_height(t3_label, LV_ALIGN_TOP_MID);
     apply_tile_colors(t3, t3_label, /*dark=*/false);
   }
 
