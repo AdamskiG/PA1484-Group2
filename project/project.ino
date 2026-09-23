@@ -83,8 +83,8 @@ static void create_ui()
   {
     t3_label = lv_label_create(t3);
     lv_label_set_text(t3_label, "Settings page, change stations here");
-    lv_obj_center(t3_label);
     lv_obj_set_style_text_font(t3_label, &lv_font_montserrat_28, 0);
+    lv_obj_center(t3_label);
     apply_tile_colors(t3, t3_label, /*dark=*/false);
   }
 
