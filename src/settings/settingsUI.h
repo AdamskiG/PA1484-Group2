@@ -11,7 +11,7 @@ static void draw_settings_ui(lv_obj_t* parent) {
     lv_label_set_text(settings_label, "Settings page, change stations here");
     lv_obj_set_style_text_font(settings_label, &lv_font_montserrat_28, 0);
     lv_obj_set_align(settings_label, LV_ALIGN_OUT_TOP_MID);
-    apply_tile_colors(parent, settings_label, /*dark=*/false);
+    // apply_tile_colors(parent, settings_label, /*dark=*/false);
 
     //create a dropdown with station options
     lv_obj_t* settings_options = lv_dropdown_create(parent);
