@@ -9,6 +9,7 @@
 #include <lvgl.h>
 
 #include "secrets.h"
+#include "../src/settings/settingsUI.h"
 
 LilyGo_Class amoled;
 
@@ -18,7 +19,6 @@ static lv_obj_t* t2;
 static lv_obj_t* t3;
 static lv_obj_t* t1_label;
 static lv_obj_t* t2_label;
-static lv_obj_t* t3_label;
 static bool t2_dark = false;  // start tile #2 in light mode
 
 // Function: Tile #2 Color change
@@ -37,13 +37,6 @@ static void on_tile2_clicked(lv_event_t* e)
   LV_UNUSED(e);
   t2_dark = !t2_dark;
   apply_tile_colors(t2, t2_label, t2_dark);
-}
-
-static void on_t3_btn_clicked(lv_event_t* e)
-{
-  LV_UNUSED(e);
-  // Placeholder for future functionality
-  Serial.println("Tile #3 clicked.");
 }
 
 // Function: Creates UI
@@ -74,20 +67,11 @@ static void create_ui()
     lv_label_set_text(t2_label, "Public Transport Information");
     lv_obj_set_style_text_font(t2_label, &lv_font_montserrat_28, 0);
     lv_obj_center(t2_label);
-
     apply_tile_colors(t2, t2_label, /*dark=*/false);
     lv_obj_add_flag(t2, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_add_event_cb(t2, on_tile2_clicked, LV_EVENT_CLICKED, NULL);
   }
-  // Tile #3
-  {
-    t3_label = lv_label_create(t3);
-    lv_label_set_text(t3_label, "Settings page, change stations here");
-    lv_obj_set_style_text_font(t3_label, &lv_font_montserrat_28, 0);
-    lv_obj_center(t3_label);
-    apply_tile_colors(t3, t3_label, /*dark=*/false);
-  }
-
+  draw_settings_ui(t3);
 }
 
 // Function: Connects to WIFI
