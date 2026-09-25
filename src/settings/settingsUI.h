@@ -4,6 +4,15 @@ static void on_settings_btn_clicked(lv_event_t* e) {
     // Here you can implement the logic to navigate to the settings page or open a settings dialog.
 }
 
+static void apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
+{
+  // Background
+  lv_obj_set_style_bg_opa(tile, LV_OPA_COVER, 0);
+  lv_obj_set_style_bg_color(tile, dark ? lv_color_black() : lv_color_white(), 0);
+
+  // Text
+  lv_obj_set_style_text_color(label, dark ? lv_color_white() : lv_color_black(), 0);
+}
 
 static void draw_settings_ui(lv_obj_t* parent) {
     // Create a label for the settings UI
@@ -11,7 +20,7 @@ static void draw_settings_ui(lv_obj_t* parent) {
     lv_label_set_text(settings_label, "Settings page, change stations here");
     lv_obj_set_style_text_font(settings_label, &lv_font_montserrat_28, 0);
     lv_obj_set_align(settings_label, LV_ALIGN_OUT_TOP_MID);
-    // apply_tile_colors(parent, settings_label, /*dark=*/false);
+    apply_tile_colors(parent, settings_label, /*dark=*/false);
 
     //create a dropdown with station options
     lv_obj_t* settings_options = lv_dropdown_create(parent);
