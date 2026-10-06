@@ -21,9 +21,13 @@ static void draw_settings_ui(lv_obj_t* parent) {
     lv_obj_set_style_text_font(settings_label, &lv_font_montserrat_28, 0);
     lv_obj_set_align(settings_label, LV_ALIGN_OUT_TOP_MID);
     apply_tile_colors(parent, settings_label, /*dark=*/false);
+}
 
+uint16_t station_options(lv_obj_t* parent)
+{
     //create a dropdown with station options
     lv_obj_t* settings_options = lv_dropdown_create(parent);
     lv_obj_set_align(settings_options, LV_ALIGN_CENTER);
     lv_dropdown_set_options(settings_options, "Campus Gräsvik\nKarlskrona Centralstation\nYour mom's house");
+    // lv_dropdown_get_selected()
 }
