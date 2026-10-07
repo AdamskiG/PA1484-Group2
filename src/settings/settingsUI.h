@@ -28,6 +28,6 @@ uint16_t station_options(lv_obj_t* parent)
     //create a dropdown with station options
     lv_obj_t* settings_options = lv_dropdown_create(parent);
     lv_obj_set_align(settings_options, LV_ALIGN_CENTER);
-    lv_dropdown_set_options(settings_options, "Campus Gräsvik\nKarlskrona Centralstation\nYour mom's house");
+    lv_dropdown_set_options(settings_options, "Campus Gräsvik\nKarlskrona Centralstation\nKvarngatan");
     // lv_dropdown_get_selected()
 }
