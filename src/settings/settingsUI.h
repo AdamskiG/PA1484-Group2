@@ -23,7 +23,7 @@ static void draw_settings_ui(lv_obj_t* parent) {
     apply_tile_colors(parent, settings_label, /*dark=*/false);
 }
 
-uint16_t station_options(lv_obj_t* parent)
+static void station_options(lv_obj_t* parent)
 {
     //create a dropdown with station options
     lv_obj_t* settings_options = lv_dropdown_create(parent);
