@@ -1,3 +1,6 @@
+#include <Wifi.h>
+#include <HTTPClient.h>
+
 static void on_settings_btn_clicked(lv_event_t* e) {
     LV_UNUSED(e);
     Serial.println("Settings button clicked.");
