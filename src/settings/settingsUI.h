@@ -1,9 +1,9 @@
-#include <Wifi.h>
+
 #include <HTTPClient.h>
 
-static void on_settings_btn_clicked(lv_event_t* e) {
-    LV_UNUSED(e);
-    Serial.println("Settings button clicked.");
+static void on_confirm_btn_clicked(lv_event_t* event) {
+    LV_UNUSED(event);
+    // lv_dropdown_get_selected(settings_options)
     // Here you can implement the logic to navigate to the settings page or open a settings dialog.
 }
 
@@ -22,7 +22,7 @@ static void draw_settings_ui(lv_obj_t* parent) {
     lv_obj_t* settings_label = lv_label_create(parent);
     lv_label_set_text(settings_label, "Settings page, change stations here");
     lv_obj_set_style_text_font(settings_label, &lv_font_montserrat_28, 0);
-    lv_obj_set_align(settings_label, LV_ALIGN_OUT_TOP_MID);
+    lv_obj_set_align(settings_label, LV_ALIGN_TOP_MID);
     apply_tile_colors(parent, settings_label, /*dark=*/false);
 }
 
@@ -31,6 +31,15 @@ static void station_options(lv_obj_t* parent)
     //create a dropdown with station options
     lv_obj_t* settings_options = lv_dropdown_create(parent);
     lv_obj_set_align(settings_options, LV_ALIGN_CENTER);
+    lv_obj_set_width(settings_options, 200);
     lv_dropdown_set_options(settings_options, "Campus Gräsvik\nKarlskrona Centralstation\nKvarngatan");
+    
+    //Creates a clickable confirmed button to change departure station
+    lv_obj_t* confirm_btn = lv_btn_create(parent);
+    lv_obj_set_align(confirm_btn, LV_ALIGN_BOTTOM_MID);
+    lv_obj_set_width(confirm_btn, 100);
+    lv_obj_add_flag(confirm_btn, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
+
     // lv_dropdown_get_selected()
 }
