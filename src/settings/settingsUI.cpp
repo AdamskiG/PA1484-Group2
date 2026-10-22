@@ -1,6 +1,6 @@
 #include "settingsUI.h"
 
-void Settings::on_confirm_btn_clicked(lv_event_t* event) 
+void on_confirm_btn_clicked(lv_event_t* event) 
 {
     LV_UNUSED(event);
     // lv_dropdown_get_selected(settings_options)
@@ -43,4 +43,9 @@ static void station_options(lv_obj_t* parent)
     // lv_obj_add_event_cb(confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
 
     // lv_dropdown_get_selected()
+}
+
+void get_selected()
+{
+    
 }
