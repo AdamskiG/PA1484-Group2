@@ -1,10 +1,11 @@
-#include "settingsUI.h"
+#include "settings.h"
 
-Settings::Settings()
+settings::settings()
 {
 
 }
-void Settings::draw_settings_ui(lv_obj_t* parent) 
+
+void settings::create(lv_obj_t* parent)
 {
     // Create a label for the settings UI
     lv_obj_t* settings_label = lv_label_create(parent);
@@ -15,7 +16,7 @@ void Settings::draw_settings_ui(lv_obj_t* parent)
     station_options(parent);
 }
 
-void Settings::station_options(lv_obj_t* parent)
+void settings::station_options(lv_obj_t* parent)
 {
     //create a dropdown with station options
     this->settings_dropdown = lv_dropdown_create(parent);
@@ -32,7 +33,7 @@ void Settings::station_options(lv_obj_t* parent)
     // lv_dropdown_get_selected()
 }
 
-void Settings::on_confirm_btn_clicked(lv_event_t* event) 
+void settings::on_confirm_btn_clicked(lv_event_t* event) 
 {
     LV_UNUSED(event);
     get_selected();
@@ -41,7 +42,7 @@ void Settings::on_confirm_btn_clicked(lv_event_t* event)
     // Here you can implement the logic to navigate to the settings page or open a settings dialog.
 }
 
-void Settings::get_selected()
+void settings::get_selected()
 {
     lv_dropdown_get_selected_str(this->settings_dropdown, this->selected_option, buff_size); 
 }

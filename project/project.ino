@@ -9,12 +9,12 @@
 #include <lvgl.h>
 
 #include "secrets.h"
-#include "../src/settings/settingsUI.h"
-#include "../src/settings/UI.h"
+#include "../src/settings/settings.h"
+#include "../src/settings/ui.h"
 
 LilyGo_Class amoled;
 
-static Settings abba;
+static settings abba;
 
 static lv_obj_t* tileview;
 static lv_obj_t* t1;
