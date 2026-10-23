@@ -5,17 +5,21 @@ settings::settings()
 
 }
 
-void settings::create(lv_obj_t* parent)
+void settings::create()
 {
+    // Adds the settings tileview
+    this->settings_tile = lv_tileview_add_tile(this->tileview, 2, 0, LV_DIR_HOR);
+
     // Create a label for the settings UI
-    lv_obj_t* settings_label = lv_label_create(parent);
-    lv_label_set_text(settings_label, "Settings page, change stations here");
-    lv_obj_set_style_text_font(settings_label, &lv_font_montserrat_28, 0);
-    lv_obj_set_align(settings_label, LV_ALIGN_TOP_MID);
-    apply_tile_colors(parent, settings_label, /*dark=*/false);
-    station_options(parent);
+    this->settings_label = lv_label_create(this->settings_tile);
+    lv_label_set_text(this->settings_label, "Settings page, change stations here");
+    lv_obj_set_style_text_font(this->settings_label, &lv_font_montserrat_28, 0);
+    lv_obj_set_align(this->settings_label, LV_ALIGN_TOP_MID);
+    apply_tile_colors(this->settings_tile, settings_label, /*dark=*/false);
+    station_options(this->settings_tile);
 }
 
+    // Creates a dropdown option
 void settings::station_options(lv_obj_t* parent)
 {
     //create a dropdown with station options
