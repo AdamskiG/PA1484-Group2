@@ -10,8 +10,11 @@
 
 #include "secrets.h"
 #include "../src/settings/settingsUI.h"
+#include "../src/settings/UI.h"
 
 LilyGo_Class amoled;
+
+static Settings abba;
 
 static lv_obj_t* tileview;
 static lv_obj_t* t1;
@@ -71,8 +74,7 @@ static void create_ui()
     lv_obj_add_flag(t2, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_add_event_cb(t2, on_tile2_clicked, LV_EVENT_CLICKED, NULL);
   }
-  Settings::draw_settings_ui(t3);
-  Settings::station_options(t3);
+
 }
 
 // Function: Connects to WIFI
