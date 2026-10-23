@@ -1,13 +1,6 @@
 #include "settingsUI.h"
 
-void on_confirm_btn_clicked(lv_event_t* event) 
-{
-    LV_UNUSED(event);
-    // lv_dropdown_get_selected(settings_options)
-    // Here you can implement the logic to navigate to the settings page or open a settings dialog.
-}
-
-static void apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
+void Settings::apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
 {
   // Background
   lv_obj_set_style_bg_opa(tile, LV_OPA_COVER, 0);
@@ -17,7 +10,7 @@ static void apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
   lv_obj_set_style_text_color(label, dark ? lv_color_white() : lv_color_black(), 0);
 }
 
-static void draw_settings_ui(lv_obj_t* parent) 
+void Settings::draw_settings_ui(lv_obj_t* parent) 
 {
     // Create a label for the settings UI
     lv_obj_t* settings_label = lv_label_create(parent);
@@ -27,25 +20,33 @@ static void draw_settings_ui(lv_obj_t* parent)
     apply_tile_colors(parent, settings_label, /*dark=*/false);
 }
 
-static void station_options(lv_obj_t* parent)
+void Settings::station_options(lv_obj_t* parent)
 {
     //create a dropdown with station options
-    lv_obj_t* settings_options = lv_dropdown_create(parent);
-    lv_obj_set_align(settings_options, LV_ALIGN_CENTER);
-    lv_obj_set_width(settings_options, 200);
-    lv_dropdown_set_options(settings_options, "Campus Gräsvik\nKarlskrona Centralstation\nKvarngatan");
+    this->settings_dropdown = lv_dropdown_create(parent);
+    lv_obj_set_align(this->settings_dropdown, LV_ALIGN_CENTER);
+    lv_obj_set_size(this->settings_dropdown, 350, 60);
+    lv_dropdown_set_options(this->settings_dropdown, "Campus Gräsvik\nKarlskrona Centralstation\nKvarngatan");
     
     //Creates a clickable confirmed button to change departure station
     lv_obj_t* confirm_btn = lv_btn_create(parent);
     lv_obj_set_align(confirm_btn, LV_ALIGN_BOTTOM_MID);
-    lv_obj_set_width(confirm_btn, 100);
+    lv_obj_set_size(confirm_btn, 150, 50);
     lv_obj_add_flag(confirm_btn, LV_OBJ_FLAG_CLICKABLE);
     // lv_obj_add_event_cb(confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
-
     // lv_dropdown_get_selected()
 }
 
-void get_selected()
+void Settings::on_confirm_btn_clicked(lv_event_t* event) 
 {
+    LV_UNUSED(event);
+    get_selected();
+    this->selected_option;
     
+    // Here you can implement the logic to navigate to the settings page or open a settings dialog.
+}
+
+void Settings::get_selected()
+{
+    lv_dropdown_get_selected_str(this->settings_dropdown, this->selected_option, buff_size); 
 }

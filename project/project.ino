@@ -36,7 +36,7 @@ static void on_tile2_clicked(lv_event_t* e)
 {
   LV_UNUSED(e);
   t2_dark = !t2_dark;
-  apply_tile_colors(t2, t2_label, t2_dark);
+  Settings::apply_tile_colors(t2, t2_label, t2_dark);
 }
 
 // Function: Creates UI
@@ -58,7 +58,7 @@ static void create_ui()
     lv_label_set_text(t1_label, "Public Transport Information\n and\n Interaction on ESP32\n Group 2 Version 1.0\n Napatpong Chokwatthananon\n Li Holma, Tim Säterby\n Adam Gunnarsson, Kimi Grubisic");
     lv_obj_set_style_text_font(t1_label, &lv_font_montserrat_28, 0);
     lv_obj_center(t1_label);
-    apply_tile_colors(t1, t1_label, /*dark=*/false);
+    Settings::apply_tile_colors(t1, t1_label, /*dark=*/false);
   }
 
   // Tile #2
@@ -67,12 +67,12 @@ static void create_ui()
     lv_label_set_text(t2_label, "Public Transport Information");
     lv_obj_set_style_text_font(t2_label, &lv_font_montserrat_28, 0);
     lv_obj_center(t2_label);
-    apply_tile_colors(t2, t2_label, /*dark=*/false);
+    Settings::apply_tile_colors(t2, t2_label, /*dark=*/false);
     lv_obj_add_flag(t2, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_add_event_cb(t2, on_tile2_clicked, LV_EVENT_CLICKED, NULL);
   }
-  draw_settings_ui(t3);
-  station_options(t3);
+  Settings::draw_settings_ui(t3);
+  Settings::station_options(t3);
 }
 
 // Function: Connects to WIFI
