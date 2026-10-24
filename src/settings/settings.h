@@ -9,11 +9,10 @@ private:
     inline static lv_obj_t* settings_label = nullptr;
     static constexpr uint32_t buff_size = 64;
     inline static lv_obj_t* settings_dropdown = nullptr;
+    inline static char selected_option[buff_size]{};
     void station_options(lv_obj_t* parent);
     // void on_confirm_btn_clicked(lv_event_t* event);
 
-protected:
-    inline static char selected_option[buff_size]{};
 
 public:
     settings();
