@@ -1,18 +1,18 @@
 #pragma once
-#include "UI.h"
+#include "ui.h"
 #include <HTTPClient.h>
 
 class settings : public ui
 {
 private:
-    static lv_obj_t* settings_tile;
-    static lv_obj_t* settings_label;
+    inline static lv_obj_t* settings_tile = nullptr;
+    inline static lv_obj_t* settings_label = nullptr;
     static constexpr uint32_t buff_size = 64;
-    char* selected_option{};
-    lv_obj_t* settings_dropdown{};
+    inline static char selected_option[buff_size]{};
+    inline static lv_obj_t* settings_dropdown = nullptr;
 
     void station_options(lv_obj_t* parent);
-    void on_confirm_btn_clicked(lv_event_t* event);
+    // void on_confirm_btn_clicked(lv_event_t* event);
 
 public:
     settings();
