@@ -28,11 +28,12 @@ void settings::station_options(lv_obj_t* parent)
     //create a dropdown with station options
     this->settings_dropdown = lv_dropdown_create(parent);
     lv_obj_set_align(this->settings_dropdown, LV_ALIGN_CENTER);
-    lv_obj_set_size(this->settings_dropdown, 350, 60);
+    lv_obj_set_size(this->settings_dropdown, 300, 60);
     lv_dropdown_set_options(this->settings_dropdown, "Campus Gräsvik\nKarlskrona Centralstation\nKvarngatan");
     
     //Creates a clickable confirmed button to change departure station
     lv_obj_t* confirm_btn = lv_btn_create(parent);
+    lv_label_set_text(confirm_btn, "Välj Station");
     lv_obj_align_to(confirm_btn, this->settings_dropdown, LV_ALIGN_CENTER, -50, 60);
     lv_obj_set_size(confirm_btn, 150, 50);
     lv_obj_add_flag(confirm_btn, LV_OBJ_FLAG_CLICKABLE);
