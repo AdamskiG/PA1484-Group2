@@ -8,6 +8,7 @@ ui::ui()
 void ui::create()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   
 =======
     // Creates the initial tileview
@@ -15,6 +16,8 @@ void ui::create()
     lv_obj_set_size(this->tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
     lv_obj_set_scrollbar_mode(this->tileview, LV_SCROLLBAR_MODE_OFF);
 >>>>>>> parent of 354952c (Tried out the ui heritage)
+=======
+>>>>>>> parent of b0bf876 (Created files)
 }
 
 void ui::apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)

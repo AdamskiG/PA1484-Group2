@@ -9,6 +9,7 @@ private:
     static lv_obj_t* settings_label;
     static constexpr uint32_t buff_size = 64;
 <<<<<<< HEAD
+<<<<<<< HEAD
     inline static lv_obj_t* settings_dropdown = nullptr;
     inline static char selected_option[buff_size]{};
 =======
@@ -19,6 +20,13 @@ private:
     void station_options(lv_obj_t* parent);
     void on_confirm_btn_clicked(lv_event_t* event);
 
+=======
+    inline static char selected_option[buff_size]{};
+    inline static lv_obj_t* settings_dropdown = nullptr;
+
+    void station_options(lv_obj_t* parent);
+    // void on_confirm_btn_clicked(lv_event_t* event);
+>>>>>>> parent of b0bf876 (Created files)
 
 public:
     settings();
