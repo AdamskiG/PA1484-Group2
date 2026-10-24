@@ -1,23 +1,20 @@
-#include "ui.h"
+#include "UI.h"
 
 ui::ui()
-{
-    if(!tileview)
-    {
-        ui::tileview = lv_tileview_create(lv_scr_act());
-        lv_obj_set_size(this->tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
-        lv_obj_set_scrollbar_mode(this->tileview, LV_SCROLLBAR_MODE_OFF);
-    }
-}
-
-ui::~ui()
 {
 
 }
 
 void ui::create()
 {
+<<<<<<< HEAD
   
+=======
+    // Creates the initial tileview
+    this->tileview = lv_tileview_create(lv_scr_act());
+    lv_obj_set_size(this->tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
+    lv_obj_set_scrollbar_mode(this->tileview, LV_SCROLLBAR_MODE_OFF);
+>>>>>>> parent of 354952c (Tried out the ui heritage)
 }
 
 void ui::apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)

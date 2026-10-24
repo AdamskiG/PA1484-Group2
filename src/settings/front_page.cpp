@@ -6,11 +6,6 @@ front_page::front_page()
 
 }
 
-front_page::~front_page()
-{
-
-}
-
 void front_page::create()
 {
     // Adds a tile in tileview and also ands a lable

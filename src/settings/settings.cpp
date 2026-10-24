@@ -2,10 +2,6 @@
 
 settings::settings()
 {
-}
-
-settings::~settings()
-{
 
 }
 
@@ -23,6 +19,7 @@ void settings::create()
     station_options(this->settings_tile);
 }
 
+    // Creates a dropdown option
 void settings::station_options(lv_obj_t* parent)
 {
     //create a dropdown with station options
@@ -33,19 +30,26 @@ void settings::station_options(lv_obj_t* parent)
     
     //Creates a clickable confirmed button to change departure station
     lv_obj_t* confirm_btn = lv_btn_create(parent);
+<<<<<<< HEAD
     // lv_label_set_text(confirm_btn, "Välj Station");
     lv_obj_align_to(confirm_btn, this->settings_dropdown, LV_ALIGN_CENTER, -50, 60);
+=======
+    lv_obj_set_align(confirm_btn, LV_ALIGN_BOTTOM_MID);
+>>>>>>> parent of 354952c (Tried out the ui heritage)
     lv_obj_set_size(confirm_btn, 150, 50);
     lv_obj_add_flag(confirm_btn, LV_OBJ_FLAG_CLICKABLE);
     // lv_obj_add_event_cb(confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
     // lv_dropdown_get_selected()
 }
 
-// void settings::on_confirm_btn_clicked(lv_event_t* event) 
-// {
-//     LV_UNUSED(event);
-//     get_selected();
-// }
+void settings::on_confirm_btn_clicked(lv_event_t* event) 
+{
+    LV_UNUSED(event);
+    get_selected();
+    this->selected_option;
+    
+    // Here you can implement the logic to navigate to the settings page or open a settings dialog.
+}
 
 void settings::get_selected()
 {

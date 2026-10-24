@@ -4,9 +4,8 @@
 class front_page : public ui
 {
     private:
-    inline static lv_obj_t* front_tile = nullptr;
-    inline static lv_obj_t* front_label = nullptr;
-
+    static lv_obj_t* front_tile;
+    static lv_obj_t* front_label;
     public:
     front_page();
     ~front_page();
