@@ -12,6 +12,7 @@
 #include "../src/settings/settings.h"
 #include "../src/settings/front_page.h"
 #include "../src/settings/ui.h"
+#include "../src/settings/api.h"
 
 LilyGo_Class amoled;
 
