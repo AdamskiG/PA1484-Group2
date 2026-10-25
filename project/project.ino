@@ -10,19 +10,18 @@
 
 #include "secrets.h"
 #include "../src/settings/settings.h"
+#include "../src/settings/front_page.h"
 #include "../src/settings/ui.h"
 
 LilyGo_Class amoled;
 
-static settings abba;
-
-static lv_obj_t* tileview;
-static lv_obj_t* t1;
-static lv_obj_t* t2;
-static lv_obj_t* t3;
-static lv_obj_t* t1_label;
-static lv_obj_t* t2_label;
-static bool t2_dark = false;  // start tile #2 in light mode
+// static lv_obj_t* tileview;
+// static lv_obj_t* t1;
+// static lv_obj_t* t2;
+// static lv_obj_t* t3;
+// static lv_obj_t* t1_label;
+// static lv_obj_t* t2_label;
+// static bool t2_dark = false;  // start tile #2 in light mode
 
 // Function: Tile #2 Color change
 // static void apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
@@ -35,46 +34,48 @@ static bool t2_dark = false;  // start tile #2 in light mode
 //   lv_obj_set_style_text_color(label, dark ? lv_color_white() : lv_color_black(), 0);
 // }
 
-static void on_tile2_clicked(lv_event_t* e)
-{
-  LV_UNUSED(e);
-  t2_dark = !t2_dark;
-  Settings::apply_tile_colors(t2, t2_label, t2_dark);
-}
+// static void on_tile2_clicked(lv_event_t* e)
+// {
+//   LV_UNUSED(e);
+//   t2_dark = !t2_dark;
+// }
 
 // Function: Creates UI
 static void create_ui()
 {
-  // Fullscreen Tileview
-  tileview = lv_tileview_create(lv_scr_act());
-  lv_obj_set_size(tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
-  lv_obj_set_scrollbar_mode(tileview, LV_SCROLLBAR_MODE_OFF);
+  // // Fullscreen Tileview
+  // tileview = lv_tileview_create(lv_scr_act());
+  // lv_obj_set_size(tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
+  // lv_obj_set_scrollbar_mode(tileview, LV_SCROLLBAR_MODE_OFF);
 
-  // Add three horizontal tiles
-  t1 = lv_tileview_add_tile(tileview, 0, 0, LV_DIR_HOR);
-  t2 = lv_tileview_add_tile(tileview, 1, 0, LV_DIR_HOR);
-  t3 = lv_tileview_add_tile(tileview, 2, 0, LV_DIR_HOR);
+  // // Add three horizontal tiles
+  // t1 = lv_tileview_add_tile(tileview, 0, 0, LV_DIR_HOR);
+  // t2 = lv_tileview_add_tile(tileview, 1, 0, LV_DIR_HOR);
+  // t3 = lv_tileview_add_tile(tileview, 2, 0, LV_DIR_HOR);
 
-  // Tile #1
-  {
-    t1_label = lv_label_create(t1);
-    lv_label_set_text(t1_label, "Public Transport Information\n and\n Interaction on ESP32\n Group 2 Version 1.0\n Napatpong Chokwatthananon\n Li Holma, Tim Säterby\n Adam Gunnarsson, Kimi Grubisic");
-    lv_obj_set_style_text_font(t1_label, &lv_font_montserrat_28, 0);
-    lv_obj_center(t1_label);
-    Settings::apply_tile_colors(t1, t1_label, /*dark=*/false);
-  }
+  // // Tile #1
+  // {
+  //   t1_label = lv_label_create(t1);
+  //   lv_label_set_text(t1_label, "Public Transport Information\n and\n Interaction on ESP32\n Group 2 Version 1.0\n Napatpong Chokwatthananon\n Li Holma, Tim Säterby\n Adam Gunnarsson, Kimi Grubisic");
+  //   lv_obj_set_style_text_font(t1_label, &lv_font_montserrat_28, 0);
+  //   lv_obj_center(t1_label);
+  //   Settings::apply_tile_colors(t1, t1_label, /*dark=*/false);
+  // }
 
-  // Tile #2
-  {
-    t2_label = lv_label_create(t2);
-    lv_label_set_text(t2_label, "Public Transport Information");
-    lv_obj_set_style_text_font(t2_label, &lv_font_montserrat_28, 0);
-    lv_obj_center(t2_label);
-    Settings::apply_tile_colors(t2, t2_label, /*dark=*/false);
-    lv_obj_add_flag(t2, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_add_event_cb(t2, on_tile2_clicked, LV_EVENT_CLICKED, NULL);
-  }
-
+  // // Tile #2
+  // {
+  //   t2_label = lv_label_create(t2);
+  //   lv_label_set_text(t2_label, "Public Transport Information");
+  //   lv_obj_set_style_text_font(t2_label, &lv_font_montserrat_28, 0);
+  //   lv_obj_center(t2_label);
+  //   Settings::apply_tile_colors(t2, t2_label, /*dark=*/false);
+  //   lv_obj_add_flag(t2, LV_OBJ_FLAG_CLICKABLE);
+  //   lv_obj_add_event_cb(t2, on_tile2_clicked, LV_EVENT_CLICKED, NULL);
+  // }
+    static settings settings_page;
+    static front_page front_p;
+    front_p.create();
+    settings_page.create();
 }
 
 // Function: Connects to WIFI

@@ -10,5 +10,5 @@ class ui
     void apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark); //Apply colors to tile and text
 
     protected:
-    static lv_obj_t* tileview;
+    inline static lv_obj_t* tileview = nullptr;
 };
