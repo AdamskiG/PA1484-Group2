@@ -4,9 +4,9 @@ ui::ui()
 {
     // Creates the initial tileview
     if(!tileview){
-    this->tileview = lv_tileview_create(lv_scr_act());
-    lv_obj_set_size(this->tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
-    lv_obj_set_scrollbar_mode(this->tileview, LV_SCROLLBAR_MODE_OFF);
+    ui::tileview = lv_tileview_create(lv_scr_act());
+    lv_obj_set_size(ui::tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
+    lv_obj_set_scrollbar_mode(ui::tileview, LV_SCROLLBAR_MODE_OFF);
     }
 }
 
