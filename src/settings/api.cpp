@@ -26,5 +26,11 @@ void api::connect_wifi()
 
 bool api::call_request()
 {
+    WiFiClientSecure client;
+    HTTPClient https;
+    https.begin(client, url_stopcode_lookup);
+
+
+    client.connect(url_stopcode_lookup, 443);
     
 }
