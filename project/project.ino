@@ -9,20 +9,19 @@
 #include <lvgl.h>
 
 #include "secrets.h"
-#include "../src/ui/settings.h"
-#include "../src/ui/front_page.h"
-#include "../src/ui/ui.h"
-#include "../src/settings/api.h"
+#include "../src/settings/settingsUI.h"
 
 LilyGo_Class amoled;
 
-// static lv_obj_t* tileview;
-// static lv_obj_t* t1;
-// static lv_obj_t* t2;
-// static lv_obj_t* t3;
-// static lv_obj_t* t1_label;
-// static lv_obj_t* t2_label;
-// static bool t2_dark = false;  // start tile #2 in light mode
+static lv_obj_t* tileview;
+static lv_obj_t* t1;
+static lv_obj_t* t2;
+static lv_obj_t* t3;
+static lv_obj_t* t4;
+static lv_obj_t* t1_label;
+static lv_obj_t* t2_label;
+static lv_obj_t* t4_label;
+static bool t2_dark = false;  // start tile #2 in light mode
 
 // Function: Tile #2 Color change
 // static void apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
@@ -35,69 +34,77 @@ LilyGo_Class amoled;
 //   lv_obj_set_style_text_color(label, dark ? lv_color_white() : lv_color_black(), 0);
 // }
 
-// static void on_tile2_clicked(lv_event_t* e)
-// {
-//   LV_UNUSED(e);
-//   t2_dark = !t2_dark;
-// }
+static void on_tile2_clicked(lv_event_t* e)
+{
+  LV_UNUSED(e);
+  t2_dark = !t2_dark;
+  apply_tile_colors(t2, t2_label, t2_dark);
+}
 
 // Function: Creates UI
 static void create_ui()
 {
-  // // Fullscreen Tileview
-  // tileview = lv_tileview_create(lv_scr_act());
-  // lv_obj_set_size(tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
-  // lv_obj_set_scrollbar_mode(tileview, LV_SCROLLBAR_MODE_OFF);
+  // Fullscreen Tileview
+  tileview = lv_tileview_create(lv_scr_act());
+  lv_obj_set_size(tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
+  lv_obj_set_scrollbar_mode(tileview, LV_SCROLLBAR_MODE_OFF);
 
-  // // Add three horizontal tiles
-  // t1 = lv_tileview_add_tile(tileview, 0, 0, LV_DIR_HOR);
-  // t2 = lv_tileview_add_tile(tileview, 1, 0, LV_DIR_HOR);
-  // t3 = lv_tileview_add_tile(tileview, 2, 0, LV_DIR_HOR);
+  // Add three horizontal tiles
+  t1 = lv_tileview_add_tile(tileview, 0, 0, LV_DIR_ALL);
+  t2 = lv_tileview_add_tile(tileview, 1, 0, LV_DIR_HOR);
+  t3 = lv_tileview_add_tile(tileview, 2, 0, LV_DIR_HOR);
+  t4 = lv_tileview_add_tile(tileview, 0, 1, LV_DIR_VER);
 
-  // // Tile #1
-  // {
-  //   t1_label = lv_label_create(t1);
-  //   lv_label_set_text(t1_label, "Public Transport Information\n and\n Interaction on ESP32\n Group 2 Version 1.0\n Napatpong Chokwatthananon\n Li Holma, Tim Säterby\n Adam Gunnarsson, Kimi Grubisic");
-  //   lv_obj_set_style_text_font(t1_label, &lv_font_montserrat_28, 0);
-  //   lv_obj_center(t1_label);
-  //   Settings::apply_tile_colors(t1, t1_label, /*dark=*/false);
-  // }
+  // Tile #1
+  {
+    t1_label = lv_label_create(t1);
+    lv_label_set_text(t1_label, "Public Transport Information\n and\n Interaction on ESP32\n Group 2 Version 1.0\n Napatpong Chokwatthananon\n Li Holma, Tim Säterby\n Adam Gunnarsson, Kimi Grubisic");
+    lv_obj_set_style_text_font(t1_label, &lv_font_montserrat_28, 0);
+    lv_obj_center(t1_label);
+    apply_tile_colors(t1, t1_label, /*dark=*/false);
+  }
 
-  // // Tile #2
-  // {
-  //   t2_label = lv_label_create(t2);
-  //   lv_label_set_text(t2_label, "Public Transport Information");
-  //   lv_obj_set_style_text_font(t2_label, &lv_font_montserrat_28, 0);
-  //   lv_obj_center(t2_label);
-  //   Settings::apply_tile_colors(t2, t2_label, /*dark=*/false);
-  //   lv_obj_add_flag(t2, LV_OBJ_FLAG_CLICKABLE);
-  //   lv_obj_add_event_cb(t2, on_tile2_clicked, LV_EVENT_CLICKED, NULL);
-  // }
-    static settings settings_page;
-    static front_page front_p;
-    front_p.create();
-    settings_page.create();
+  // Tile #2
+  {
+    t2_label = lv_label_create(t2);
+    lv_label_set_text(t2_label, "Public Transport Information");
+    lv_obj_set_style_text_font(t2_label, &lv_font_montserrat_28, 0);
+    lv_obj_center(t2_label);
+    apply_tile_colors(t2, t2_label, /*dark=*/false);
+    lv_obj_add_flag(t2, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(t2, on_tile2_clicked, LV_EVENT_CLICKED, NULL);
+  }
+
+    // Tile #4
+  {
+    t4_label = lv_label_create(t4);
+    lv_label_set_text(t4_label, "Hello down here  ");
+    apply_tile_colors(t4, t4_label, /*dark=*/false);
+  }
+
+  draw_settings_ui(t3);
+  station_options(t3);
 }
 
 // Function: Connects to WIFI
-// static void connect_wifi()
-// {
-//   Serial.printf("Connecting to WiFi SSID: %s\n", WIFI_SSID);
-//   WiFi.mode(WIFI_STA);
-//   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+static void connect_wifi()
+{
+  Serial.printf("Connecting to WiFi SSID: %s\n", WIFI_SSID);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
-//   const uint32_t start = millis();
-//   while (WiFi.status() != WL_CONNECTED && (millis() - start) < 15000) {
-//     delay(250);
-//   }
-//   Serial.println();
+  const uint32_t start = millis();
+  while (WiFi.status() != WL_CONNECTED && (millis() - start) < 15000) {
+    delay(250);
+  }
+  Serial.println();
 
-//   if (WiFi.status() == WL_CONNECTED) {
-//     Serial.print("WiFi connected.");
-//   } else {
-//     Serial.println("WiFi could not connect (timeout).");
-//   }
-// }
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.print("WiFi connected.");
+  } else {
+    Serial.println("WiFi could not connect (timeout).");
+  }
+}
 
 // Must have function: Setup is run once on startup
 void setup()
@@ -113,7 +120,7 @@ void setup()
   beginLvglHelper(amoled);   // init LVGL for this board
 
   create_ui();
-  api::connect_wifi();
+  connect_wifi();
 }
 
 // Must have function: Loop runs continously on device after setup
