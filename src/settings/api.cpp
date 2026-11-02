@@ -24,7 +24,7 @@ void api::connect_wifi()
     }
 }
 
-// bool api::call_request()
+// bool api::call_request(char* selected_option)
 // {
 //     WiFiClientSecure client;
 //     HTTPClient https;

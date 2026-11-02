@@ -1,4 +1,6 @@
 #include "settings.h"
+#include "departure.h"
+#include "../settings/api.h"
 
 settings::settings()
 {
@@ -43,20 +45,21 @@ void settings::station_options(lv_obj_t* parent)
     lv_obj_align_to(settings::confirm_btn, settings::settings_dropdown, LV_ALIGN_CENTER, -50, 60);
     lv_obj_set_size(settings::confirm_btn, 150, 50);
     lv_obj_add_flag(settings::confirm_btn, LV_OBJ_FLAG_CLICKABLE);
-    // lv_obj_add_event_cb(confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
+    // lv_obj_add_event_cb(settings::confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
     // lv_dropdown_get_selected()
 }
 
-// void settings::on_confirm_btn_clicked(lv_event_t* event) 
-// {
-//     LV_UNUSED(event);
-//     get_selected();
-//     this->selected_option;
+void settings::on_confirm_btn_clicked(lv_event_t* event) 
+{
+    LV_UNUSED(event);
+    get_selected();
+    // api::call_request(settings::selected_option);
+    // departure::set_station(settings::selected_option);
     
-//
-// }
+
+}
 
 void settings::get_selected()
 {
-    lv_dropdown_get_selected_str(this->settings_dropdown, this->selected_option, buff_size); 
+    lv_dropdown_get_selected_str(settings::settings_dropdown, settings::selected_option, buff_size); 
 }

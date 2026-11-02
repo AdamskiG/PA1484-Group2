@@ -1,8 +1,8 @@
 #pragma once
-#include "UI.h"
+#include "ui.h"
 #include <HTTPClient.h>
 
-class settings : public ui
+class settings : protected ui
 {
 private:
     inline static lv_obj_t* settings_tile = nullptr;
