@@ -1,7 +1,7 @@
 #pragma once
 #include "ui.h"
 
-class front_page : public ui
+class front_page : protected ui
 {
     private:
     inline static lv_obj_t* front_tile = nullptr;
