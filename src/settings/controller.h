@@ -8,4 +8,5 @@ class controller
     private:
     
     public:
+    std::string stations();
 };
