@@ -4,7 +4,7 @@
 #include "../settings/api.h"
 #include <HTTPClient.h>
 
-class settings : protected ui
+class Settings : protected ui
 {
 private:
     inline static lv_obj_t* settings_tile = nullptr;
@@ -20,8 +20,8 @@ private:
     // void on_confirm_btn_clicked(lv_event_t* event);
 
 public:
-    settings();
-    ~settings();
+    Settings();
+    ~Settings();
     void get_selected();
     void create();
 };
