@@ -3,6 +3,7 @@
 #include <Wifi.h>
 #include "secrets.h"
 
+// A class to handle API call request and recieves data.
 class api
 {
     private:
