@@ -40,7 +40,6 @@ void settings::station_options(lv_obj_t* parent)
     btn_label = lv_label_create(confirm_btn);
     lv_label_set_text(btn_label, "Select");
     lv_obj_center(btn_label);
-    // lv_label_set_text(confirm_btn, "Välj Station");
     lv_obj_align_to(settings::confirm_btn, settings::settings_dropdown, LV_ALIGN_CENTER, -50, 60);
     lv_obj_set_size(settings::confirm_btn, 150, 50);
     lv_obj_add_flag(settings::confirm_btn, LV_OBJ_FLAG_CLICKABLE);
