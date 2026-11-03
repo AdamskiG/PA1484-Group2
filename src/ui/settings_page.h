@@ -1,7 +1,6 @@
 #pragma once
 #include "ui.h"
-#include "departure.h"
-#include "../settings/api.h"
+#include "settings/controller.h"
 #include <HTTPClient.h>
 
 class Settings : protected ui

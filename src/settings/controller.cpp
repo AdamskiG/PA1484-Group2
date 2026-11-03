@@ -1,5 +1,6 @@
+#include "controller.h"
 
-std::string controller::stations()
+std::string Controller::set_stations()
 {
-    
+    return std::string();
 }

@@ -1,4 +1,5 @@
-#include "settings.h"
+#include "settings_page.h"
+#include "../settings/controller.h"
 #include <fstream>
 
 Settings::Settings()
@@ -52,11 +53,11 @@ void Settings::on_confirm_btn_clicked(lv_event_t* event)
 {
     LV_UNUSED(event);
     get_selected();
-    std::ofstream file("last_selected.txt", std::ios::in);
-    // api::call_request(settings::selected_option);
-    // departure::set_station(settings::selected_option);
-    
 
+    std::ofstream file("last_selected.txt", std::ios::in);
+    file << Settings::selected_option;
+    file.close();
+    
 }
 
 void Settings::get_selected()
