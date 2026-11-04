@@ -3,7 +3,7 @@
 #include "settings/controller.h"
 #include <HTTPClient.h>
 
-class Settings : protected ui
+class Settings : protected Ui
 {
 private:
     inline static lv_obj_t* settings_tile = nullptr;
