@@ -15,13 +15,13 @@ private:
     inline static char selected_option[buff_size]{};
     
     void station_options(lv_obj_t* parent);
-    void on_confirm_btn_clicked(lv_event_t* event);
-    // void on_confirm_btn_clicked(lv_event_t* event);
+    static void on_confirm_btn_clicked(lv_event_t* event);
+    static void on_dropdown_value_change(lv_event_t* event);
+    static void get_selected();
 
 public:
     Settings();
     ~Settings();
-    void get_selected();
     void create();
 };
 
