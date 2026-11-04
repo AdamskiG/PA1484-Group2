@@ -1,7 +1,7 @@
 #pragma once
 #include "ui.h"
 
-class departure : protected ui
+class Departure : protected ui
 {
     private:
     inline static lv_obj_t* departure_page = nullptr;

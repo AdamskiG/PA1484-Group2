@@ -1,25 +1,25 @@
 #include "ui.h"
 
-ui::ui()
+Ui::Ui()
 {
     // Creates the initial tileview
     if(!tileview){
-    ui::tileview = lv_tileview_create(lv_scr_act());
-    lv_obj_set_size(ui::tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
-    lv_obj_set_scrollbar_mode(ui::tileview, LV_SCROLLBAR_MODE_OFF);
+    Ui::tileview = lv_tileview_create(lv_scr_act());
+    lv_obj_set_size(Ui::tileview, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
+    lv_obj_set_scrollbar_mode(Ui::tileview, LV_SCROLLBAR_MODE_OFF);
     }
 }
 
-ui::~ui()
+Ui::~Ui()
 {
 
 }
 
-void ui::create()
+void Ui::create()
 {
 }
 
-void ui::apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
+void Ui::apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
 {
   // Colours to Background
     lv_obj_set_style_bg_opa(tile, LV_OPA_COVER, 0);

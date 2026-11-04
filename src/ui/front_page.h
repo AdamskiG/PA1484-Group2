@@ -1,14 +1,14 @@
 #pragma once
 #include "ui.h"
 
-class front_page : protected ui
+class Front_page : protected Ui
 {
     private:
     inline static lv_obj_t* front_tile = nullptr;
     inline static lv_obj_t* front_label = nullptr;
     
     public:
-    front_page();
-    ~front_page();
+    Front_page();
+    ~Front_page();
     void create();
 };

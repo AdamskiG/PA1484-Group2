@@ -1,11 +1,11 @@
 #pragma once
 #include "lvgl.h"
 
-class ui 
+class Ui 
 {
     public:
-    ui();
-    virtual ~ui();
+    Ui();
+    virtual ~Ui();
     virtual void create(); // Creates different Tiles
     void apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark); //Apply colors to tile and text
 
