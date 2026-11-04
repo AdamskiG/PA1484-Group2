@@ -15,7 +15,7 @@ Settings::~Settings()
 void Settings::create()
 {
     // Adds the settings tileview
-    Settings::settings_tile = lv_tileview_add_tile(ui::tileview, 2, 0, LV_DIR_HOR);
+    Settings::settings_tile = lv_tileview_add_tile(Ui::tileview, 2, 0, LV_DIR_HOR);
 
     // Create a label for the settings UI
     Settings::settings_label = lv_label_create(Settings::settings_tile);
@@ -34,7 +34,7 @@ void Settings::station_options(lv_obj_t* parent)
     lv_obj_set_align(Settings::settings_dropdown, LV_ALIGN_CENTER);
     lv_obj_set_size(Settings::settings_dropdown, 350, 60);
     lv_dropdown_set_options(Settings::settings_dropdown, "Campus Gräsvik\nKarlskrona Centralstation\nKvarngatan");
-    lv_obj_add_event_cb(Settings::settings_dropdown, on_dropdown_value_change,)
+    lv_obj_add_event_cb(Settings::settings_dropdown, on_dropdown_value_change, )
     
     //Creates a clickable confirmed button to change departure station
     Settings::confirm_btn = lv_btn_create(parent);
@@ -62,7 +62,7 @@ void Settings::on_confirm_btn_clicked(lv_event_t* event)
 
 void Settings::on_dropdown_value_change(lv_event_t* event)
 {
-    lv_dropdown_set_
+   lv_dropdown_set_
 }
 
 void Settings::get_selected()

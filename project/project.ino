@@ -44,7 +44,7 @@ LilyGo_Class amoled;
 static void create_ui()
 {
   static Settings settings_p;
-  static Front_page front_p;
+  static Front_Page front_p;
   front_p.create();
   settings_p.create();
 }
