@@ -34,6 +34,7 @@ void Settings::station_options(lv_obj_t* parent)
     lv_obj_set_align(Settings::settings_dropdown, LV_ALIGN_CENTER);
     lv_obj_set_size(Settings::settings_dropdown, 350, 60);
     lv_dropdown_set_options(Settings::settings_dropdown, "Campus Gräsvik\nKarlskrona Centralstation\nKvarngatan");
+    lv_obj_add_event_cb(Settings::settings_dropdown, on_dropdown_value_change,)
     
     //Creates a clickable confirmed button to change departure station
     Settings::confirm_btn = lv_btn_create(parent);
@@ -53,11 +54,15 @@ void Settings::on_confirm_btn_clicked(lv_event_t* event)
 {
     LV_UNUSED(event);
     get_selected();
-    
     std::ofstream file("last_selected.txt", std::ios::in);
     file << Settings::selected_option;
     file.close();
     
+}
+
+void Settings::on_dropdown_value_change(lv_event_t* event)
+{
+    lv_dropdown_set_
 }
 
 void Settings::get_selected()
