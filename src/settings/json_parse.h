@@ -45,6 +45,7 @@ public:
 
     // Get highest-tier token
     jsmntok_t& get_token();
+
     // Get highest-tier token as a string
     std::string get_string();
 };
