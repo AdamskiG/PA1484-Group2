@@ -21,7 +21,6 @@ bool Api::call_request(String selected_option)
 String Api::get_all_stations()
 {
     HTTPClient http;
-    String url = this->url_stopcode_lookup + this->get_all_stops;
     http.begin(url);
     int httpResponseCode = http.GET();
 
