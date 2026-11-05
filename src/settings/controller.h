@@ -1,4 +1,5 @@
 #pragma once
+#include <WString.h>
 #include <string>
 #include "api.h"
 #include "data_sort.h"
