@@ -1,5 +1,6 @@
 #pragma once
 #include "ui.h"
+#include "departure_data.h"
 
 class Departure : protected Ui
 {
