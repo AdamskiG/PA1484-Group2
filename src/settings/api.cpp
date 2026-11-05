@@ -1,5 +1,6 @@
 #include "api.h"
 #include "../project/key.h"
+#include "controller.h"
 #include <HTTPClient.h>
 #include <WiFiClientSecure.h>
 
@@ -18,11 +19,10 @@ void Api::get_area_code(String selected_option)
             if (https_code == HTTP_CODE_OK) 
             {
                 String response = https.getString();
-                
-            } 
+            }
             else 
             {
-            Serial.printf("HTTP GET failed, error code: %d (%s)\n", https_code, https.errorToString(https_code).c_str());
+            // Serial.printf("HTTP GET failed, error code: %d (%s)\n", https_code, https.errorToString(https_code).c_str());
             }
 
         https.end();

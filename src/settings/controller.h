@@ -12,6 +12,7 @@ class Controller
     private:
     
     public:
+    String sort_function(String gogogaga);
     std::string set_stations();
     std::string create_station_dropdown_string(String data);
 };
