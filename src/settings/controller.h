@@ -12,4 +12,5 @@ class Controller
     
     public:
     std::string set_stations();
+    std::string create_station_dropdown_string(String data);
 };
