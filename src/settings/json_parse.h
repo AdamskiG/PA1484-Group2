@@ -37,6 +37,7 @@ public:
 
     // Create new json parser for inner data using the specified key
     Json_Parser at_key(std::string enter_val);
+    
     // Create new json parser for the inner data by ID, reading it like an array.
     Json_Parser at_index(int enter_val);
 
