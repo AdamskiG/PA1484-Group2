@@ -16,8 +16,14 @@ String api::get_all_stations()
     HTTPClient http;
     String url = this->url_stopcode_lookup + this->get_all_stops;
     http.begin(url);
+    int httpResponseCode = http.GET();
 
-    String stations_data = http.getString();
+    if(httpResponseCode == HTTP_CODE_OK){
+        String stations_data = http.getString();
+        http.end();
+        return stations_data;
+    }
 
-    return stations_data;
+    http.end();
+    return String();
 }
