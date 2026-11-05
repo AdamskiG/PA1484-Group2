@@ -1,5 +1,6 @@
 #pragma once
 #include "WString.h"
+#include "secrets.h"
 
 // A class to handle API call request and recieves data.
 class Api
