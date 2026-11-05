@@ -7,8 +7,8 @@
 #include <LilyGo_AMOLED.h>
 #include <LV_Helper.h>
 #include <lvgl.h>
-#include <ui/settings_page.h>
-#include <ui/front_page.h>
+#include <user_interface/settings_page.h>
+#include <user_interface/front_page.h>
 
 #include "secrets.h"
 

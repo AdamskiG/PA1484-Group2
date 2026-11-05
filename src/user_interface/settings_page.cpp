@@ -1,8 +1,6 @@
-#include "settings_page.h"'
-#include "lv_fs_drv.h"
+#include "settings_page.h"
+#include "lvgl/lvgl.h"
 #include "../settings/controller.h"
-#include <fstream>
-
 
 Settings::Settings()
 {
@@ -36,12 +34,9 @@ void Settings::station_options(lv_obj_t* parent)
     lv_obj_set_align(Settings::settings_dropdown, LV_ALIGN_CENTER);
     lv_obj_set_size(Settings::settings_dropdown, 350, 60);
     lv_dropdown_set_options(Settings::settings_dropdown, "Campus Gräsvik\nKarlskrona Centralstation\nKvarngatan");
-<<<<<<< Updated upstream
-    lv_obj_add_event_cb(Settings::settings_dropdown, on_dropdown_value_change, )
-=======
+
     lv_obj_add_event_cb(Settings::settings_dropdown, on_dropdown_value_change, LV_EVENT_VALUE_CHANGED, NULL);
 
->>>>>>> Stashed changes
     
     //Creates a clickable confirmed button to change departure station
     Settings::confirm_btn = lv_btn_create(parent);
@@ -60,21 +55,14 @@ void Settings::on_confirm_btn_clicked(lv_event_t* event)
 {
     LV_UNUSED(event);
     get_selected();
-    std::ofstream file("last_selected.txt", std::ios::in);
-    file << Settings::selected_option;
-    file.close();
-    
+    lv_fs_file_t file;
+    lv_fs_res_t res;
+    res = lv_fs_open(&file, "S:user_interface/last_selected.txt", LV_FS_MODE_WR);
 }
 
 void Settings::on_dropdown_value_change(lv_event_t* event)
 {
-<<<<<<< Updated upstream
-   lv_dropdown_set_
-=======
-    get_selected();
-
-    lv_dropdown_set_text(Settings::settings_dropdown, Settings::selected_option);
->>>>>>> Stashed changes
+    lv_dropdown_set_text(Settings::settings_dropdown, NULL);
 }
 
 void Settings::get_selected()
