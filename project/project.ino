@@ -1,12 +1,13 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
-#include <ArduinoJson.h>
+// #include <ArduinoJson.h>
 #include <TFT_eSPI.h>
 #include <time.h>
 #include <LilyGo_AMOLED.h>
 #include <LV_Helper.h>
 #include <lvgl.h>
+
 #include <user_interface/settings_page.h>
 #include <user_interface/front_page.h>
 

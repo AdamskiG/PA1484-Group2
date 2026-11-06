@@ -1,5 +1,4 @@
 #include "settings_page.h"
-#include "lvgl/lvgl.h"
 #include "../settings/controller.h"
 
 Settings::Settings()
@@ -82,6 +81,11 @@ void Settings::transport_options(lv_obj_t* parent)
 void Settings::on_confirm_btn_clicked(lv_event_t* event) 
 {
     LV_UNUSED(event);
+<<<<<<< HEAD
+=======
+    get_selected();
+    
+>>>>>>> d51eee233a821a93371b7af5d87dac8ae20fd1e4
 }
 
 void Settings::on_dropdown_value_change(lv_event_t* event)
