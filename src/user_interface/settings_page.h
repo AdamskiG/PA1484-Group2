@@ -17,7 +17,7 @@ private:
     struct station_info
     {
         int station_id;
-        std::string type;
+        std::string transport_type;
     };
     std::unordered_map<std::string, station_info> station_id_table;
 
