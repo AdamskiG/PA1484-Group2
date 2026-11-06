@@ -70,11 +70,12 @@ void Settings::get_selected()
 const char* Settings::create_station_dropdown_string()
 {
     // loop through all station names and add them to a string
-    for(auto& name_and_id: station_id_table)
+    for(auto& name_and_info: station_id_table)
     {
-        this->station_names += name_and_id.first + "\n";
+        this->station_names += name_and_info.first + "\n";
     }
     // convert string to a constant char pointer and return
     const char* return_value = station_names.c_str();
     return return_value;
 }
+

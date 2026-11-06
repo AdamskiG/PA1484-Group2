@@ -14,7 +14,12 @@ private:
     inline static lv_obj_t* confirm_btn = nullptr;
 
     //Storing all the stations and their ID together with their transportation types
-    std::unordered_map<std::string, int> station_id_table;
+    struct station_info
+    {
+        int station_id;
+        std::string type;
+    };
+    std::unordered_map<std::string, station_info> station_id_table;
 
     static constexpr uint32_t buff_size = 64;
     inline static char selected_option[buff_size]{};
@@ -31,5 +36,7 @@ public:
     ~Settings();
     void create();
     const char* create_station_dropdown_string();
+
+
 };
 
