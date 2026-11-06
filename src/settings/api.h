@@ -11,5 +11,5 @@ class Api
 
     public:
     static void get_area_code(String selected_option);
-    String get_all_stations();
+    // String get_all_stations();
 };

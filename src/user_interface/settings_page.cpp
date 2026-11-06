@@ -1,5 +1,4 @@
 #include "settings_page.h"
-#include "lvgl/lvgl.h"
 #include "../settings/controller.h"
 
 Settings::Settings()
@@ -55,6 +54,7 @@ void Settings::on_confirm_btn_clicked(lv_event_t* event)
 {
     LV_UNUSED(event);
     get_selected();
+    
 }
 
 void Settings::on_dropdown_value_change(lv_event_t* event)
