@@ -1,14 +1,11 @@
 #include "departure_page.h"
 
-void create()
+void Departure::create()
 {
-    // Unfinished
-    Departure::departure_page = lv_tileview_add_tile(Ui::tileview, 1, 0, LV_DIR_HOR);
-    lv_label_ = lv_label_create(Departure::departure_page);
-    lv_label_set_text(Front_Page::front_label, "Public Transport Information\n and\n Interaction on ESP32\n Group 2 Version 1.1\n Napatpong Chokwatthananon\n Li Holma, Tim Säterby\n Adam Gunnarsson, Kimi Grubisic");
-    lv_obj_set_style_text_font(Front_Page::front_label, &lv_font_montserrat_28, 0);
-    lv_obj_center(Front_Page::front_label);
-    apply_tile_colors(Front_Page::front_tile , front_label, /*dark=*/false);
-
-    // Depart them trains
+    Departure::departure_tile = lv_tileview_add_tile(Ui::tileview, 1, 0, LV_DIR_HOR);
+    Departure::departure_label = lv_label_create(Departure::departure_tile);
+    lv_label_set_text(Departure::departure_label, "Settings page, change stations here");
+    lv_obj_set_style_text_font(Departure::departure_label, &lv_font_montserrat_28, 0);
+    lv_obj_set_align(Departure::departure_label, LV_ALIGN_TOP_MID);
+    apply_tile_colors(Departure::departure_tile, Departure::departure_label, /*dark=*/false);
 }

@@ -55,9 +55,6 @@ void Settings::on_confirm_btn_clicked(lv_event_t* event)
 {
     LV_UNUSED(event);
     get_selected();
-    lv_fs_file_t file;
-    lv_fs_res_t res;
-    res = lv_fs_open(&file, "S:user_interface/last_selected.txt", LV_FS_MODE_WR);
 }
 
 void Settings::on_dropdown_value_change(lv_event_t* event)
