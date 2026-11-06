@@ -11,6 +11,7 @@ private:
     inline static lv_obj_t* settings_tile = nullptr;
     inline static lv_obj_t* settings_label = nullptr;
     inline static lv_obj_t* settings_dropdown = nullptr;
+    inline static lv_obj_t* transport_dropdown = nullptr;
     inline static lv_obj_t* confirm_btn = nullptr;
 
     //Storing all the stations and their ID together with their transportation types
@@ -25,11 +26,13 @@ private:
     inline static char selected_option[buff_size]{};
     
     void station_options(lv_obj_t* parent);
-    static void on_confirm_btn_clicked(lv_event_t* event);
+    void transport_options(lv_obj_t *parent);
+    static void on_confirm_btn_clicked(lv_event_t *event);
     static void on_dropdown_value_change(lv_event_t* event);
-    static void get_selected();
+    static void get_selected(lv_event_t* event);
 
     std::string station_names = "";
+    std::string transport_names = "";
 
 public:
     Settings();
