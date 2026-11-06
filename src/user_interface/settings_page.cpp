@@ -33,7 +33,7 @@ void Settings::station_options(lv_obj_t* parent)
     Settings::settings_dropdown = lv_dropdown_create(parent);
     lv_obj_set_align(Settings::settings_dropdown, LV_ALIGN_CENTER);
     lv_obj_set_size(Settings::settings_dropdown, 350, 60);
-    lv_dropdown_set_options(Settings::settings_dropdown, "Campus Gräsvik\nKarlskrona Centralstation\nKvarngatan");
+    lv_dropdown_set_options(Settings::settings_dropdown, this->create_station_dropdown_string());
 
     lv_obj_add_event_cb(Settings::settings_dropdown, on_dropdown_value_change, LV_EVENT_VALUE_CHANGED, NULL);
 
@@ -65,4 +65,16 @@ void Settings::on_dropdown_value_change(lv_event_t* event)
 void Settings::get_selected()
 {
     lv_dropdown_get_selected_str(Settings::settings_dropdown, Settings::selected_option, buff_size); 
+}
+
+const char* Settings::create_station_dropdown_string()
+{
+    // loop through all station names and add them to a string
+    for(auto& name_and_id: station_id_table)
+    {
+        this->station_names += name_and_id.first + "\n";
+    }
+    // convert string to a constant char pointer and return
+    const char* return_value = station_names.c_str();
+    return return_value;
 }

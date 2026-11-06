@@ -71,7 +71,7 @@ String Api::get_all_stations()
                 deserializeJson(doc, response);
 
                 for(JsonDocument item : doc.as<JsonArray>())
-                const char* id = doc[0]["id"];
+                    const char* id = doc[0]["id"];
             }
             else 
             {

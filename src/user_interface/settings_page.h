@@ -24,9 +24,12 @@ private:
     static void on_dropdown_value_change(lv_event_t* event);
     static void get_selected();
 
+    std::string station_names = "";
+
 public:
     Settings();
     ~Settings();
     void create();
+    const char* create_station_dropdown_string();
 };
 
