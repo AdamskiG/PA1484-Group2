@@ -1,40 +1,41 @@
 #pragma once
-#define JSMN_HEADER
+#define ARDUINOJSON_ENABLE_ARDUINO_STRING true 
 
 #include <iostream>
 #include <unordered_map>
 #include <vector>
-#include "settings/json_parse.h"
+#include <ArduinoJson.h>
 
-enum Transport_Types
-{
-    TRAIN,
-    BUS,
-    FERRY,
-    METRO
-};
-
+// Holds data that needs to be shown for each departure
 struct Departure_Data
 {
     std::string departure_time;
 
-    Transport_Types vehicle_type;
+    std::string vehicle_type;
     std::string vehicle_name;
 
     std::string destination;
 
-    Departure_Data(Json_Parser departure_parser);
-    Departure_Data(Json_Data departure);
+    // Constructors
+    Departure_Data(Departure_Data& other);
+    Departure_Data(JsonObject departure);
+
+    Departure_Data& operator=(Departure_Data& other);
+
+    Departure_Data& copy(Departure_Data& other);
 };
 
+// Struct that holds all necessary departure data in a string.
+// Is able to generate a departure data list when given a valid json as a char array
 struct Departure_Data_Holder
 {
-    std::vector<Departure_Data> data;
+    std::vector<Departure_Data*> data;
     std::string station;
 
-    Transport_Types vehicle_filter;
+    std::string vehicle_filter;
 
-    void loadFromJson(Json_Data& json, std::string area_name, Transport_Types in_vehicle_filter);
+    // Functions to load and clear data
+    void load_from_json(const char* json, std::string area_name, std::string in_vehicle_filter);
     void clear();
 };
 

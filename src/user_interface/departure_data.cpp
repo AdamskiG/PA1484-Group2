@@ -1,34 +1,82 @@
 #include "departure_data.h"
 
-Json_Data::Json_Data(char* inData, size_t inSize)
-    : data(inData), size(inSize)
+// Copy constructor
+Departure_Data::Departure_Data(Departure_Data &other)
 {
+    copy(other);
 }
 
-Json_Data::Json_Data(const char* inData, const size_t inSize)
-    : data(inData), size(inSize)
+// Constructs departure data based on a given ArduinoJson JsonObject
+// Assumes json follows the structure of Trafiklab Realtime API's departure data
+Departure_Data::Departure_Data(JsonObject departure_data)
 {
+    
+    JsonObject route = departure_data["route"];
+
+    std::string departure_time_full = route["transport_mode"];
+    departure_time = departure_time_full.substr(12,4);
+
+    std::string transport_mode = route["transport_mode"];
+    vehicle_type = transport_mode;
+
+    JsonObject destination = route["destination"];
+    destination = destination["name"];
 }
 
-Departure_Data::Departure_Data(Json_Data departure) : Departure_Data(Json_Parser(&departure))
+// Equals operator
+Departure_Data &Departure_Data::operator=(Departure_Data &other)
 {
+    copy(other);
 }
 
-Departure_Data::Departure_Data(Json_Parser departure_parser)
+// Copy all variables of other to this
+Departure_Data &Departure_Data::copy(Departure_Data &other)
 {
-    Json_Parser route = departure_parser.at_key("route").at_index(0);
+    departure_time = other.departure_time;
+    vehicle_type = other.vehicle_type;
+    vehicle_name = other.vehicle_name;
+    destination = other.destination;
+}
 
-    departure_time = departure_parser.at_key("realtime").at_index(0).get_string();
+// Constructs departure data list based on a character string
+// Assumes json follows the structure of Trafiklab Realtime API's departure data
+void Departure_Data_Holder::load_from_json(const char* json_c_str, std::string area_name, std::string in_vehicle_filter)
+{
+    clear();
 
-    std::string transport_mode_string = route.at_key("transport_mode").at_index(0).get_string();
-    if (transport_mode_string == "TRAIN")
-        vehicle_type = TRAIN;
-    else if (transport_mode_string == "BUS")
-        vehicle_type = BUS;
-    else if (transport_mode_string == "FERRY")
-        vehicle_type = FERRY;
-    else if (transport_mode_string == "METRO")
-        vehicle_type = METRO;
+    station = area_name;
 
-    destination = route.at_key("destination").at_index(0).at_key("name").at_index(0).get_string();
+    // Convert char string to "doc" JsonDocument object
+    JsonDocument doc;
+    deserializeJson(doc, json_c_str);
+
+    JsonArray departures = doc["departures"];
+
+    // Creates departure data vector by iterating through the json's departures
+    for (JsonObject departure : departures)
+    {
+        Departure_Data* departure_data = new Departure_Data(departure);
+
+        // Discards the departure data if the vehicle type doesn't match
+        if (departure_data->vehicle_type == in_vehicle_filter)
+        {
+            data.push_back(departure_data);
+        }
+        else
+        {
+            delete departure_data;
+        }
+    }
+}
+
+// Erases all information in the departure data holder
+void Departure_Data_Holder::clear()
+{
+    station.clear();
+    vehicle_filter.clear();
+
+    // Remove the data at each pointer in the departure data list
+    for (Departure_Data* departure_data : data)
+        delete departure_data;
+    data.clear();
 }
