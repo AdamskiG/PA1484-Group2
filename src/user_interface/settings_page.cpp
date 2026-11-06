@@ -75,7 +75,5 @@ const char* Settings::create_station_dropdown_string()
         this->station_names += name_and_info.first + "\n";
     }
     // convert string to a constant char pointer and return
-    const char* return_value = station_names.c_str();
-    return return_value;
+    return station_names.c_str();
 }
-
