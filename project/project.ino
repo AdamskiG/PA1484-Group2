@@ -103,6 +103,9 @@ void setup()
 }
 
 // Must have function: Loop runs continously on device after setup
+// Should rebuild UI so it updates every few seconds
+// Should also fetch departure data every minute
+// And should check WiFi connection too
 void loop()
 {
   lv_timer_handler();
