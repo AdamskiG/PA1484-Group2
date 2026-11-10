@@ -1,15 +1,14 @@
-#include <ArduinoJson.h>
-#include <HTTPClient.h>
-#include <WiFiClientSecure.h>
 #include "api.h"
-#include "../project/key.h"
-#include "controller.h"
+
+Api::Api(const String &in_api_key) : api_key(in_api_key)
+{
+}
 
 void Api::get_area_code(String selected_option)
 {
     // Create a secure HTTP Client but set it to insecure
     WiFiClientSecure* client = new WiFiClientSecure;
-    Api::url_stopcode_lookup = url_stopcode_lookup + "/name/" + selected_option + "/?key=" + KEY;
+    String fetch_url = "url_stopcode_lookup/name/selected_option/?key=api_key";
     client->setInsecure();
 
     // Brackets to ensure HttpClient terminates before WifiClient
@@ -17,7 +16,7 @@ void Api::get_area_code(String selected_option)
         HTTPClient https;
 
         // The begin connects the device to the url
-        if (https.begin(*client, url_stopcode_lookup))
+        if (https.begin(*client, fetch_url))
         {
             // https.GET() sends a code verifying that the connection is okay
             int https_code = https.GET();
@@ -43,7 +42,7 @@ void Api::get_area_code(String selected_option)
             else 
             {
             // Serial.printf should work with the "monitor" function in platform.io
-            // with further research I foundthat you have to press the RST button for it to print back and forth
+            // with further research I found that you have to press the RST button for it to print back and forth
             Serial.printf("HTTP GET failed, error code: 404");
             }
         https.end(); //Closes the connection

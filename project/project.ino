@@ -12,6 +12,7 @@
 #include <user_interface/front_page.h>
 
 #include "secrets.h"
+#include "key.h"
 
 LilyGo_Class amoled;
 
