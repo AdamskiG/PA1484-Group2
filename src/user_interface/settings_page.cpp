@@ -48,16 +48,6 @@ void Settings::station_options(lv_obj_t* parent)
     lv_obj_add_event_cb(Settings::settings_dropdown, on_dropdown_value_change, LV_EVENT_VALUE_CHANGED, NULL);
 
     
-    //Creates a clickable confirmed button to change departure station
-    Settings::confirm_btn = lv_btn_create(parent);
-    lv_obj_t * btn_label;
-    btn_label = lv_label_create(confirm_btn);
-    lv_label_set_text(btn_label, "Select");
-    lv_obj_center(btn_label);
-    lv_obj_align_to(Settings::confirm_btn, Settings::settings_dropdown, LV_ALIGN_CENTER, -50, 60);
-    lv_obj_set_size(Settings::confirm_btn, 150, 50);
-    lv_obj_add_flag(Settings::confirm_btn, LV_OBJ_FLAG_CLICKABLE);
-    
     //This should be unused if the selected station triggers the event on change properly.
     //lv_obj_add_event_cb(Settings::confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
 
