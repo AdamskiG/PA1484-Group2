@@ -1,14 +1,9 @@
 #include "api.h"
 
-Api::Api(const String &in_api_key) : api_key(in_api_key)
+const String Api::fetch_string(String fetch_url)
 {
-}
-
-void Api::get_area_code(String selected_option)
-{
-    // Create a secure HTTP Client but set it to insecure
+        // Create a secure HTTP Client but set it to insecure
     WiFiClientSecure* client = new WiFiClientSecure;
-    String fetch_url = "url_stopcode_lookup/name/selected_option/?key=api_key";
     client->setInsecure();
 
     // Brackets to ensure HttpClient terminates before WifiClient
@@ -27,17 +22,7 @@ void Api::get_area_code(String selected_option)
                 // getString() makes the call and get the information
                 String response = https.getString();
 
-                // JsonDocument found in ArduinoJson, Stores a JSON document in memory: https://arduinojson.org/v7/api/jsondocument/ (SORRY KIMI <3)
-                JsonDocument doc;
-                deserializeJson(doc, response); // Json to text
-
-                // Deserialize the JsonDocument as an array and iterate through it taking every id element (I think, haven't tested)
-                for(JsonDocument item : doc.as<JsonArray>())
-                {
-                    const char* id = doc["id"];
-                    Serial.printf(id); // for debugging
-                }
-                // get_departures(id);
+                return response;
             }
             else 
             {
@@ -49,6 +34,29 @@ void Api::get_area_code(String selected_option)
     }
     delete client;
     }
+}
+
+Api::Api(const String &in_api_key) : api_key(in_api_key)
+{
+}
+
+void Api::get_area_code(String selected_option)
+{
+    String fetch_url = base_url + "/name/" + selected_option + "/?key=" + api_key;
+
+    String response = fetch_string(fetch_url);
+
+    // JsonDocument found in ArduinoJson, Stores a JSON document in memory
+    JsonDocument doc;
+    deserializeJson(doc, response); // Json to text
+
+    // Deserialize the JsonDocument as an array and iterate through it taking every id element (I think, haven't tested)
+    for(JsonDocument item : doc.as<JsonArray>())
+    {
+        const char* id = doc["id"];
+        Serial.printf(id); // for debugging
+    }
+    // get_departures(id);
 }
 
 

@@ -17,9 +17,11 @@ class Api
 
     const String api_key;
 
+    const String fetch_string(String fetch_url);
+
     public:
     Api(const String& in_api_key);
 
-    static void get_area_code(String selected_option);
-    // String get_all_stations();
+    void get_area_code(String selected_option);
+    String get_all_stations();
 };
