@@ -97,6 +97,7 @@ void Settings::transport_options(lv_obj_t* parent)
 void Settings::on_confirm_btn_clicked(lv_event_t* event) 
 {
     LV_UNUSED(event);
+    lv_dropdown_get_selected_str(Settings::transport_dropdown, Settings::selected_transport_option, buff_size); 
 }
 
 void Settings::on_dropdown_value_change(lv_event_t* event)
@@ -112,8 +113,9 @@ void Settings::on_dropdown_value_change_transport(lv_event_t* event)
 
 void Settings::get_selected(lv_event_t* event)
 {
-    lv_dropdown_get_selected_str(Settings::settings_dropdown, Settings::selected_option, buff_size); 
+    lv_dropdown_get_selected_str(Settings::settings_dropdown, Settings::selected_station_option, buff_size); 
 }
+
 
 const char* Settings::create_station_dropdown_string()
 {
@@ -130,7 +132,7 @@ const char* Settings::create_station_dropdown_string()
 const char* Settings::create_transport_dropdown_string()
 {
         
-    this->transport_names = station_id_table.at(selected_option).transport_types;
+    this->transport_names = station_id_table.at(selected_station_option).transport_types;
 
     // convert string to a constant char pointer and return
     return transport_names.c_str();

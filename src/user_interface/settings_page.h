@@ -24,9 +24,12 @@ private:
     };
     std::unordered_map<std::string, station_info> station_id_table;
 
-    static constexpr uint32_t buff_size = 64;
-    inline static char selected_option[buff_size]{};
     
+    //Here the current selected options are stored as an array of characters.
+    static constexpr uint32_t buff_size = 64;
+    inline static char selected_station_option[buff_size]{};
+    inline static char selected_transport_option[buff_size]{};
+
     void station_options(lv_obj_t* parent);
     void transport_options(lv_obj_t *parent);
     static void on_confirm_btn_clicked(lv_event_t *event);
