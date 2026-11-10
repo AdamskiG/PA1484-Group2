@@ -23,6 +23,7 @@ void Settings::create()
     lv_obj_set_align(Settings::settings_label, LV_ALIGN_TOP_MID);
     apply_tile_colors(Settings::settings_tile, Settings::settings_label, /*dark=*/false);
     station_options(Settings::settings_tile);
+    transport_options(Settings::settings_tile);
 
     // Create a label that shows WiFi status
     // MIGHT work based on the same solution used in project.ino.
@@ -33,7 +34,7 @@ void Settings::create()
         test_status = "DISCONNECTED";
     }
     std::string WiFi_status = "WiFi status:" + test_status;
-    Settings::WiFi_status_label = lv_label_create(Settings::WiFi_status_label);
+    Settings::WiFi_status_label = lv_label_create(Settings::settings_tile);
     lv_label_set_text(Settings::WiFi_status_label, WiFi_status.c_str());
     lv_obj_set_style_text_font(Settings::WiFi_status_label, &lv_font_montserrat_28, 0);
     lv_obj_set_align(Settings::WiFi_status_label, LV_ALIGN_TOP_LEFT);
@@ -98,6 +99,16 @@ void Settings::on_confirm_btn_clicked(lv_event_t* event)
 {
     LV_UNUSED(event);
     lv_dropdown_get_selected_str(Settings::transport_dropdown, Settings::selected_transport_option, buff_size); 
+}
+
+void Settings::on_save_btn_clicked(lv_event_t *event)
+{
+    controller.save_settings(selected_station_option, selected_transport_option, buff_size);
+}
+
+void Settings::on_load_btn_clicked(lv_event_t *event)
+{
+    controller.load_settings(selected_station_option, selected_transport_option, buff_size);
 }
 
 void Settings::on_dropdown_value_change(lv_event_t* event)
