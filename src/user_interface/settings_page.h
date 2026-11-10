@@ -46,5 +46,7 @@ public:
     void create();
     const char* create_station_dropdown_string();
     const char* create_transport_dropdown_string();
+    static const char* get_station();
+    static const char* get_transport();
 };
 
