@@ -70,6 +70,21 @@ static void connect_wifi()
   }
 }
 
+// function to check wifi status, would need to be run every so often
+// status_string will be used in settings_page.cpp, so function might be moved there
+// unclear if wifi name should also be included
+std::string status_string = "CONNECTED";
+void check_wifi()
+{
+  if(WiFi.status() == WL_CONNECTED)
+    if(status_string != "CONNECTED")
+      status_string = "CONNECTED";
+
+  if(WiFi.status() == WL_CONNECTION_LOST)
+    if(status_string != "CONNECTION LOST")
+      status_string = "CONNECTION LOST";
+}
+
 // Must have function: Setup is run once on startup
 void setup()
 {
@@ -88,9 +103,11 @@ void setup()
 }
 
 // Must have function: Loop runs continously on device after setup
+// Should rebuild UI so it updates every few seconds
+// Should also fetch departure data every minute
+// And should check WiFi connection too
 void loop()
 {
   lv_timer_handler();
   delay(5);
-  //hej
 }

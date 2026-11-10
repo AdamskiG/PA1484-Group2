@@ -23,6 +23,15 @@ void Settings::create()
     lv_obj_set_align(Settings::settings_label, LV_ALIGN_TOP_MID);
     apply_tile_colors(Settings::settings_tile, Settings::settings_label, /*dark=*/false);
     station_options(Settings::settings_tile);
+
+    // Create a label that shows WiFi status
+    // does not currently work together with the function that checks the WiFi connection
+    std::string test_status = "CONNECTED";
+    std::string WiFi_status = "WiFi status:" + test_status;
+    Settings::WiFi_status_label = lv_label_create(Settings::WiFi_status_label);
+    lv_label_set_text(Settings::WiFi_status_label, WiFi_status.c_str());
+    lv_obj_set_style_text_font(Settings::WiFi_status_label, &lv_font_montserrat_28, 0);
+    lv_obj_set_align(Settings::WiFi_status_label, LV_ALIGN_TOP_LEFT);
 }
 
     // Creates a dropdown option 
