@@ -23,12 +23,12 @@ void Controller::save_settings(char* selected_station_option, char* selected_tra
     lv_fs_res_t file_writer;
 
     // Save Station Option
-    file_writer = lv_fs_open(&file, "S:folder/station.txt", LV_FS_MODE_WR);
+    file_writer = lv_fs_open(&file, "S:user_interface/station.txt", LV_FS_MODE_WR);
     lv_fs_write(&file, selected_station_option,buff_size, NULL);
     lv_fs_close(&file);
 
     // Save Transport Option
-    file_writer = lv_fs_open(&file, "S:folder/vehicle.txt", LV_FS_MODE_RD);
+    file_writer = lv_fs_open(&file, "S:user_interface/vehicle.txt", LV_FS_MODE_RD);
     lv_fs_write(&file, selected_transport_option,buff_size, NULL);
     lv_fs_close(&file);
 }

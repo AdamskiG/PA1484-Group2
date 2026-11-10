@@ -13,8 +13,7 @@ class Api
     static constexpr uint32_t buff_size = 64;
 
     const String base_url = "https://realtime-api.trafiklab.se";
-    const String get_all_stops = "https://realtime-api.trafiklab.se/v1/stops/name/{karlskrona}?key={2b58406690a34045a9d6fb5f4292715c}";
-
+    const String stations_url = "https://api.resrobot.se/v2.1/location.nearbystops?originCoordLat=56.25743&originCoordLong=15.61855&r=25000&maxNo=1000&format=json&accessId=";
     const String api_key;
 
     const String fetch_string(String fetch_url);
@@ -22,6 +21,6 @@ class Api
     public:
     Api(const String& in_api_key);
 
-    void get_area_code(String selected_option);
-    String get_all_stations();
+    String get_area_code(String selected_option);
+    String get_all_stations(String selected_option);
 };
