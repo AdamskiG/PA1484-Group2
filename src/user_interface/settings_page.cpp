@@ -137,3 +137,13 @@ const char* Settings::create_transport_dropdown_string()
     // convert string to a constant char pointer and return
     return transport_names.c_str();
 }
+
+const char *Settings::get_station()
+{
+    return selected_station_option;
+}
+
+const char *Settings::get_transport()
+{
+    return selected_transport_option;
+}
