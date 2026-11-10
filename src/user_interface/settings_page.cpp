@@ -25,8 +25,13 @@ void Settings::create()
     station_options(Settings::settings_tile);
 
     // Create a label that shows WiFi status
-    // does not currently work together with the function that checks the WiFi connection
-    std::string test_status = "CONNECTED";
+    // MIGHT work based on the same solution used in project.ino.
+    std::string test_status;
+    if (WiFi.status() == WL_CONNECTED) {
+        test_status = "CONNECTED";
+    } else {
+        test_status = "DISCONNECTED";
+    }
     std::string WiFi_status = "WiFi status:" + test_status;
     Settings::WiFi_status_label = lv_label_create(Settings::WiFi_status_label);
     lv_label_set_text(Settings::WiFi_status_label, WiFi_status.c_str());
