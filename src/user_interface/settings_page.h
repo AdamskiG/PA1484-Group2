@@ -13,13 +13,12 @@ private:
     inline static lv_obj_t* settings_dropdown = nullptr;
     inline static lv_obj_t* transport_dropdown = nullptr;
     inline static lv_obj_t* confirm_btn = nullptr;
-    inline static lv_obj_t* WiFi_status_label = nullptr;
 
     //Storing all the stations and their ID together with their transportation types
     struct station_info
     {
         int station_id;
-        std::string transport_type;
+        std::string transport_types;
     };
     std::unordered_map<std::string, station_info> station_id_table;
 
@@ -30,7 +29,8 @@ private:
     void transport_options(lv_obj_t *parent);
     static void on_confirm_btn_clicked(lv_event_t *event);
     static void on_dropdown_value_change(lv_event_t* event);
-    static void get_selected(lv_event_t* event);
+    static void on_dropdown_value_change_transport(lv_event_t *event);
+    static void get_selected(lv_event_t *event);
 
     std::string station_names = "";
     std::string transport_names = "";
@@ -40,7 +40,6 @@ public:
     ~Settings();
     void create();
     const char* create_station_dropdown_string();
-
-
+    const char* create_transport_dropdown_string();
 };
 
