@@ -40,7 +40,7 @@ const String Api::fetch_string(String fetch_url)
     }
 }
 
-String Api::clean_string(String station_name)
+String Api::clean_name(String station_name)
 {
     String* cleaned_str;
     for(char letter : station_name)
@@ -51,6 +51,35 @@ String Api::clean_string(String station_name)
         }
     }
     return *cleaned_str;
+}
+
+String Api::transport_types(int products)
+{
+    String type;
+    if((2 & products) != 0 || (4 & products) != 0 || (16 & products) != 0)
+    {
+        type += "Train\n";
+    }
+
+    if((8 & products) != 0 || (128 & products) != 0)
+    {
+        this->transport_options += "Bus\n";
+    }
+    
+    if((256 & products) != 0)
+    {
+        this->transport_options += "Boat";
+    }
+    Air trafic 1
+    High speed trains	2
+    InterCity trains	4
+    Express buses	8
+    PågaTåg, Öresundståg	16
+    Metro	32
+    Tram	64
+    Buses	128
+    Ferries	256
+    Taxi	512
 }
 
 String Api::get_area_code(String selected_option)
@@ -73,7 +102,7 @@ String Api::get_area_code(String selected_option)
 }
 
 
-const std::vector<String>& Api::get_all_stations()
+String Api::get_all_stations()
 {
     String fetch_url = stations_url + api_key;
 
@@ -88,7 +117,9 @@ const std::vector<String>& Api::get_all_stations()
     for(JsonVariant item : array)
     {
         JsonObject stop_location = item["StopLocation"];
-        this->station_options.push_back(clean_string(stop_location["name"].as<String>()));
+        transport_options += transport_types(stop_location["products"]);
+        this->station_options += clean_name(stop_location["name"].as<String>()) + "\n";
     }
+    this->station_options.remove(-1);
     return this->station_options;
 }
