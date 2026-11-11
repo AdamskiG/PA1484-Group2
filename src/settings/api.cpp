@@ -42,7 +42,7 @@ const String Api::fetch_string(String fetch_url)
 
 String Api::clean_name(String station_name)
 {
-    String* cleaned_str;
+    String cleaned_str;
     for(char letter : station_name)
     {
         if(letter != *"(")
@@ -50,7 +50,7 @@ String Api::clean_name(String station_name)
             cleaned_str += letter;
         }
     }
-    return *cleaned_str;
+    return cleaned_str;
 }
 
 String Api::transport_types(int products)
@@ -84,7 +84,7 @@ String Api::transport_types(int products)
 
 String Api::get_area_code(String selected_option)
 {
-    String fetch_url = base_url + "/name/" + selected_option + "/?key=" + api_key;
+    String fetch_url = base_url + "/v1/stops/name/" + selected_option + "/?key=" + api_key;
 
     String response = fetch_string(fetch_url);
 
