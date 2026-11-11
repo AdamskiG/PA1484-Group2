@@ -28,9 +28,12 @@ void Settings::create()
     // Create a label that shows WiFi status
     // MIGHT work based on the same solution used in project.ino.
     std::string test_status;
-    if (WiFi.status() == WL_CONNECTED) {
+    if (WiFi.status() == WL_CONNECTED) 
+    {
         test_status = "CONNECTED";
-    } else {
+    }
+    else 
+    {
         test_status = "DISCONNECTED";
     }
     std::string WiFi_status = "WiFi status:" + test_status;
