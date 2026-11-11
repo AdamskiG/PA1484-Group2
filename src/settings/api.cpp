@@ -73,7 +73,7 @@ String Api::get_area_code(String selected_option)
 }
 
 
-String Api::get_all_stations()
+const std::vector<String>& Api::get_all_stations()
 {
     String fetch_url = stations_url + api_key;
 
@@ -88,7 +88,7 @@ String Api::get_all_stations()
     for(JsonVariant item : array)
     {
         JsonObject stop_location = item["StopLocation"];
-        this->station_options += clean_string(stop_location["name"].as<String>()) + "\n";
+        this->station_options.push_back(clean_string(stop_location["name"].as<String>()));
     }
     return this->station_options;
 }

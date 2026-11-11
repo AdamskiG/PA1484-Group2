@@ -1,6 +1,7 @@
 #pragma once
 #include "ui.h"
 #include "settings/controller.h"
+#include "settings/api.h"
 #include <HTTPClient.h>
 #include <WiFi.h>
 #include <unordered_map>
