@@ -106,12 +106,12 @@ void Settings::on_confirm_btn_clicked(lv_event_t* event)
 
 void Settings::on_save_btn_clicked(lv_event_t *event)
 {
-    controller.save_settings(selected_station_option, selected_transport_option, buff_size);
+    controller->save_settings(selected_station_option, selected_transport_option, buff_size);
 }
 
 void Settings::on_load_btn_clicked(lv_event_t *event)
 {
-    controller.load_settings(selected_station_option, selected_transport_option, buff_size);
+    controller->load_settings(selected_station_option, selected_transport_option, buff_size);
 }
 
 void Settings::on_dropdown_value_change(lv_event_t* event)

@@ -10,7 +10,7 @@
 class Settings : protected Ui
 {
 private:
-    inline static Controller controller{};
+    inline static Controller* controller;
 
     inline static lv_obj_t* settings_tile = nullptr;
     inline static lv_obj_t* settings_label = nullptr;
