@@ -107,4 +107,15 @@ void loop()
 {
   lv_timer_handler();
   delay(5);
+
+  // might work, should update the parts of the ui that need it, i.e data
+  unsigned long current_time = millis();
+  int interval_time_UI = 5000; // update UI every 5 seconds
+  int time_last_updated_UI = 0;
+
+  if(current_time - time_last_updated_UI >= interval_time_UI)
+  {
+    // update_ui function to be added
+    time_last_updated_UI = current_time;
+  }
 }
