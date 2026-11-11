@@ -13,7 +13,7 @@
 class Controller
 {
     private:
-    lv_fs_drv_t drive;
+    static lv_fs_drv_t drive;
 
     Departure* departure_ptr = nullptr;
     

@@ -1,4 +1,5 @@
 #include "controller.h"
+#include "EEPROM.h"
 
 String sort_function(String gogogaga)
 {
