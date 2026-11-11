@@ -27,20 +27,33 @@ void Settings::create()
 
     // Create a label that shows WiFi status
     // MIGHT work based on the same solution used in project.ino.
-    std::string test_status;
     if (WiFi.status() == WL_CONNECTED) 
     {
-        test_status = "CONNECTED";
+        this->wifi_status = "CONNECTED";
     }
     else 
     {
-        test_status = "DISCONNECTED";
+        this->wifi_status = "DISCONNECTED";
     }
-    std::string WiFi_status = "WiFi status:" + test_status;
+    std::string wifi_status_string = "WiFi status:" + this->wifi_status;
     Settings::WiFi_status_label = lv_label_create(Settings::settings_tile);
-    lv_label_set_text(Settings::WiFi_status_label, WiFi_status.c_str());
+    lv_label_set_text(Settings::WiFi_status_label, wifi_status_string.c_str());
     lv_obj_set_style_text_font(Settings::WiFi_status_label, &lv_font_montserrat_28, 0);
-    lv_obj_set_align(Settings::WiFi_status_label, LV_ALIGN_TOP_LEFT);
+    lv_obj_set_align(Settings::WiFi_status_label, LV_ALIGN_BOTTOM_LEFT);
+}
+
+void Settings::update()
+{
+    if (WiFi.status() == WL_CONNECTED && this->wifi_status != "CONNECTED") 
+    {
+        this->wifi_status = "CONNECTED";
+    }
+    else if(WiFi.status() != WL_CONNECTED && this->wifi_status != "DISCONNECTED")
+    {
+        this->wifi_status = "DISCONNECTED";
+    }
+    std::string wifi_status_string = "WiFi status:" + this->wifi_status;
+    lv_label_set_text(Settings::WiFi_status_label, wifi_status_string.c_str());
 }
 
 

@@ -48,11 +48,13 @@ private:
 
     std::string station_names = "";
     std::string transport_names = "";
+    std::string wifi_status;
 
 public:
     Settings();
     ~Settings();
     void create();
+    void update();
     const char* create_station_dropdown_string();
     const char* create_transport_dropdown_string();
     static const char* get_station();
