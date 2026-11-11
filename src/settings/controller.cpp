@@ -1,5 +1,4 @@
 #include "controller.h"
-#include "EEPROM.h"
 
 String sort_function(String gogogaga)
 {
@@ -20,32 +19,45 @@ std::string Controller::set_stations()
 
 void Controller::save_settings(char* selected_station_option, char* selected_transport_option, uint32_t buff_size)
 {
-    lv_fs_file_t file;
-    lv_fs_res_t file_writer;
+    // Create JsonDocument with data
+    JsonDocument data;
+    data["station"] = selected_station_option;
+    data["vehicle"] = selected_transport_option;
 
-    // Save Station Option
-    file_writer = lv_fs_open(&file, "S:user_interface/station.txt", LV_FS_MODE_WR);
-    lv_fs_write(&file, selected_station_option,buff_size, NULL);
-    lv_fs_close(&file);
+    // Create uint8_t (unsigned char) array to store the deserialized JSON
+    uint8_t json_c_str[buff_size * 3];
+    deserializeJson(data, json_c_str);
 
-    // Save Transport Option
-    file_writer = lv_fs_open(&file, "S:user_interface/vehicle.txt", LV_FS_MODE_RD);
-    lv_fs_write(&file, selected_transport_option,buff_size, NULL);
-    lv_fs_close(&file);
+    // Write JSON to memory
+    for (size_t i = 0; i < buff_size * 3; i++)
+    {
+        EEPROM.write(i,json_c_str[i]);
+    }
 }
 
 void Controller::load_settings(char* selected_station_option, char* selected_transport_option, uint32_t buff_size)
 {
-    lv_fs_file_t file;
-    lv_fs_res_t file_reader;
+    // Read stored data to uint8_t (unsigned char) array
+    char json_c_str[buff_size * 3];
+    for (size_t i = 0; i < buff_size * 3; i++)
+    {
+        json_c_str[i] = EEPROM.read(i);
+    }
 
-    // Load Station Option
-    file_reader = lv_fs_open(&file, "S:folder/station.txt", LV_FS_MODE_RD);
-    lv_fs_read(&file, selected_station_option, buff_size, NULL);
-    lv_fs_close(&file);
+    // Store JSON data in JsonDocument
+    JsonDocument data;
+    serializeJson(data, json_c_str, buff_size * 3);
 
-    // Load Transport Option
-    file_reader = lv_fs_open(&file, "S:folder/vehicle.txt", LV_FS_MODE_RD);
-    lv_fs_read(&file, selected_transport_option, buff_size, NULL);
-    lv_fs_close(&file);
+    // Store JsonDocument's attributes as const char strings
+    const char* station_c_str = data["station"];
+    const char* vehicle_c_str = data["station"];
+
+    // Update options to match strings
+    selected_station_option = new char[buff_size * 3];
+    selected_transport_option = new char[buff_size * 3];
+    for (int i = 0; i < buff_size * 3; i++)
+    {
+        *(selected_station_option + i) = *(station_c_str + i);
+        *(selected_transport_option + i) = *(vehicle_c_str + i);
+    }
 }

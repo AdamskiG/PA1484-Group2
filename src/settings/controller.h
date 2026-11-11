@@ -1,6 +1,9 @@
 #pragma once
 #include <WString.h>
 #include <string>
+#include <ArduinoJson.h>
+#include <EEPROM.h>
+#include <Stream.h>
 #include "api.h"
 #include "data_sort.h"
 #include "user_interface/ui.h"
