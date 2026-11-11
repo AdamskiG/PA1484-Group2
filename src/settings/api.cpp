@@ -40,6 +40,19 @@ const String Api::fetch_string(String fetch_url)
     }
 }
 
+String Api::clean_string(String station_name)
+{
+    String* cleaned_str;
+    for(char letter : station_name)
+    {
+        if(letter != *"(")
+        {
+            cleaned_str += letter;
+        }
+    }
+    return *cleaned_str;
+}
+
 String Api::get_area_code(String selected_option)
 {
     String fetch_url = base_url + "/name/" + selected_option + "/?key=" + api_key;
@@ -60,7 +73,7 @@ String Api::get_area_code(String selected_option)
 }
 
 
-String Api::get_all_stations(String selected_option)
+String Api::get_all_stations()
 {
     String fetch_url = stations_url + api_key;
 
@@ -70,11 +83,12 @@ String Api::get_all_stations(String selected_option)
     JsonDocument doc;
     deserializeJson(doc, response); // Json to text
 
-    // Deserialize the JsonDocument as an array and iterate through it taking every id element (I think, haven't tested)
-    for(JsonDocument item : doc.JsonDocument::as<JsonArray>())
+    // Deserialize the JsonDocument as an array and iterate through it taking every id element 
+    JsonArray array = doc["stopLocationOrCoordLocation"].as<JsonArray>();
+    for(JsonVariant item : array)
     {
-        const char* id = doc["id"];
-        Serial.printf(id); // for debugging
+        JsonObject stop_location = item["StopLocation"];
+        this->station_options += clean_string(stop_location["name"].as<String>()) + "\n";
     }
-    
+    return this->station_options;
 }
