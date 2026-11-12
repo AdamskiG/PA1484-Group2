@@ -46,9 +46,7 @@ void Controller::load_settings(char* selected_station_option, char* selected_tra
     const char* vehicle_c_str = data["station"];
 
     // Update options to match strings
-    selected_station_option = new char[buff_size * 3];
-    selected_transport_option = new char[buff_size * 3];
-    for (int i = 0; i < buff_size * 3; i++)
+    for (int i = 0; i < buff_size; i++)
     {
         *(selected_station_option + i) = *(station_c_str + i);
         *(selected_transport_option + i) = *(vehicle_c_str + i);

@@ -34,7 +34,6 @@ struct Departure_Data_Holder
     std::string vehicle_filter;
 
     // Functions to load and clear data
-    void load_from_json(const char* json, std::string area_name, std::string in_vehicle_filter);
+    void load_from_json(String json, std::string area_name, std::string in_vehicle_filter);
     void clear();
 };
-
