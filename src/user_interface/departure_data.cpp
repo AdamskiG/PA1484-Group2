@@ -40,7 +40,7 @@ Departure_Data &Departure_Data::copy(Departure_Data &other)
 
 // Constructs departure data list based on a character string
 // Assumes json follows the structure of Trafiklab Realtime API's departure data
-void Departure_Data_Holder::load_from_json(const char* json_c_str, std::string area_name, std::string in_vehicle_filter)
+void Departure_Data_Holder::load_from_json(String json_c_str, std::string area_name, std::string in_vehicle_filter)
 {
     clear();
 

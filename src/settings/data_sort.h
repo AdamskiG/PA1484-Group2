@@ -5,6 +5,8 @@
 #include <map>
 #include <cctype>
 
+#include "user_interface/departure_data.h"
+
 // A class to sort the incoming data
 class Data_Sort
 {
@@ -17,5 +19,5 @@ class Data_Sort
 
     public:
     std::map<std::string, std::map<String, std::string>> get_all_stations(String json_file);
-    std::string get_departure_times(String json_file, std::string transport_type);
+    std::string get_departure_times(String json_file, std::string station_name, std::string transport_type);
 };
