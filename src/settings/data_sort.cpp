@@ -18,17 +18,17 @@ std::string Data_Sort::decipher_transport(int products)
     std::string type;
     if((2 & products) != 0 || (4 & products) != 0 || (16 & products) != 0)
     {
-        type += "TRAIN\n";
+        type += "Train\n";
     }
 
     if((8 & products) != 0 || (128 & products) != 0)
     {
-        type += "BUS\n";
+        type += "Bus\n";
     }
     
     if((256 & products) != 0)
     {
-        type += "BOAT\n";
+        type += "Boat\n";
     }
     type.pop_back();
     return type;

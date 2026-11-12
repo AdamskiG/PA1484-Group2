@@ -21,7 +21,6 @@ class Controller
     public:
     Controller();
     
-    String sort_function(String gogogaga);
     std::string set_stations();
 
     void save_settings(char* selected_station_option, char* selected_transport_option, uint32_t buff_size);

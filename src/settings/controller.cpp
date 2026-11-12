@@ -1,10 +1,5 @@
 #include "controller.h"
 
-String sort_function(String gogogaga)
-{
-    
-}
-
 Controller::Controller()
 {
     
