@@ -7,9 +7,7 @@ String sort_function(String gogogaga)
 
 Controller::Controller()
 {
-    lv_fs_drv_init(&drive);
-    drive.letter = 'S';
-    drive.cache_size = 256;
+    
 }
 
 std::string Controller::set_stations()

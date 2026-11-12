@@ -5,7 +5,7 @@ Api::Api(const String &in_api_key) : api_key(in_api_key)
 
 }
 
-const String Api::fetch_string(String fetch_url)
+String Api::fetch_string(String fetch_url)
 {
     // Create a secure HTTP Client but set it to insecure
     WiFiClientSecure* client = new WiFiClientSecure;
@@ -38,53 +38,12 @@ const String Api::fetch_string(String fetch_url)
         }
     delete client;
     }
+    return String();
 }
 
-String Api::clean_name(String station_name)
+String Api::get_departure(String id, const char transport_type)
 {
-    String cleaned_str;
-    for(char letter : station_name)
-    {
-        if(letter != *"(")
-        {
-            cleaned_str += letter;
-        }
-    }
-    return cleaned_str;
-}
-
-String Api::transport_types(int products)
-{
-    String type;
-    if((2 & products) != 0 || (4 & products) != 0 || (16 & products) != 0)
-    {
-        type += "Train\n";
-    }
-
-    if((8 & products) != 0 || (128 & products) != 0)
-    {
-        this->transport_options += "Bus\n";
-    }
-    
-    if((256 & products) != 0)
-    {
-        this->transport_options += "Boat";
-    }
-    Air trafic 1
-    High speed trains	2
-    InterCity trains	4
-    Express buses	8
-    PågaTåg, Öresundståg	16
-    Metro	32
-    Tram	64
-    Buses	128
-    Ferries	256
-    Taxi	512
-}
-
-String Api::get_area_code(String selected_option)
-{
-    String fetch_url = base_url + "/v1/stops/name/" + selected_option + "/?key=" + api_key;
+    String fetch_url = base_url + "/v1/departures/" + id + "/?key=" + api_key;
 
     String response = fetch_string(fetch_url);
 
@@ -101,8 +60,7 @@ String Api::get_area_code(String selected_option)
 
 }
 
-
-String Api::get_all_stations()
+std::map<std::string, std::map<int, std::string>> Api::get_all_stations()
 {
     String fetch_url = stations_url + api_key;
 
@@ -114,12 +72,14 @@ String Api::get_all_stations()
 
     // Deserialize the JsonDocument as an array and iterate through it taking every id element 
     JsonArray array = doc["stopLocationOrCoordLocation"].as<JsonArray>();
+    int counter = 0;
     for(JsonVariant item : array)
     {
         JsonObject stop_location = item["StopLocation"];
-        transport_options += transport_types(stop_location["products"]);
-        this->station_options += clean_name(stop_location["name"].as<String>()) + "\n";
+        std::string name = Data_Sort::clean_name(stop_location["name"].as<String>());
+        int id = Data_Sort::clean_id(stop_location["name"].as<String>());
+        std::string transport_options = Data_Sort::decipher_transport(stop_location["products"].as<int>());
+        this->station_id_table[name][id] = transport_options;
     }
-    this->station_options.remove(-1);
-    return this->station_options;
+    return this->station_id_table;
 }

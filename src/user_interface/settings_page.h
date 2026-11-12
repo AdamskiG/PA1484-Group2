@@ -21,8 +21,6 @@ private:
     inline static lv_obj_t* load_btn = nullptr;
     inline static lv_obj_t* WiFi_status_label = nullptr;
 
-
-
     //Storing all the stations and their ID together with their transportation types
     struct station_info
     {

@@ -1,5 +1,4 @@
 #pragma once
-#define ARDUINOJSON_ENABLE_ARDUINO_STRING true 
 
 #include <iostream>
 #include <unordered_map>
