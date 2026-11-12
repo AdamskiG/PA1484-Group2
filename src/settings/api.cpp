@@ -54,3 +54,8 @@ String Api::fetch_all_stations()
     String response = fetch_data_string(fetch_url);
     return response;
 }
+
+void Api::set_api_key(String key)
+{
+    this->api_key = key;
+}
