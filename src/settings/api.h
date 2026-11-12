@@ -20,10 +20,10 @@ class Api
     const String api_key;
     std::map<std::string, std::map<int, std::string>> station_id_table;
 
-    String fetch_string(String fetch_url);
+    String fetch_data_string(String fetch_url);
 
     public:
     Api(const String& in_api_key);
-    String get_departure(String id, const char transport_type);
-    std::map<std::string, std::map<int, std::string>> get_all_stations();
+    String fetch_departures(String id);
+    String fetch_all_stations();
 };
