@@ -111,17 +111,17 @@ void Settings::transport_options(lv_obj_t* parent, std::map<std::string, std::ma
 void Settings::on_confirm_btn_clicked(lv_event_t* event) 
 {
     LV_UNUSED(event);
-    lv_dropdown_get_selected_str(Settings::transport_dropdown, Settings::selected_transport_option, buff_size); 
+    get_selected();
 }
 
 void Settings::on_save_btn_clicked(lv_event_t *event)
 {
-    controller->save_settings(selected_station_option, selected_transport_option, buff_size);
+    controller->save_settings(Settings::selected_station_option, Settings::selected_transport_option);
 }
 
 void Settings::on_load_btn_clicked(lv_event_t *event)
 {
-    controller->load_settings(selected_station_option, selected_transport_option, buff_size);
+    controller->load_settings(Settings::selected_station_option, Settings::selected_transport_option);
 }
 
 void Settings::on_dropdown_value_change(lv_event_t* event)
@@ -137,8 +137,14 @@ void Settings::on_dropdown_value_change_transport(lv_event_t* event)
 
 void Settings::get_selected()
 {
-    lv_dropdown_get_selected_str(Settings::settings_dropdown, Settings::selected_station_option, buff_size);
-    lv_dropdown_get_selected_str(Settings::transport_dropdown, Settings::selected_transport_option, buff_size);
+    char* station_buffer = new char[buff_size];
+    char* transport_buffer = new char[buff_size];
+    
+    lv_dropdown_get_selected_str(Settings::settings_dropdown, station_buffer, buff_size);
+    lv_dropdown_get_selected_str(Settings::transport_dropdown, transport_buffer, buff_size);
+    
+    Settings::selected_station_option = String(station_buffer, buff_size);
+    Settings::selected_transport_option = String(transport_buffer, buff_size);
 }
 
 
@@ -150,7 +156,7 @@ void Settings::station_dropdown_string(std::map<std::string, std::map<String, st
     }
     station_names.pop_back();
     lv_dropdown_set_options(Settings::transport_dropdown, station_names.c_str());
-    lv_dropdown_set_text(Settings::settings_dropdown, selected_station_option);
+    lv_dropdown_set_text(Settings::settings_dropdown, Settings::selected_station_option);
 }
 
 

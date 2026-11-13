@@ -10,7 +10,7 @@ std::string Controller::set_stations()
     return std::string();
 }
 
-void Controller::save_settings(char* selected_station_option, char* selected_transport_option, uint32_t buff_size)
+void Controller::save_settings(String& selected_station_option, String& selected_transport_option)
 {
     // Create JsonDocument with data
     JsonDocument data;
@@ -18,37 +18,29 @@ void Controller::save_settings(char* selected_station_option, char* selected_tra
     data["vehicle"] = selected_transport_option;
 
     // Create uint8_t (unsigned char) array to store the deserialized JSON
-    uint8_t json_c_str[buff_size * 3];
-    deserializeJson(data, json_c_str);
+    uint8_t json_c_str[256];
+    serializeJson(data, json_c_str);
 
     // Write JSON to memory
-    for (size_t i = 0; i < buff_size * 3; i++)
+    for (size_t i = 0; i < 256; i++)
     {
         EEPROM.write(i,json_c_str[i]);
     }
 }
 
-void Controller::load_settings(char* selected_station_option, char* selected_transport_option, uint32_t buff_size)
+void Controller::load_settings(String& selected_station_option, String& selected_transport_option)
 {
     // Read stored data to uint8_t (unsigned char) array
-    char json_c_str[buff_size * 3];
-    for (size_t i = 0; i < buff_size * 3; i++)
+    char json_c_str[256];
+    for (size_t i = 0; i < 256; i++)
     {
         json_c_str[i] = EEPROM.read(i);
     }
 
     // Store JSON data in JsonDocument
     JsonDocument data;
-    serializeJson(data, json_c_str, buff_size * 3);
+    deserializeJson(data, json_c_str, 256);
 
-    // Store JsonDocument's attributes as const char strings
-    const char* station_c_str = data["station"];
-    const char* vehicle_c_str = data["station"];
-
-    // Update options to match strings
-    for (int i = 0; i < buff_size; i++)
-    {
-        *(selected_station_option + i) = *(station_c_str + i);
-        *(selected_transport_option + i) = *(vehicle_c_str + i);
-    }
+    serializeJson(data["station"], selected_station_option);
+    serializeJson(data["vehicle"], selected_transport_option);
 }

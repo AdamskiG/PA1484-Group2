@@ -19,5 +19,5 @@ class Data_Sort
 
     public:
     std::map<std::string, std::map<String, std::string>> get_all_stations(String json_file);
-    std::string get_departure_times(String json_file, std::string station_name, std::string transport_type);
+    Departure_Data_Holder get_departure_times(String json_file, std::string station_name, std::string transport_type);
 };
