@@ -16,9 +16,9 @@ class Api
     static constexpr uint32_t buff_size = 64;
 
     const String base_url = "https://realtime-api.trafiklab.se";
-    const String stations_url = "https://api.resrobot.se/v2.1/location.nearbystops?originCoordLat=56.25743&originCoordLong=15.61855&r=25000&maxNo=1000&format=json&accessId=";
+    const String stations_url = "https://api.resrobot.se/v2.1/location.nearbystops?originCoordLat=56.2845&originCoordLong=15.5575&r=14500&maxNo=1000&format=json&accessId=";
     String api_key;
-    std::map<std::string, std::map<int, std::string>> station_id_table;
+    std::map<std::string, std::map<String, std::string>> station_id_table;
 
     String fetch_data_string(String fetch_url);
 

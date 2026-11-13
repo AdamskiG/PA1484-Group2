@@ -15,6 +15,6 @@ void Departure::show_departure(std::vector<Departure_Data*> data_vect)
 {
     int row = 0;
     for(Departure_Data* data : data_vect){   
-    lv_table_set_cell_value(Departure::departure_table, row, 0, data->departure_time.);
+    lv_table_set_cell_value(Departure::departure_table, row, 0, data->departure_time.c_str());
     }
 }
