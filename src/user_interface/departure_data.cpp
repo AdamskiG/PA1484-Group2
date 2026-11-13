@@ -13,10 +13,10 @@ Departure_Data::Departure_Data(JsonObject departure_data)
     
     JsonObject route = departure_data["route"];
 
-    std::string departure_time_full = route["transport_mode"];
-    departure_time = departure_time_full.substr(12,4);
+    String departure_time_full = route["scheduled"];
+    departure_time = departure_time_full.substring(12,4);
 
-    std::string transport_mode = route["transport_mode"];
+    String transport_mode = route["transport_mode"];
     vehicle_type = transport_mode;
 
     JsonObject destination = route["destination"];
@@ -40,7 +40,7 @@ Departure_Data &Departure_Data::copy(Departure_Data &other)
 
 // Constructs departure data list based on a character string
 // Assumes json follows the structure of Trafiklab Realtime API's departure data
-void Departure_Data_Holder::load_from_json(String json_c_str, std::string area_name, std::string in_vehicle_filter)
+void Departure_Data_Holder::load_from_json(String json_c_str, String area_name, String in_vehicle_filter)
 {
     clear();
 

@@ -8,9 +8,8 @@
 // Holds data that needs to be shown for each departure
 struct Departure_Data
 {
-    std::string departure_time;
-
-    std::string vehicle_type;
+    String departure_time;
+    String vehicle_type;
     std::string vehicle_name;
 
     std::string destination;
@@ -29,11 +28,11 @@ struct Departure_Data
 struct Departure_Data_Holder
 {
     std::vector<Departure_Data*> data;
-    std::string station;
+    String station;
 
     std::string vehicle_filter;
 
     // Functions to load and clear data
-    void load_from_json(String json, std::string area_name, std::string in_vehicle_filter);
+    void load_from_json(String json, String area_name, String in_vehicle_filter);
     void clear();
 };

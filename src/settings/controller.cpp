@@ -1,13 +1,37 @@
 #include "controller.h"
 
-Controller::Controller()
+Controller::Controller(const String& key_departure, const String& key_lookup)
+    :api(key_departure, key_lookup)
 {
-    
+
+}
+
+Controller::~Controller()
+{
+
+}
+
+void Controller::init()
+{
+    front_p.create();
+    settings_p.set_station_id_table(sort.get_all_stations(api.fetch_all_stations()));
+    settings_p.create();
+    lv_obj_add_event_cb(settings_p.get_confirmed_button(), on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
 }
 
 std::string Controller::set_stations()
 {
+
     return std::string();
+}
+
+void Controller::on_confirm_btn_clicked(lv_event_t* event)
+{
+    auto * self = static_cast<Controller *>(lv_event_get_user_data(event));
+    self->settings_p.get_selected();
+    String selected_station = settings_p.get_station();
+    
+    self->sort.get_departure_times(self->api.fetch_departures(), selected_station, settings_p.get_transport();
 }
 
 void Controller::save_settings(String& selected_station_option, String& selected_transport_option)

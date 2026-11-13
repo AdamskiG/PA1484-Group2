@@ -1,6 +1,7 @@
 #include "api.h"
 
-Api::Api(const String &in_api_key) : api_key(in_api_key)
+Api::Api(const String& key_departure, const String& key_lookup) 
+    : key_departure(key_departure), key_lookup(key_lookup)
 {
 
 }
@@ -43,19 +44,14 @@ String Api::fetch_data_string(String fetch_url)
 
 String Api::fetch_departures(String id)
 {
-    String fetch_url = base_url + "/v1/departures/" + id + "/?key=" + api_key;
+    String fetch_url = base_url + "/v1/departures/" + id + "/?key=" + key_departure;
     String response = fetch_data_string(fetch_url);
     return response;
 }
 
 String Api::fetch_all_stations()
 {
-    String fetch_url = stations_url + api_key;
+    String fetch_url = stations_url + key_lookup;
     String response = fetch_data_string(fetch_url);
     return response;
-}
-
-void Api::set_api_key(String key)
-{
-    this->api_key = key;
 }
