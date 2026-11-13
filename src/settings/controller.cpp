@@ -16,6 +16,7 @@ void Controller::init()
     front_p.create();
     settings_p.set_station_id_table(sort.get_all_stations(api.fetch_all_stations()));
     settings_p.create();
+    departure_p.create();
     lv_obj_add_event_cb(settings_p.get_confirmed_button(), on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
 }
 
@@ -27,11 +28,14 @@ std::string Controller::set_stations()
 
 void Controller::on_confirm_btn_clicked(lv_event_t* event)
 {
-    auto * self = static_cast<Controller *>(lv_event_get_user_data(event));
+    Controller* self = static_cast<Controller*>(lv_event_get_user_data(event));
+
     self->settings_p.get_selected();
+    String station_id = settings_p.get_station_id();
     String selected_station = settings_p.get_station();
-    
-    self->sort.get_departure_times(self->api.fetch_departures(), selected_station, settings_p.get_transport();
+    String selected_transport = settings_p.get_transport();
+
+    Departure_Data_Holder data_store = self->sort.get_departure_times(self->api.fetch_departures(station_id), selected_station, selected_transport);   
 }
 
 void Controller::save_settings(String& selected_station_option, String& selected_transport_option)

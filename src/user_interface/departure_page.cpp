@@ -11,10 +11,14 @@ void Departure::create()
     apply_tile_colors(Departure::departure_tile, Departure::departure_label, /*dark=*/false);
 }
 
-void Departure::show_departure(std::vector<Departure_Data*> data_vect)
+void Departure::show_departure(Departure_Data_Holder data)
 {
-    int row = 0;
-    for(Departure_Data* data : data_vect){   
-    lv_table_set_cell_value(Departure::departure_table, row, 0, data->departure_time.c_str());
+    int colums = 1;
+    lv_table_set_cell_value(Daparture::departure_table, 0, 0, "Departure Time");
+    
+    for(Departure_Data* data : data.data)
+    {
+    lv_table_set_cell_value(Departure::departure_table, 0, colums, data->departure_time.c_str());
+    colums++;
     }
 }

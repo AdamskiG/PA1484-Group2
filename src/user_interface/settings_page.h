@@ -28,8 +28,9 @@ private:
     
     //Here the current selected options are stored as an array of characters.
     static constexpr uint32_t buff_size = 64;
-    static String selected_station_option;
-    static String selected_transport_option;
+    String selected_station_option;
+    String selected_station_id;
+    String selected_transport_option;
 
     void station_options(lv_obj_t* parent,std::map<String, std::map<String, String>> station_id_table);
     void transport_options(lv_obj_t *parent, std::map<String, std::map<String, String>> station_id_table);
@@ -45,7 +46,6 @@ private:
 
     String station_names = "";
     String transport_names = "";
-    String station_id = "";
     std::string wifi_status;
 
 public:
@@ -55,9 +55,9 @@ public:
     void update();
     void set_station_id_table(std::map<String, std::map<String, String>> sorted_data);
     lv_obj_t* get_confirmed_button();
-    static void get_selected();
-    static const String get_station();
-    static const String get_transport();
-    static const String get_station_id();
+    void get_selected();
+    const String get_station();
+    const String get_transport();
+    const String get_station_id();
 };
 

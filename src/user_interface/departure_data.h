@@ -10,8 +10,7 @@ struct Departure_Data
 {
     String departure_time;
     String vehicle_type;
-    std::string vehicle_name;
-
+    std::string vehicle_number;
     std::string destination;
 
     // Constructors

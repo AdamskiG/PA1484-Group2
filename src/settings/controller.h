@@ -25,6 +25,7 @@ class Controller
     const String key_departure;
     const String key_lookup;
     static Settings settings_p;
+    static Departure departure_p;
     static Front_Page front_p;
     Api api;
     static Data_Sort sort;

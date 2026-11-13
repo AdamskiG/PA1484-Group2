@@ -137,6 +137,7 @@ void Settings::get_selected()
     lv_dropdown_get_selected_str(Settings::transport_dropdown, transport_buffer, buff_size);
     
     Settings::selected_station_option = String(station_buffer, buff_size);
+    Settings::selected_station_id = station_id_table[selected_station_option].begin()->first;
     Settings::selected_transport_option = String(transport_buffer, buff_size);
 }
 
@@ -181,7 +182,7 @@ const String Settings::get_transport()
     return selected_transport_option;
 }
 
-const String get_station_id()
+const String Settings::get_station_id()
 {
-    return station_id;
+    return selected_station_id;
 }
