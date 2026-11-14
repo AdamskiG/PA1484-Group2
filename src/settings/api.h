@@ -1,12 +1,10 @@
 #pragma once
 
-#include <WString.h>
 #include <string>
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
 #include <WiFiClientSecure.h>
 #include <map>
-#include "data_sort.h"
 
 // A class to handle API call request and recieves data.
 class Api
@@ -19,7 +17,6 @@ class Api
     const String stations_url = "https://api.resrobot.se/v2.1/location.nearbystops?originCoordLat=56.2845&originCoordLong=15.5575&r=14500&maxNo=1000&format=json&accessId=";
     String key_departure;
     String key_lookup;
-    std::map<std::string, std::map<String, std::string>> station_id_table;
 
     String fetch_data_string(String fetch_url);
 

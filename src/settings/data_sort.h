@@ -1,9 +1,8 @@
 #pragma once
 #include <ArduinoJson.h>
-#include <algorithm>
 #include <string>
 #include <map>
-#include <cctype>
+
 
 #include "user_interface/departure_data.h"
 
@@ -19,5 +18,5 @@ class Data_Sort
 
     public:
     std::map<String, std::map<String, String>> get_all_stations(String json_file);
-    Departure_Data_Holder get_departure_times(String json_file, String station_name, String transport_type);
+    Departure_Data_Holder get_departure_times(const String& json_file, String station_name, String transport_type);
 };

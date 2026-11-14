@@ -1,7 +1,7 @@
 #include "api.h"
 
-Api::Api(const String& key_departure, const String& key_lookup) 
-    : key_departure(key_departure), key_lookup(key_lookup)
+Api::Api(const String& KEY, const String& KEY_RES) 
+    : key_departure(KEY), key_lookup(KEY_RES)
 {
 
 }

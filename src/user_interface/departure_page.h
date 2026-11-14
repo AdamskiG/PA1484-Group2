@@ -1,5 +1,5 @@
 #pragma once
-#include <cctype>
+
 #include "ui.h"
 #include "departure_data.h"
 
@@ -9,7 +9,7 @@ class Departure : protected Ui
     inline static lv_obj_t* departure_tile = nullptr;
     inline static lv_obj_t* departure_table = nullptr;
     inline static lv_obj_t* departure_label = nullptr;
-
+    inline static String station_text = "Departure from: ";
 
     public:
     Departure();

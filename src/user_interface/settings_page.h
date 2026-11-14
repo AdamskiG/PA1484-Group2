@@ -1,17 +1,15 @@
 #pragma once
+
 #include "ui.h"
-#include "settings/controller.h"
 #include "settings/api.h"
 #include <HTTPClient.h>
 #include <WiFi.h>
-#include <unordered_map>
+#include <map>
 #include <string>
 
 class Settings : public Ui
 {
 private:
-    inline static Controller* controller;
-
     inline static lv_obj_t* settings_tile = nullptr;
     inline static lv_obj_t* settings_label = nullptr;
     inline static lv_obj_t* settings_dropdown = nullptr;
@@ -32,17 +30,16 @@ private:
     String selected_station_id;
     String selected_transport_option;
 
-    void station_options(lv_obj_t* parent,std::map<String, std::map<String, String>> station_id_table);
-    void transport_options(lv_obj_t *parent, std::map<String, std::map<String, String>> station_id_table);
-    // static void on_confirm_btn_clicked(lv_event_t *event);
-    void on_save_btn_clicked(lv_event_t *event);
-    void on_load_btn_clicked(lv_event_t *event);
+    void station_options(lv_obj_t* parent);
+    void transport_options(lv_obj_t *parent);
+    // void on_save_btn_clicked(lv_event_t *event);
+    // void on_load_btn_clicked(lv_event_t *event);
     
     static void on_dropdown_value_change(lv_event_t* event);
     static void on_dropdown_value_change_transport(lv_event_t *event);
 
-    void set_station_dropdown(std::map<String, std::map<String, String>> station_id_table);
-    void set_transport_dropdown(std::map<String, std::map<String, String>> station_id_table);
+    void set_station_dropdown();
+    void set_transport_dropdown();
 
     String station_names = "";
     String transport_names = "";

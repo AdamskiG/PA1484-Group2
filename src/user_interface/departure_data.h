@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <unordered_map>
 #include <vector>
 #include <ArduinoJson.h>
 
@@ -15,7 +14,7 @@ struct Departure_Data
 
     // Constructors
     Departure_Data(Departure_Data& other);
-    Departure_Data(JsonObject departure);
+    Departure_Data(JsonVariant departure);
 
     Departure_Data& operator=(Departure_Data& other);
 
@@ -29,9 +28,9 @@ struct Departure_Data_Holder
     std::vector<Departure_Data*> data;
     String station;
 
-    std::string vehicle_filter;
+    String vehicle_filter;
 
     // Functions to load and clear data
-    void load_from_json(String json, String area_name, String in_vehicle_filter);
+    void load_from_json(const String& json, String area_name, String in_vehicle_filter);
     void clear();
 };

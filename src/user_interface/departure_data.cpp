@@ -8,7 +8,7 @@ Departure_Data::Departure_Data(Departure_Data &other)
 
 // Constructs departure data based on a given ArduinoJson JsonObject
 // Assumes json follows the structure of Trafiklab Realtime API's departure data
-Departure_Data::Departure_Data(JsonObject departure_data)
+Departure_Data::Departure_Data(JsonVariant departure_data)
 {
     
     JsonObject route = departure_data["route"];
@@ -26,7 +26,7 @@ Departure_Data::Departure_Data(JsonObject departure_data)
 // Equals operator
 Departure_Data &Departure_Data::operator=(Departure_Data &other)
 {
-    copy(other);
+    return copy(other);
 }
 
 // Copy all variables of other to this
@@ -34,17 +34,19 @@ Departure_Data &Departure_Data::copy(Departure_Data &other)
 {
     departure_time = other.departure_time;
     vehicle_type = other.vehicle_type;
-    vehicle_name = other.vehicle_name;
+    vehicle_number = other.vehicle_number;
     destination = other.destination;
+    return *this;
 }
 
 // Constructs departure data list based on a character string
 // Assumes json follows the structure of Trafiklab Realtime API's departure data
-void Departure_Data_Holder::load_from_json(String json_c_str, String area_name, String in_vehicle_filter)
+void Departure_Data_Holder::load_from_json(const String& json_c_str, String area_name, String in_vehicle_filter)
 {
     clear();
 
     station = area_name;
+    vehicle_filter = in_vehicle_filter;
 
     // Convert char string to "doc" JsonDocument object
     JsonDocument doc;
@@ -53,12 +55,12 @@ void Departure_Data_Holder::load_from_json(String json_c_str, String area_name, 
     JsonArray departures = doc["departures"];
 
     // Creates departure data vector by iterating through the json's departures
-    for (JsonObject departure : departures)
+    for (JsonVariant departure : departures)
     {
         Departure_Data* departure_data = new Departure_Data(departure);
 
         // Discards the departure data if the vehicle type doesn't match
-        if (departure_data->vehicle_type == in_vehicle_filter)
+        if (departure_data->vehicle_type != in_vehicle_filter)
         {
             data.push_back(departure_data);
         }

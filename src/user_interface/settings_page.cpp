@@ -1,5 +1,4 @@
 #include "settings_page.h"
-#include "../settings/controller.h"
 
 Settings::Settings()
 {
@@ -22,8 +21,9 @@ void Settings::create()
     lv_obj_set_style_text_font(Settings::settings_label, &lv_font_montserrat_28, 0);
     lv_obj_set_align(Settings::settings_label, LV_ALIGN_TOP_MID);
     apply_tile_colors(Settings::settings_tile, Settings::settings_label, /*dark=*/false);
-    station_options(Settings::settings_tile, station_id_table);
-    transport_options(Settings::settings_tile, station_id_table);
+
+    station_options(Settings::settings_tile);
+    transport_options(Settings::settings_tile);
 
     // Create a label that shows WiFi status
     // MIGHT work based on the same solution used in project.ino.
@@ -58,19 +58,18 @@ void Settings::update()
 
 
 // Creates a dropdown option for the stations to chose between.
-void Settings::station_options(lv_obj_t* parent, std::map<String, std::map<String, String>> station_id_table)
+void Settings::station_options(lv_obj_t* parent)
 {
     //create a dropdown with station options
     Settings::settings_dropdown = lv_dropdown_create(parent);
-    lv_obj_align_to(Settings::settings_label, Settings::settings_dropdown, LV_ALIGN_CENTER, 0, 60);
+    lv_obj_align_to( Settings::settings_dropdown, Settings::settings_label, LV_ALIGN_CENTER, -120, 60);
     lv_obj_set_size(Settings::settings_dropdown, 350, 60);
-    set_station_dropdown(station_id_table);
+    set_station_dropdown();
 
     //Changes the displayed selected option in the dropdown.
-    lv_obj_add_event_cb(Settings::settings_dropdown, on_dropdown_value_change, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(Settings::settings_dropdown, on_dropdown_value_change, LV_EVENT_VALUE_CHANGED, this);
 
     //lv_obj_add_event_cb(Settings::confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
-
 }
 
 
@@ -78,16 +77,16 @@ void Settings::station_options(lv_obj_t* parent, std::map<String, std::map<Strin
 Creates a dropdown option for the modes of transportation to chose between based
 on the chosen station.
 */
-void Settings::transport_options(lv_obj_t* parent, std::map<String, std::map<String, String>> station_id_table)
+void Settings::transport_options(lv_obj_t* parent)
 {
     //create a dropdown with transport options
     Settings::transport_dropdown = lv_dropdown_create(parent);
-    lv_obj_align_to(Settings::settings_dropdown, Settings::transport_dropdown, LV_ALIGN_CENTER, 0, 60);
+    lv_obj_align_to( Settings::transport_dropdown, Settings::settings_dropdown, LV_ALIGN_CENTER, -120, 60);
     lv_obj_set_size(Settings::transport_dropdown, 350, 60);
-    set_transport_dropdown(station_id_table);
+    set_transport_dropdown();
 
     //Changes the displayed selected option in the dropdown.
-    lv_obj_add_event_cb(Settings::transport_dropdown, on_dropdown_value_change_transport, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(Settings::transport_dropdown, on_dropdown_value_change_transport, LV_EVENT_VALUE_CHANGED, this);
     
     //Creates a clickable confirmed button to change departure station
     Settings::confirm_btn = lv_btn_create(parent);
@@ -101,26 +100,21 @@ void Settings::transport_options(lv_obj_t* parent, std::map<String, std::map<Str
 }
 
 
-
-// void Settings::on_confirm_btn_clicked(lv_event_t* event) 
+// void Settings::on_save_btn_clicked(lv_event_t *event)
 // {
-//     LV_UNUSED(event);
-//     get_selected();
+//     controller->save_settings(Settings::selected_station_option, Settings::selected_transport_option);
 // }
 
-void Settings::on_save_btn_clicked(lv_event_t *event)
-{
-    controller->save_settings(Settings::selected_station_option, Settings::selected_transport_option);
-}
-
-void Settings::on_load_btn_clicked(lv_event_t *event)
-{
-    controller->load_settings(Settings::selected_station_option, Settings::selected_transport_option);
-}
+// void Settings::on_load_btn_clicked(lv_event_t *event)
+// {
+//     controller->load_settings(Settings::selected_station_option, Settings::selected_transport_option);
+// }
 
 void Settings::on_dropdown_value_change(lv_event_t* event)
 {
+    Settings* self = static_cast<Settings*>(lv_event_get_user_data(event));
     lv_dropdown_set_text(Settings::settings_dropdown, NULL);
+    self->set_transport_dropdown();
 }
 
 void Settings::on_dropdown_value_change_transport(lv_event_t* event)
@@ -146,24 +140,23 @@ void Settings::set_station_id_table(std::map<String, std::map<String, String>> s
     this->station_id_table = sorted_data;
 }
 
-void Settings::set_station_dropdown(std::map<String, std::map<String, String>> station_id_table)
+void Settings::set_station_dropdown()
 {
     for(auto data : station_id_table)
     {
         station_names += data.first + "\n";
     }
     station_names.trim();
-    lv_dropdown_set_options(Settings::transport_dropdown, station_names.c_str());
+    lv_dropdown_set_options(Settings::settings_dropdown, station_names.c_str());
     // lv_dropdown_set_text(Settings::settings_dropdown, Settings::selected_station_option.c_str());
 }
 
 
-void Settings::set_transport_dropdown(std::map<String, std::map<String, String>> station_id_table)
+void Settings::set_transport_dropdown()
 {
     get_selected();
-    transport_names += station_id_table[selected_station_option].begin()->second;
+    transport_names = station_id_table[selected_station_option].begin()->second;
     lv_dropdown_set_options(Settings::transport_dropdown, transport_names.c_str());
-
 }
 
 lv_obj_t* Settings::get_confirmed_button()

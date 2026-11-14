@@ -6,7 +6,6 @@
 #include <string>
 #include <ArduinoJson.h>
 #include <EEPROM.h>
-#include <Stream.h>
 
 #include "api.h"
 #include "user_interface/ui.h"
@@ -24,11 +23,11 @@ class Controller
     Departure* departure_ptr = nullptr;
     const String key_departure;
     const String key_lookup;
-    static Settings settings_p;
-    static Departure departure_p;
-    static Front_Page front_p;
+    Settings settings_p;
+    Departure departure_p;
+    Front_Page front_p;
     Api api;
-    static Data_Sort sort;
+    Data_Sort sort;
 
     static void on_confirm_btn_clicked(lv_event_t* event);
     void get_departure_data();

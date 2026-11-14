@@ -8,47 +8,21 @@
 #include <LV_Helper.h>
 #include <lvgl.h>
 
-#include <user_interface/settings_page.h>
-#include <user_interface/front_page.h>
+// #include <user_interface/settings_page.h>
+// #include <user_interface/front_page.h>
+#include <settings/controller.h>
 
 #include "secrets.h"
 #include "key.h"
 
 LilyGo_Class amoled;
 
-
-// static lv_obj_t* tileview;
-// static lv_obj_t* t1;
-// static lv_obj_t* t2;
-// static lv_obj_t* t1_label;
-// static lv_obj_t* t2_label;
-// static bool t2_dark = false;  // start tile #2 in light mode
-
-// Function: Tile #2 Color change
-// static void apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
-// {
-//   // Background
-//   lv_obj_set_style_bg_opa(tile, LV_OPA_COVER, 0);
-//   lv_obj_set_style_bg_color(tile, dark ? lv_color_black() : lv_color_white(), 0);
-
-//   // Text
-//   lv_obj_set_style_text_color(label, dark ? lv_color_white() : lv_color_black(), 0);
-// }
-
-// static void on_tile2_clicked(lv_event_t* e)
-// {
-//   LV_UNUSED(e);
-//   t2_dark = !t2_dark;
-//   apply_tile_colors(t2, t2_label, t2_dark);
-// }
-
 // Function: Creates UI
 static void create_ui()
 {
-  static Settings settings_p;
-  static Front_Page front_p;
-  front_p.create();
-  settings_p.create();
+  static Controller* main_control;
+  main_control = new Controller(KEY, KEY_RES);
+  main_control->init();
 }
 
 // // Function: Updates UI
@@ -92,6 +66,7 @@ static void connect_wifi()
 // }
 
 // Must have function: Setup is run once on startup
+Controller* main_control = nullptr;
 void setup()
 {
   Serial.begin(115200);
@@ -104,8 +79,8 @@ void setup()
 
   beginLvglHelper(amoled);   // init LVGL for this board
 
-  create_ui();
   connect_wifi();
+  create_ui();
 }
 
 // Must have function: Loop runs continously on device after setup

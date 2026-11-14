@@ -1,7 +1,7 @@
 #include "controller.h"
 
-Controller::Controller(const String& key_departure, const String& key_lookup)
-    :api(key_departure, key_lookup)
+Controller::Controller(const String& KEY, const String& KEY_RES)
+    :api(KEY, KEY_RES)
 {
 
 }
@@ -17,7 +17,7 @@ void Controller::init()
     settings_p.set_station_id_table(sort.get_all_stations(api.fetch_all_stations()));
     settings_p.create();
     departure_p.create();
-    lv_obj_add_event_cb(settings_p.get_confirmed_button(), on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(settings_p.get_confirmed_button(), on_confirm_btn_clicked, LV_EVENT_CLICKED, this);
 }
 
 std::string Controller::set_stations()
@@ -29,13 +29,16 @@ std::string Controller::set_stations()
 void Controller::on_confirm_btn_clicked(lv_event_t* event)
 {
     Controller* self = static_cast<Controller*>(lv_event_get_user_data(event));
+    if(!self)
+        return;
 
     self->settings_p.get_selected();
-    String station_id = settings_p.get_station_id();
-    String selected_station = settings_p.get_station();
-    String selected_transport = settings_p.get_transport();
+    String station_id = self->settings_p.get_station_id();
+    String selected_station = self->settings_p.get_station();
+    String selected_transport = self->settings_p.get_transport();
 
-    Departure_Data_Holder data_store = self->sort.get_departure_times(self->api.fetch_departures(station_id), selected_station, selected_transport);   
+    Departure_Data_Holder data = self->sort.get_departure_times(self->api.fetch_departures(station_id), selected_station, selected_transport); 
+    self->departure_p.show_departure(data);
 }
 
 void Controller::save_settings(String& selected_station_option, String& selected_transport_option)
