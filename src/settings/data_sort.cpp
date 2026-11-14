@@ -1,5 +1,15 @@
 #include "data_sort.h"
 
+Data_Sort::Data_Sort()
+{
+
+}
+
+Data_Sort::~Data_Sort()
+{
+
+}
+
 String Data_Sort::clean_name(String station_name)
 {
     String cleaned_str;
@@ -54,7 +64,6 @@ std::map<String, std::map<String, String>> Data_Sort::get_all_stations(String js
 
 Departure_Data_Holder Data_Sort::get_departure_times(const String& json_file, String station_name, String transport_type)
 { 
-    Departure_Data_Holder departures;
-    departures.load_from_json(json_file, station_name, transport_type);
+    this->departures.load_from_json(json_file, station_name, transport_type);
     return departures;
 }

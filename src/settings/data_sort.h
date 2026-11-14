@@ -11,12 +11,15 @@ class Data_Sort
 {
     private:
     std::map<String, std::map<String, String>> station_id_table;
+    Departure_Data_Holder departures;
 
     String clean_name(String station_name);
     String decipher_transport(int products);
     std::string capitalize(std::string transport_type);
 
     public:
+    Data_Sort();
+    ~Data_Sort();
     std::map<String, std::map<String, String>> get_all_stations(String json_file);
     Departure_Data_Holder get_departure_times(const String& json_file, String station_name, String transport_type);
 };

@@ -9,19 +9,20 @@ struct Departure_Data
 {
     String departure_time;
     String vehicle_type;
-    std::string vehicle_number;
-    std::string destination;
+    String vehicle_number;
+    String platform;
+    String destination_name;
 
     // Constructors
     Departure_Data(Departure_Data& other);
-    Departure_Data(JsonVariant departure);
+    Departure_Data(JsonVariant& departure);
 
     Departure_Data& operator=(Departure_Data& other);
 
     Departure_Data& copy(Departure_Data& other);
 };
 
-// Struct that holds all necessary departure data in a string.
+// Struct that holds all necessary departure data in a string
 // Is able to generate a departure data list when given a valid json as a char array
 struct Departure_Data_Holder
 {

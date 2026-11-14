@@ -35,8 +35,6 @@ class Controller
     Controller(const String& key_departure, const String& key_lookup);
     ~Controller();
     void init();
-    
-    std::string set_stations();
 
     void save_settings(String& selected_station_option, String& selected_transport_option);
     void load_settings(String& selected_station_option, String& selected_transport_option);

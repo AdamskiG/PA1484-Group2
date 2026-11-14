@@ -8,19 +8,20 @@ Departure_Data::Departure_Data(Departure_Data &other)
 
 // Constructs departure data based on a given ArduinoJson JsonObject
 // Assumes json follows the structure of Trafiklab Realtime API's departure data
-Departure_Data::Departure_Data(JsonVariant departure_data)
+Departure_Data::Departure_Data(JsonVariant& departure_data)
 {
-    
+    String departure_time_full = departure_data["scheduled"];
+    this->departure_time = departure_time_full.substring(11, 16);
+    this->platform = departure_data["realtime_platform"]["designation"].as<String>();
     JsonObject route = departure_data["route"];
 
-    String departure_time_full = route["scheduled"];
-    departure_time = departure_time_full.substring(12,4);
-
     String transport_mode = route["transport_mode"];
-    vehicle_type = transport_mode;
+    this->vehicle_type = transport_mode;
+
+    this->vehicle_number = route["designation"].as<String>();
 
     JsonObject destination = route["destination"];
-    destination = destination["name"];
+    this->destination_name = destination["name"].as<String>();
 }
 
 // Equals operator
@@ -35,7 +36,7 @@ Departure_Data &Departure_Data::copy(Departure_Data &other)
     departure_time = other.departure_time;
     vehicle_type = other.vehicle_type;
     vehicle_number = other.vehicle_number;
-    destination = other.destination;
+    destination_name = other.destination_name;
     return *this;
 }
 
@@ -47,6 +48,9 @@ void Departure_Data_Holder::load_from_json(const String& json_c_str, String area
 
     station = area_name;
     vehicle_filter = in_vehicle_filter;
+    in_vehicle_filter.toUpperCase();
+    in_vehicle_filter.trim();
+    
 
     // Convert char string to "doc" JsonDocument object
     JsonDocument doc;
@@ -58,16 +62,20 @@ void Departure_Data_Holder::load_from_json(const String& json_c_str, String area
     for (JsonVariant departure : departures)
     {
         Departure_Data* departure_data = new Departure_Data(departure);
+        data.push_back(departure_data);
 
         // Discards the departure data if the vehicle type doesn't match
-        if (departure_data->vehicle_type != in_vehicle_filter)
-        {
-            data.push_back(departure_data);
-        }
-        else
-        {
-            delete departure_data;
-        }
+        /*!!!!!!!! OBS !!!!! Detta är där felet ligger just nu då det finns osynliga bokstäver
+        Så det är därför jämförelsen inte funkar
+        */
+        // if (departure_data->vehicle_type == in_vehicle_filter)
+        // {
+        //     data.push_back(departure_data);
+        // }
+    //     else
+    //     {
+    //         delete departure_data;
+    //     }
     }
 }
 

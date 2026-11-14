@@ -15,5 +15,5 @@ class Departure : protected Ui
     Departure();
     ~Departure();
     void create();
-    static void show_departure(Departure_Data_Holder data);
+    static void show_departure(Departure_Data_Holder& data);
 };

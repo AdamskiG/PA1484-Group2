@@ -20,24 +20,15 @@ void Controller::init()
     lv_obj_add_event_cb(settings_p.get_confirmed_button(), on_confirm_btn_clicked, LV_EVENT_CLICKED, this);
 }
 
-std::string Controller::set_stations()
-{
-
-    return std::string();
-}
 
 void Controller::on_confirm_btn_clicked(lv_event_t* event)
 {
     Controller* self = static_cast<Controller*>(lv_event_get_user_data(event));
-    if(!self)
-        return;
-
     self->settings_p.get_selected();
     String station_id = self->settings_p.get_station_id();
     String selected_station = self->settings_p.get_station();
     String selected_transport = self->settings_p.get_transport();
-
-    Departure_Data_Holder data = self->sort.get_departure_times(self->api.fetch_departures(station_id), selected_station, selected_transport); 
+    Departure_Data_Holder data = self->sort.get_departure_times(self->api.fetch_departures(station_id), selected_station, selected_transport);
     self->departure_p.show_departure(data);
 }
 

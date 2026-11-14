@@ -81,7 +81,7 @@ void Settings::transport_options(lv_obj_t* parent)
 {
     //create a dropdown with transport options
     Settings::transport_dropdown = lv_dropdown_create(parent);
-    lv_obj_align_to( Settings::transport_dropdown, Settings::settings_dropdown, LV_ALIGN_CENTER, -120, 60);
+    lv_obj_align_to( Settings::transport_dropdown, Settings::settings_dropdown, LV_ALIGN_CENTER, -115, 60);
     lv_obj_set_size(Settings::transport_dropdown, 350, 60);
     set_transport_dropdown();
 
