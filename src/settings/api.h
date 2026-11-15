@@ -24,5 +24,4 @@ class Api
     Api(const String& key_departure, const String& key_lookup);
     String fetch_departures(String id);
     String fetch_all_stations();
-
 };

@@ -24,6 +24,7 @@ void Departure::create()
 
 void Departure::show_departure(Departure_Data_Holder& data)
 {
+    
     Departure::station_text += data.station;
     String departure_text = data.vehicle_filter + " Line Nr: ";
     lv_table_set_cell_value(Departure::departure_table, 0, 0, station_text.c_str());
