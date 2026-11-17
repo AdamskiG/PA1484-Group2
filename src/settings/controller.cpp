@@ -29,11 +29,12 @@ void Controller::on_confirm_btn_clicked(lv_event_t* event)
     String selected_station = self->settings_p.get_station();
     String selected_transport = self->settings_p.get_transport();
     Departure_Data_Holder data = self->sort.get_departure_times(self->api.fetch_departures(station_id), selected_station, selected_transport);
+    self->save_settings(self->settings_p.get_station(), self->settings_p.get_transport());
     self->departure_p.show_departure(data);
 
 }
 
-void Controller::save_settings(String& selected_station_option, String& selected_transport_option)
+void Controller::save_settings(String selected_station_option, String selected_transport_option)
 {
     // Create JsonDocument with data
     JsonDocument data;
@@ -51,7 +52,7 @@ void Controller::save_settings(String& selected_station_option, String& selected
     }
 }
 
-void Controller::load_settings(String& selected_station_option, String& selected_transport_option)
+void Controller::load_settings(String selected_station_option, String selected_transport_option)
 {
     // Read stored data to uint8_t (unsigned char) array
     char json_c_str[256];
