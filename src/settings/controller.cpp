@@ -18,6 +18,8 @@ void Controller::init()
     settings_p.create();
     departure_p.create();
     lv_obj_add_event_cb(settings_p.get_confirmed_button(), on_confirm_btn_clicked, LV_EVENT_CLICKED, this);
+    lv_obj_add_event_cb(settings_p.get_save_button(), on_save_btn_clicked, LV_EVENT_CLICKED, this);
+    lv_obj_add_event_cb(settings_p.get_load_button(), on_load_btn_clicked, LV_EVENT_CLICKED, this);
 }
 
 
@@ -25,13 +27,39 @@ void Controller::on_confirm_btn_clicked(lv_event_t* event)
 {
     Controller* self = static_cast<Controller*>(lv_event_get_user_data(event));
     self->settings_p.get_selected();
+
     String station_id = self->settings_p.get_station_id();
+
     String selected_station = self->settings_p.get_station();
     String selected_transport = self->settings_p.get_transport();
+
     Departure_Data_Holder data = self->sort.get_departure_times(self->api.fetch_departures(station_id), selected_station, selected_transport);
-    self->save_settings(self->settings_p.get_station(), self->settings_p.get_transport());
+
     self->departure_p.show_departure(data);
 
+}
+
+void Controller::on_save_btn_clicked(lv_event_t *event)
+{
+    String selected_station;
+    String selected_transport;
+
+    Controller* self = static_cast<Controller*>(lv_event_get_user_data(event));
+
+    self->load_settings(selected_station, selected_transport);
+
+    self->settings_p.set_station_dropdown(selected_station);
+    self->settings_p.set_transport_dropdown(selected_transport);
+}
+
+void Controller::on_load_btn_clicked(lv_event_t *event)
+{
+    Controller* self = static_cast<Controller*>(lv_event_get_user_data(event));
+
+    String selected_station = self->settings_p.get_station();
+    String selected_transport = self->settings_p.get_transport();
+
+    self->save_settings(selected_station, selected_transport);
 }
 
 void Controller::save_settings(String selected_station_option, String selected_transport_option)
