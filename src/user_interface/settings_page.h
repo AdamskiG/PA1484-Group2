@@ -12,17 +12,19 @@ class Settings : public Ui
 private:
     inline static lv_obj_t* settings_tile = nullptr;
     inline static lv_obj_t* settings_label = nullptr;
+
     inline static lv_obj_t* settings_dropdown = nullptr;
     inline static lv_obj_t* transport_dropdown = nullptr;
+
     inline static lv_obj_t* confirm_btn = nullptr;
     inline static lv_obj_t* save_btn = nullptr;
     inline static lv_obj_t* load_btn = nullptr;
+
     inline static lv_obj_t* WiFi_status_label = nullptr;
 
     //Storing all the stations and their ID together with their transportation types
  
     std::map<String, std::map<String, String>> station_id_table;
-
     
     //Here the current selected options are stored as an array of characters.
     static constexpr uint32_t buff_size = 64;
@@ -32,6 +34,7 @@ private:
 
     void station_options(lv_obj_t* parent);
     void transport_options(lv_obj_t *parent);
+    void buttons_create(lv_obj_t *parent);
     // void on_save_btn_clicked(lv_event_t *event);
     // void on_load_btn_clicked(lv_event_t *event);
     

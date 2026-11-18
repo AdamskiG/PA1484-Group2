@@ -24,6 +24,7 @@ void Settings::create()
 
     station_options(Settings::settings_tile);
     transport_options(Settings::settings_tile);
+    buttons_create(Settings::settings_tile);
 
     // Create a label that shows WiFi status
     // MIGHT work based on the same solution used in project.ino.
@@ -46,11 +47,11 @@ void Settings::update()
 {
     if (WiFi.status() == WL_CONNECTED && this->wifi_status != "CONNECTED") 
     {
-        this->wifi_status = "CONNECTED";
+        this->wifi_status = " Connected";
     }
     else if(WiFi.status() != WL_CONNECTED && this->wifi_status != "DISCONNECTED")
     {
-        this->wifi_status = "DISCONNECTED";
+        this->wifi_status = " Disconnect";
     }
     std::string wifi_status_string = "WiFi status:" + this->wifi_status;
     lv_label_set_text(Settings::WiFi_status_label, wifi_status_string.c_str());
@@ -81,13 +82,16 @@ void Settings::transport_options(lv_obj_t* parent)
 {
     //create a dropdown with transport options
     Settings::transport_dropdown = lv_dropdown_create(parent);
-    lv_obj_align_to( Settings::transport_dropdown, Settings::settings_dropdown, LV_ALIGN_CENTER, -118, 60);
+    lv_obj_align_to( Settings::transport_dropdown, Settings::settings_dropdown, LV_ALIGN_CENTER, -115, 60);
     lv_obj_set_size(Settings::transport_dropdown, 350, 60);
     set_transport_dropdown();
 
     //Changes the displayed selected option in the dropdown.
     lv_obj_add_event_cb(Settings::transport_dropdown, on_dropdown_value_change_transport, LV_EVENT_VALUE_CHANGED, this);
-    
+}
+
+void Settings::buttons_create(lv_obj_t *parent)
+{
     //Creates a clickable confirmed button to change departure station
     Settings::confirm_btn = lv_btn_create(parent);
     lv_obj_t* btn_label;
@@ -97,8 +101,25 @@ void Settings::transport_options(lv_obj_t* parent)
     lv_obj_align_to(Settings::confirm_btn, Settings::transport_dropdown, LV_ALIGN_CENTER, -50, 60);
     lv_obj_set_size(Settings::confirm_btn, 150, 50);
     lv_obj_add_flag(Settings::confirm_btn, LV_OBJ_FLAG_CLICKABLE);
-}
 
+    Settings::save_btn = lv_btn_create(parent);
+    lv_obj_t* save_btn_label;
+    save_btn_label = lv_label_create(save_btn);
+    lv_label_set_text(save_btn_label, "Save Settings");
+    lv_obj_center(save_btn_label);
+    lv_obj_align_to(Settings::save_btn, Settings::confirm_btn, LV_ALIGN_CENTER, 0, 60);
+    lv_obj_set_size(Settings::save_btn, 150, 50);
+    lv_obj_add_flag(Settings::save_btn, LV_OBJ_FLAG_CLICKABLE);
+
+    Settings::load_btn = lv_btn_create(parent);
+    lv_obj_t* load_btn_label;
+    load_btn_label = lv_label_create(load_btn);
+    lv_label_set_text(load_btn_label, "Load Settings");
+    lv_obj_center(load_btn_label);
+    lv_obj_align_to(Settings::load_btn, Settings::confirm_btn, LV_ALIGN_CENTER, 0, 120);
+    lv_obj_set_size(Settings::load_btn, 150, 50);
+    lv_obj_add_flag(Settings::load_btn, LV_OBJ_FLAG_CLICKABLE);
+}
 
 // void Settings::on_save_btn_clicked(lv_event_t *event)
 // {

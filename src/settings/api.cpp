@@ -26,7 +26,7 @@ String Api::fetch_data_string(String fetch_url)
             // getString() makes the call and get the information
             response = https.getString();
         }
-        else 
+        else
         {
         // Serial.printf should work with the "monitor" function in platform.io
         Serial.printf("HTTP GET failed, error code: 404");

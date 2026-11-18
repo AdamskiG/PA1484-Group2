@@ -14,7 +14,7 @@ class Api
     static constexpr uint32_t buff_size = 64;
 
     const String base_url = "https://realtime-api.trafiklab.se";
-    const String stations_url = "https://api.resrobot.se/v2.1/location.nearbystops?originCoordLat=56.2845&originCoordLong=15.5575&r=14500&maxNo=1000&format=json&accessId=";
+    const String stations_url = "https://api.resrobot.se/v2.1/location.nearbystops?originCoordLat=56.2845&originCoordLong=15.5575&r=20000&maxNo=1000&format=json&accessId=";
     String key_departure;
     String key_lookup;
 
