@@ -26,11 +26,6 @@ void Departure::show_departure(Departure_Data_Holder& data)
 {
     /* Har inte testat if-satsen. Problemet är att det inte uppdaterar ordentligt när man byter station.
     Datan hämtas men UI uppdateras inte. Funderar på om det är pga att det är pointern som inte uppdateras med lv_table_set_cell_value*/
-    if(Departure::departure_table){
-        delete departure_table;
-        Departure::departure_table = nullptr;
-        Departure::departure_table = lv_table_create(Departure::departure_tile);
-    }
     Departure::station_text += data.station;
     String departure_text = data.vehicle_filter + " Line Nr: ";
     lv_table_set_cell_value(Departure::departure_table, 0, 0, station_text.c_str());
