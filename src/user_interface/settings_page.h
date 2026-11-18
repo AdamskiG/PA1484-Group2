@@ -38,8 +38,8 @@ private:
     // void on_save_btn_clicked(lv_event_t *event);
     // void on_load_btn_clicked(lv_event_t *event);
     
-    static void on_dropdown_value_change(lv_event_t* event);
-    static void on_dropdown_value_change_transport(lv_event_t *event);
+    static void on_station_value_change(lv_event_t* event);
+    static void on_transport_value_change(lv_event_t *event);
 
     void set_station_dropdown();
     void set_transport_dropdown();
@@ -55,6 +55,12 @@ public:
     void update();
     void set_station_id_table(std::map<String, std::map<String, String>> sorted_data);
     lv_obj_t* get_confirmed_button();
+    lv_obj_t* get_save_button();
+    lv_obj_t* get_load_button();
+
+    void set_station_text(String& saved_station);
+    void set_transport_text(String& saved_transport);
+
     void get_selected();
     const String get_station();
     const String get_transport();

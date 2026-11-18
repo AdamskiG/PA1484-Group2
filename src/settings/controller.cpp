@@ -48,8 +48,8 @@ void Controller::on_save_btn_clicked(lv_event_t *event)
 
     self->load_settings(selected_station, selected_transport);
 
-    self->settings_p.set_station_dropdown(selected_station);
-    self->settings_p.set_transport_dropdown(selected_transport);
+    self->settings_p.set_station_text(selected_station);
+    self->settings_p.set_transport_text(selected_transport);
 }
 
 void Controller::on_load_btn_clicked(lv_event_t *event)

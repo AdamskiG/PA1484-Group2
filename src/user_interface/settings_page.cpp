@@ -67,9 +67,6 @@ void Settings::station_options(lv_obj_t* parent)
     lv_obj_set_size(Settings::settings_dropdown, 350, 60);
     set_station_dropdown();
 
-    //Changes the displayed selected option in the dropdown.
-    lv_obj_add_event_cb(Settings::settings_dropdown, on_dropdown_value_change, LV_EVENT_VALUE_CHANGED, this);
-
     //lv_obj_add_event_cb(Settings::confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
 }
 
@@ -87,7 +84,7 @@ void Settings::transport_options(lv_obj_t* parent)
     set_transport_dropdown();
 
     //Changes the displayed selected option in the dropdown.
-    lv_obj_add_event_cb(Settings::transport_dropdown, on_dropdown_value_change_transport, LV_EVENT_VALUE_CHANGED, this);
+    lv_obj_add_event_cb(Settings::transport_dropdown, on_transport_value_change, LV_EVENT_VALUE_CHANGED, this);
 }
 
 void Settings::buttons_create(lv_obj_t *parent)
@@ -131,29 +128,14 @@ void Settings::buttons_create(lv_obj_t *parent)
 //     controller->load_settings(Settings::selected_station_option, Settings::selected_transport_option);
 // }
 
-void Settings::on_dropdown_value_change(lv_event_t* event)
+void Settings::on_station_value_change(lv_event_t* event)
 {
-    Settings* self = static_cast<Settings*>(lv_event_get_user_data(event));
     lv_dropdown_set_text(Settings::settings_dropdown, NULL);
-    self->set_transport_dropdown();
 }
 
-void Settings::on_dropdown_value_change_transport(lv_event_t* event)
+void Settings::on_transport_value_change(lv_event_t* event)
 {
     lv_dropdown_set_text(Settings::transport_dropdown, NULL);
-}
-
-void Settings::get_selected()
-{
-    char* station_buffer = new char[buff_size];
-    char* transport_buffer = new char[buff_size];
-    
-    lv_dropdown_get_selected_str(Settings::settings_dropdown, station_buffer, buff_size);
-    lv_dropdown_get_selected_str(Settings::transport_dropdown, transport_buffer, buff_size);
-    
-    Settings::selected_station_option = String(station_buffer, buff_size);
-    Settings::selected_station_id = station_id_table[selected_station_option].begin()->first;
-    Settings::selected_transport_option = String(transport_buffer, buff_size);
 }
 
 void Settings::set_station_id_table(std::map<String, std::map<String, String>> sorted_data)
@@ -169,7 +151,6 @@ void Settings::set_station_dropdown()
     }
     station_names.trim();
     lv_dropdown_set_options(Settings::settings_dropdown, station_names.c_str());
-    // lv_dropdown_set_text(Settings::settings_dropdown, Settings::selected_station_option.c_str());
 }
 
 
@@ -185,9 +166,47 @@ lv_obj_t* Settings::get_confirmed_button()
     return Settings::confirm_btn;
 }
 
+lv_obj_t* Settings::get_save_button()
+{
+    return Settings::save_btn;
+}
+
+lv_obj_t* Settings::get_load_button()
+{
+    return Settings::load_btn;
+}
+
+void Settings::set_station_text(String& saved_station)
+{
+    lv_dropdown_set_text(Settings::settings_dropdown, saved_station.c_str());
+
+    //Changes the displayed selected option in the dropdown.
+    lv_obj_add_event_cb(Settings::settings_dropdown, on_station_value_change, LV_EVENT_VALUE_CHANGED, NULL);
+}
+
+void Settings::set_transport_text(String& saved_transport)
+{
+    lv_dropdown_set_text(Settings::transport_dropdown, saved_transport.c_str());
+
+    //Changes the displayed selected option in the dropdown.
+    lv_obj_add_event_cb(Settings::transport_dropdown, on_transport_value_change, LV_EVENT_VALUE_CHANGED, NULL);
+}
+
+void Settings::get_selected()
+{
+    char* station_buffer = new char[buff_size];
+    char* transport_buffer = new char[buff_size];
+    
+    lv_dropdown_get_selected_str(Settings::settings_dropdown, station_buffer, buff_size);
+    lv_dropdown_get_selected_str(Settings::transport_dropdown, transport_buffer, buff_size);
+    
+    Settings::selected_station_option = String(station_buffer, buff_size);
+    Settings::selected_station_id = station_id_table[selected_station_option].begin()->first;
+    Settings::selected_transport_option = String(transport_buffer, buff_size);
+}
+
 const String Settings::get_station()
 {
-    
     return selected_station_option;
 }
 
