@@ -19,7 +19,7 @@ String Data_Sort::clean_name(String station_name, String& rest_name)
 
         if(letter == '(')
         {
-            rest_name = station_name.substr(i);
+            rest_name = station_name.substring(i);
             return cleaned_str;
         }
         cleaned_str += letter;
@@ -52,7 +52,7 @@ std::map<String, std::map<String, String>> Data_Sort::get_all_stations(String js
 {
     JsonDocument doc;
     deserializeJson(doc, json_file);
-    
+
     JsonArray array = doc["stopLocationOrCoordLocation"].as<JsonArray>();
     for(JsonVariant item : array)
     {
