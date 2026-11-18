@@ -13,7 +13,7 @@ class Data_Sort
     std::map<String, std::map<String, String>> station_id_table;
     Departure_Data_Holder departures;
 
-    String clean_name(String station_name);
+    String clean_name(String station_name, String& rest_name);
     String decipher_transport(int products);
     std::string capitalize(std::string transport_type);
 
