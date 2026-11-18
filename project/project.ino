@@ -19,6 +19,7 @@ LilyGo_Class amoled;
 
 // Function: Creates UI
 static Controller* main_control;
+
 static void create_ui()
 {
   main_control = new Controller(KEY, KEY_RES);
