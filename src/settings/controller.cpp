@@ -14,9 +14,13 @@ Controller::~Controller()
 void Controller::init()
 {
     front_p.create();
+    Serial.printf("Front page created");
     settings_p.set_station_id_table(sort.get_all_stations(api.fetch_all_stations()));
+    Serial.printf("Dropdown data Fetched and stored");
     settings_p.create();
+    Serial.printf("Settings page created");
     departure_p.create();
+    Serial.printf("Departure page created");
     lv_obj_add_event_cb(settings_p.get_confirmed_button(), on_confirm_btn_clicked, LV_EVENT_CLICKED, this);
     lv_obj_add_event_cb(settings_p.get_save_button(), on_save_btn_clicked, LV_EVENT_CLICKED, this);
     lv_obj_add_event_cb(settings_p.get_load_button(), on_load_btn_clicked, LV_EVENT_CLICKED, this);
