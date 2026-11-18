@@ -18,17 +18,11 @@
 LilyGo_Class amoled;
 
 // Function: Creates UI
+static Controller* main_control;
 static void create_ui()
 {
-  static Controller* main_control;
   main_control = new Controller(KEY, KEY_RES);
   main_control->init();
-}
-
-// Function: Updates UI
-static void update_ui()
-{
-  settings_p.update();
 }
 
 // Function: Connects to WIFI
@@ -96,7 +90,7 @@ void loop()
 
   if(current_time - time_last_updated_UI >= interval_time_UI)
   {
-    // update_ui();
+    main_control->update_UI();
     time_last_updated_UI = current_time;
   }
 }

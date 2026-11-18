@@ -68,3 +68,8 @@ void Controller::load_settings(String selected_station_option, String selected_t
     serializeJson(data["station"], selected_station_option);
     serializeJson(data["vehicle"], selected_transport_option);
 }
+
+void Controller::update_UI()
+{
+    this->settings_p.update();
+}
