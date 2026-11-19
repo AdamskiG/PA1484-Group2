@@ -89,9 +89,19 @@ void loop()
   int interval_time_UI = 5000; // update UI every 5 seconds
   int time_last_updated_UI = 0;
 
+  int interval_time_departure_data = 60000; // fetch new departure data every 60 seconds
+  int time_last_fetched_data = 0;
+
   if(current_time - time_last_updated_UI >= interval_time_UI)
   {
     main_control->update_UI();
     time_last_updated_UI = current_time;
+  }
+
+  if(current_time - time_last_fetched_data >= interval_time_departure_data)
+  {
+    // add function for fetching data here
+    // either add function for updating departure page here or include it in the UI update function
+    time_last_fetched_data = current_time;
   }
 }
