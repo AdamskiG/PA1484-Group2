@@ -30,11 +30,11 @@ void Settings::create()
     // MIGHT work based on the same solution used in project.ino.
     if (WiFi.status() == WL_CONNECTED) 
     {
-        this->wifi_status = "CONNECTED";
+        this->wifi_status = " Connected";
     }
     else 
     {
-        this->wifi_status = "DISCONNECTED";
+        this->wifi_status = " Disconnected";
     }
     std::string wifi_status_string = "WiFi status:" + this->wifi_status;
     Settings::WiFi_status_label = lv_label_create(Settings::settings_tile);
@@ -45,13 +45,13 @@ void Settings::create()
 
 void Settings::update()
 {
-    if (WiFi.status() == WL_CONNECTED && this->wifi_status != "CONNECTED") 
+    if (WiFi.status() == WL_CONNECTED && this->wifi_status != " Connected") 
     {
         this->wifi_status = " Connected";
     }
-    else if(WiFi.status() != WL_CONNECTED && this->wifi_status != "DISCONNECTED")
+    else if(WiFi.status() != WL_CONNECTED && this->wifi_status != " Disconnected")
     {
-        this->wifi_status = " Disconnect";
+        this->wifi_status = " Disconnected";
     }
     std::string wifi_status_string = "WiFi status:" + this->wifi_status;
     lv_label_set_text(Settings::WiFi_status_label, wifi_status_string.c_str());
