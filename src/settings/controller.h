@@ -29,17 +29,20 @@ class Controller
     Api api;
     Data_Sort sort;
 
+    // Button events
     static void on_confirm_btn_clicked(lv_event_t* event);
     static void on_save_btn_clicked(lv_event_t* event);
     static void on_load_btn_clicked(lv_event_t* event);
+
     void get_departure_data();
+    
     public:
     Controller(const String& key_departure, const String& key_lookup);
     ~Controller();
     void init();
 
-    void save_settings(String selected_station_option, String selected_transport_option);
-    void load_settings(String selected_station_option, String selected_transport_option);
+    void save_settings(const String& selected_station_option, const String& selected_transport_option);
+    void load_settings(String& selected_station_option, String& selected_transport_option);
 
     void update_UI();
 };

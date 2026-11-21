@@ -13,7 +13,7 @@ private:
     inline static lv_obj_t* settings_tile = nullptr;
     inline static lv_obj_t* settings_label = nullptr;
 
-    inline static lv_obj_t* settings_dropdown = nullptr;
+    inline static lv_obj_t* station_dropdown = nullptr;
     inline static lv_obj_t* transport_dropdown = nullptr;
 
     inline static lv_obj_t* confirm_btn = nullptr;
@@ -48,22 +48,32 @@ private:
     String transport_names = "";
     std::string wifi_status;
 
+    void set_station_dropdown_option(const String& new_station);
+    void set_transport_dropdown_option(const String& new_transport);
+
+    void set_station_text(const String& saved_station);
+    void set_transport_text(const String& saved_transport);
+
 public:
     Settings();
     ~Settings();
     void create();
     void update();
     void set_station_id_table(std::map<String, std::map<String, String>> sorted_data);
+
+    // Button getters
     lv_obj_t* get_confirmed_button();
     lv_obj_t* get_save_button();
     lv_obj_t* get_load_button();
 
-    void set_station_text(String& saved_station);
-    void set_transport_text(String& saved_transport);
-
+    // Data getters
     void get_selected();
     const String get_station();
-    const String get_transport();
     const String get_station_id();
+    const String get_transport();
+
+    // Data setters
+    void set_station(const String& new_station);
+    void set_transport(const String& new_transport);
 };
 

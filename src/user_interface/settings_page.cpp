@@ -26,6 +26,9 @@ void Settings::create()
     transport_options(Settings::settings_tile);
     buttons_create(Settings::settings_tile);
 
+    lv_obj_add_event_cb(Settings::station_dropdown, Settings::on_station_value_change, LV_EVENT_VALUE_CHANGED, this);
+    lv_obj_add_event_cb(Settings::transport_dropdown, Settings::on_transport_value_change, LV_EVENT_VALUE_CHANGED, this);
+
     // Create a label that shows WiFi status
     // MIGHT work based on the same solution used in project.ino.
     if (WiFi.status() == WL_CONNECTED) 
@@ -62,9 +65,9 @@ void Settings::update()
 void Settings::station_options(lv_obj_t* parent)
 {
     //create a dropdown with station options
-    Settings::settings_dropdown = lv_dropdown_create(parent);
-    lv_obj_align_to( Settings::settings_dropdown, Settings::settings_label, LV_ALIGN_CENTER, -120, 60);
-    lv_obj_set_size(Settings::settings_dropdown, 350, 60);
+    Settings::station_dropdown = lv_dropdown_create(parent);
+    lv_obj_align_to( Settings::station_dropdown, Settings::settings_label, LV_ALIGN_CENTER, -120, 60);
+    lv_obj_set_size(Settings::station_dropdown, 350, 60);
     set_station_dropdown();
 
     //lv_obj_add_event_cb(Settings::confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
@@ -79,7 +82,7 @@ void Settings::transport_options(lv_obj_t* parent)
 {
     //create a dropdown with transport options
     Settings::transport_dropdown = lv_dropdown_create(parent);
-    lv_obj_align_to( Settings::transport_dropdown, Settings::settings_dropdown, LV_ALIGN_CENTER, -115, 60);
+    lv_obj_align_to( Settings::transport_dropdown, Settings::station_dropdown, LV_ALIGN_CENTER, -115, 60);
     lv_obj_set_size(Settings::transport_dropdown, 350, 60);
     set_transport_dropdown();
 
@@ -130,7 +133,10 @@ void Settings::buttons_create(lv_obj_t *parent)
 
 void Settings::on_station_value_change(lv_event_t* event)
 {
-    lv_dropdown_set_text(Settings::settings_dropdown, NULL);
+    Settings* self = static_cast<Settings*>(lv_event_get_user_data(event));
+
+    lv_dropdown_set_text(Settings::station_dropdown, NULL);
+    self->set_transport_dropdown();
 }
 
 void Settings::on_transport_value_change(lv_event_t* event)
@@ -150,9 +156,8 @@ void Settings::set_station_dropdown()
         station_names += data.first + "\n";
     }
     station_names.trim();
-    lv_dropdown_set_options(Settings::settings_dropdown, station_names.c_str());
+    lv_dropdown_set_options(Settings::station_dropdown, station_names.c_str());
 }
-
 
 void Settings::set_transport_dropdown()
 {
@@ -176,15 +181,41 @@ lv_obj_t* Settings::get_load_button()
     return Settings::load_btn;
 }
 
-void Settings::set_station_text(String& saved_station)
+void Settings::set_station_dropdown_option(const String &new_station)
 {
-    lv_dropdown_set_text(Settings::settings_dropdown, saved_station.c_str());
+    int32_t option_index = lv_dropdown_get_option_index(Settings::station_dropdown, new_station.c_str());
+    
+    if (option_index == -1)
+    {
+        Serial.printf("Error: Option not found in station dropdown\n");
+        return;
+    }
 
-    //Changes the displayed selected option in the dropdown.
-    lv_obj_add_event_cb(Settings::settings_dropdown, on_station_value_change, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_dropdown_set_selected(Settings::station_dropdown, option_index);
 }
 
-void Settings::set_transport_text(String& saved_transport)
+void Settings::set_transport_dropdown_option(const String &new_transport)
+{
+    int32_t option_index = lv_dropdown_get_option_index(Settings::transport_dropdown, new_transport.c_str());
+    
+    if (option_index == -1)
+    {
+        Serial.printf("Error: Option not found in transport dropdown\n");
+        return;
+    }
+
+    lv_dropdown_set_selected(Settings::transport_dropdown, option_index);
+}
+
+void Settings::set_station_text(const String &saved_station)
+{
+    lv_dropdown_set_text(Settings::station_dropdown, saved_station.c_str());
+
+    //Changes the displayed selected option in the dropdown.
+    lv_obj_add_event_cb(Settings::station_dropdown, on_station_value_change, LV_EVENT_VALUE_CHANGED, NULL);
+}
+
+void Settings::set_transport_text(const String& saved_transport)
 {
     lv_dropdown_set_text(Settings::transport_dropdown, saved_transport.c_str());
 
@@ -194,25 +225,62 @@ void Settings::set_transport_text(String& saved_transport)
 
 void Settings::get_selected()
 {
+    // Create buffers
     char* station_buffer = new char[buff_size];
     char* transport_buffer = new char[buff_size];
     
-    lv_dropdown_get_selected_str(Settings::settings_dropdown, station_buffer, buff_size);
+    // Set buffers to current settings
+    lv_dropdown_get_selected_str(Settings::station_dropdown, station_buffer, buff_size);
     lv_dropdown_get_selected_str(Settings::transport_dropdown, transport_buffer, buff_size);
-    
+
+    // Lambda function to get length of character string (end indicated by null character)
+    auto c_string_length = [](char* c_string, const char& buff_size) -> int {
+        for (int i = 0; i < buff_size; i++)
+        {
+            c_string++;
+            if (c_string[i] == (0))
+            {
+                Serial.print(c_string[i]);
+                return i;
+            }
+        }
+        return buff_size;
+    };
+
+    // Set settings
+    Serial.print("SAVINDBREGRE\n");
     Settings::selected_station_option = String(station_buffer, buff_size);
-    Settings::selected_station_id = station_id_table[selected_station_option].begin()->first;
+    Serial.print("STATION " + selected_station_option + "\n");
     Settings::selected_transport_option = String(transport_buffer, buff_size);
+    Serial.print("TRANSPORT " + selected_transport_option + "\n");
+    Settings::selected_station_id = station_id_table[selected_station_option].begin()->first;
 }
 
 const String Settings::get_station()
 {
+    get_selected();
     return selected_station_option;
 }
 
 const String Settings::get_transport()
 {
+    get_selected();
     return selected_transport_option;
+}
+
+void Settings::set_station(const String &new_station)
+{
+    Serial.print("Station: " + new_station + "\n");
+    set_station_dropdown_option(new_station);
+    selected_station_option = new_station;
+    set_transport_dropdown();
+}
+
+void Settings::set_transport(const String &new_transport)
+{
+    Serial.print("Transport: " + new_transport + "\n");
+    set_transport_dropdown_option(new_transport);
+    selected_transport_option = new_transport;
 }
 
 const String Settings::get_station_id()
