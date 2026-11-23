@@ -20,7 +20,7 @@ private:
     inline static lv_obj_t* save_btn = nullptr;
     inline static lv_obj_t* load_btn = nullptr;
 
-    inline static lv_obj_t* WiFi_status_label = nullptr;
+    inline static lv_obj_t* wifi_status_label = nullptr;
 
     //Storing all the stations and their ID together with their transportation types
  
@@ -49,7 +49,7 @@ private:
     std::string wifi_status;
 
     void set_station_dropdown_option(const String& new_station);
-    void set_transport_dropdown_option(const String& new_transport);
+    bool set_transport_dropdown_option(const String& new_transport);
 
     void set_station_text(const String& saved_station);
     void set_transport_text(const String& saved_transport);

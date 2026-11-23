@@ -91,7 +91,7 @@ void loop()
   int interval_time_departure_data = 60000; // fetch new departure data every 60 seconds
   int time_last_fetched_data = 0;
 
-  if(current_time - time_last_updated_UI >= interval_time_UI)
+  if(current_time - time_last_updated_WiFi_status >= interval_time_UI)
   {
     main_control->update_WiFi_status();
     time_last_updated_WiFi_status = current_time;
