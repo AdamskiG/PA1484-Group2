@@ -41,5 +41,6 @@ class Controller
     void save_settings(String selected_station_option, String selected_transport_option);
     void load_settings(String selected_station_option, String selected_transport_option);
 
-    void update_UI();
+    void update_WiFi_status(); // function for updating the wifi status
+    void update_departure_page(); // function for updating the departure page
 };

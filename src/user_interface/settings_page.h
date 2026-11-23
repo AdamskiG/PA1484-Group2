@@ -52,7 +52,7 @@ public:
     Settings();
     ~Settings();
     void create();
-    void update();
+    void update_WiFi_status();
     void set_station_id_table(std::map<String, std::map<String, String>> sorted_data);
     lv_obj_t* get_confirmed_button();
     lv_obj_t* get_save_button();

@@ -103,7 +103,7 @@ void Controller::load_settings(String selected_station_option, String selected_t
     serializeJson(data["vehicle"], selected_transport_option);
 }
 
-void Controller::update_UI()
+void Controller::update_WiFi_status()
 {
-    this->settings_p.update();
+    this->settings_p.update_WiFi_status();
 }

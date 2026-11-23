@@ -43,7 +43,7 @@ void Settings::create()
     lv_obj_set_align(Settings::WiFi_status_label, LV_ALIGN_BOTTOM_LEFT);
 }
 
-void Settings::update()
+void Settings::update_WiFi_status()
 {
     if (WiFi.status() == WL_CONNECTED && this->wifi_status != " Connected") 
     {
