@@ -13,17 +13,28 @@ Data_Sort::~Data_Sort()
 String Data_Sort::clean_name(String station_name, String& rest_name)
 {
     String cleaned_str;
-    for (int i = 0; i < station_name.length(); i++)
-    {
-        char letter = station_name[i];
 
+    // Parse the station name string
+    int i = 0;
+    for (char letter : station_name)
+    {
+        // Stop parsing the string once a left parenthesis is found
         if(letter == '(')
         {
-            rest_name = station_name.substring(i);
-            return cleaned_str;
+            break;
         }
+
         cleaned_str += letter;
+        i++;
     }
+
+    // Create a string from the remainder, if there is a remainder
+    if (i < station_name.length())
+    {
+        rest_name = station_name.substring(i);
+    }
+    
+    return cleaned_str;
 }
 
 String Data_Sort::decipher_transport(int products)
@@ -57,6 +68,9 @@ std::map<String, std::map<String, String>> Data_Sort::get_all_stations(String js
     for(JsonVariant item : array)
     {
         JsonObject stop_location = item["StopLocation"];
+
+        String debug = String("Parsing stop ") + stop_location["name"].as<String>() + String("...\n");
+        Serial.printf(debug.c_str());
 
         String str_remainder;
         String name = clean_name(stop_location["name"].as<String>(), str_remainder);

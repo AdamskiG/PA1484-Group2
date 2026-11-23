@@ -61,7 +61,6 @@ static void connect_wifi()
 // }
 
 // Must have function: Setup is run once on startup
-Controller* main_control = nullptr;
 void setup()
 {
   Serial.begin(115200);
