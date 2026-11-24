@@ -2,6 +2,7 @@
 
 Controller::Controller(const String& KEY, const String& KEY_RES)
 {
+    journey_p = new Journey_Page();
     settings_p = new Settings();
     departure_p = new Departure();
     front_p = new Front_Page();
@@ -12,6 +13,7 @@ Controller::Controller(const String& KEY, const String& KEY_RES)
 
 Controller::~Controller()
 {
+    delete journey_p;
     delete settings_p;
     delete departure_p;
     delete front_p;
@@ -41,6 +43,10 @@ void Controller::init()
     // Initialize Departures Page
     departure_p->create();
     Serial.printf("Departure page created\n");
+
+    // Initialize Journey Page
+    journey_p->create();
+    Serial.printf("Journey Page created\n");
 
     // Connect Settings Page button press events to Controller
     lv_obj_add_event_cb(settings_p->get_confirmed_button(), on_confirm_btn_clicked, LV_EVENT_CLICKED, this);
