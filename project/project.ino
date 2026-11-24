@@ -99,7 +99,7 @@ void loop()
 
   if(current_time - time_last_fetched_data >= interval_time_departure_data)
   {
-    main_control->update_departure_page(); // currently does nothing
+    main_control->update_departure_page();
     time_last_fetched_data = current_time;
   }
 }
