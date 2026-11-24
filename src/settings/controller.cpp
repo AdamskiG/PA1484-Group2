@@ -1,25 +1,26 @@
 #include "controller.h"
 
 Controller::Controller(const String& KEY, const String& KEY_RES)
+    : api(KEY, KEY_RES)
 {
-    journey_p = new Journey_Page();
-    settings_p = new Settings();
-    departure_p = new Departure();
-    front_p = new Front_Page();
+    // journey_p = new Journey_Page();
+    // settings_p = new Settings();
+    // departure_p = new Departure();
+    // front_p = new Front_Page();
 
-    api = new Api(KEY, KEY_RES);
-    sort = new Data_Sort();
+    // api = new Api(KEY, KEY_RES);
+    // sort = new Data_Sort();
 }
 
 Controller::~Controller()
 {
-    delete journey_p;
-    delete settings_p;
-    delete departure_p;
-    delete front_p;
+    // delete journey_p;
+    // delete settings_p;
+    // delete departure_p;
+    // delete front_p;
 
-    delete api;
-    delete sort;
+    // delete api;
+    // delete sort;
 }
 
 void Controller::init()
@@ -28,34 +29,34 @@ void Controller::init()
     EEPROM.begin(SAVE_BUF);
 
     // Initialize Front Page
-    front_p->create();
+    front_p.create();
     Serial.printf("Front page created\n");
 
     // Initialize Settings Page
-    String stations_string = api->fetch_all_stations();
+    String stations_string = api.fetch_all_stations();
     Serial.printf("Station/Transport Data Fetched\n");
-    std::map<String, std::map<String, String>> station_map = sort->get_all_stations(stations_string);
+    std::map<String, std::map<String, String>> station_map = sort.get_all_stations(stations_string);
 
-    settings_p->set_station_id_table(station_map);
-    journey_p->set_station_id_table(station_map);
+    settings_p.set_station_id_table(station_map);
+    journey_p.set_station_id_table(station_map);
     Serial.printf("Station/Transport Data stored\n");
-    settings_p->create();
+    settings_p.create();
     Serial.printf("Settings page created\n");
 
     // Initialize Departures Page
-    departure_p->create();
+    departure_p.create();
     Serial.printf("Departure page created\n");
 
     // Initialize Journey Page
-    journey_p->create();
+    journey_p.create();
     Serial.printf("Journey Page created\n");
 
     // Connect Settings Page button press events to Controller
-    lv_obj_add_event_cb(settings_p->get_confirmed_button(), on_confirm_btn_clicked, LV_EVENT_CLICKED, this);
+    lv_obj_add_event_cb(settings_p.get_confirmed_button(), on_confirm_btn_clicked, LV_EVENT_CLICKED, this);
     Serial.printf("confirm_btn functionality implemented\n");
-    lv_obj_add_event_cb(settings_p->get_save_button(), on_save_btn_clicked, LV_EVENT_CLICKED, this);
+    lv_obj_add_event_cb(settings_p.get_save_button(), on_save_btn_clicked, LV_EVENT_CLICKED, this);
     
-    lv_obj_add_event_cb(settings_p->get_load_button(), on_load_btn_clicked, LV_EVENT_CLICKED, this);
+    lv_obj_add_event_cb(settings_p.get_load_button(), on_load_btn_clicked, LV_EVENT_CLICKED, this);
 
     // Attempt to load settings from stored data
     if (!load_settings_page())
@@ -86,11 +87,11 @@ void Controller::on_load_btn_clicked(lv_event_t *event)
 
 bool Controller::save_settings_page()
 {
-    String selected_station = settings_p->get_station();
+    String selected_station = settings_p.get_station();
     Serial.print("Station Len:");
     Serial.print(selected_station.length());
     Serial.print("\n");
-    String selected_transport = settings_p->get_transport();
+    String selected_transport = settings_p.get_transport();
     Serial.print("Transport Len:");
     Serial.print(selected_station.length());
     Serial.print("\n");
@@ -108,8 +109,8 @@ bool Controller::load_settings_page()
         return false;
     }
 
-    Controller::settings_p->set_station(selected_station);
-    Controller::settings_p->set_transport(selected_transport);
+    settings_p.set_station(selected_station);
+    settings_p.set_transport(selected_transport);
 
     return true;
 }
@@ -169,21 +170,21 @@ bool Controller::load_settings(String& selected_station_option, String& selected
 
 void Controller::update_departure_page()
 {
-    settings_p->get_selected();
+    settings_p.get_selected();
 
-    String station_id = settings_p->get_station_id();
+    String station_id = settings_p.get_station_id();
 
-    String selected_station = settings_p->get_station();
-    String selected_transport = settings_p->get_transport();
+    String selected_station = settings_p.get_station();
+    String selected_transport = settings_p.get_transport();
 
-    String depature_json_str = api->fetch_departures(station_id);
-    Departure_Data_Holder data = sort->get_departure_times(depature_json_str, selected_station, selected_transport);
+    String depature_json_str = api.fetch_departures(station_id);
+    Departure_Data_Holder data = sort.get_departure_times(depature_json_str, selected_station, selected_transport);
 
-    departure_p->show_departure(data);
+    departure_p.show_departure(data);
 }
 
 void Controller::update_WiFi_status()
 {
-    Controller::settings_p->update_WiFi_status();
+    settings_p.update_WiFi_status();
 }
 

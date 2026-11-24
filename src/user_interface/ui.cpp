@@ -29,17 +29,17 @@ void Ui::apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
     lv_obj_set_style_text_color(label, dark ? lv_color_white() : lv_color_black(), 0);
 }
 
-// void Ui::set_dropdown_to_all_stations(lv_obj_t* dropdown)
-// {
-//     for(auto data : station_id_table)
-//     {
-//         station_names += data.first + "\n";
-//     }
-//     station_names.trim();
-//     lv_dropdown_set_options(dropdown, station_names.c_str());
-// }
+void Ui::set_all_station_options()
+{
+    for(auto data : station_id_table)
+    {
+        station_names += data.first + "\n";
+    }
+    station_names.trim();
+}
 
 void Ui::set_station_id_table(std::map<String, std::map<String, String>> sorted_data)
 {
-    this->station_id_table = sorted_data;
+    Ui::station_id_table = sorted_data;
+    Ui::set_all_station_options();
 }

@@ -26,13 +26,13 @@ class Controller
     const String key_departure;
     const String key_lookup;
 
-    Journey_Page* journey_p;
-    Settings* settings_p;
-    Departure* departure_p;
-    Front_Page* front_p;
+    Journey_Page journey_p;
+    Settings settings_p;
+    Departure departure_p;
+    Front_Page front_p;
 
-    Api* api;
-    Data_Sort* sort;
+    Api api;
+    Data_Sort sort;
 
     // Button events
     static void on_confirm_btn_clicked(lv_event_t* event);

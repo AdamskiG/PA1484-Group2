@@ -9,7 +9,7 @@ class Departure : protected Ui
     inline static lv_obj_t* departure_tile = nullptr;
     lv_obj_t* departure_table = nullptr;
     inline static lv_obj_t* departure_label = nullptr;
-    inline static String station_text = "Departure from: ";
+    inline static String station_text = "";
 
     public:
     Departure();

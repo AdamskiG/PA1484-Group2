@@ -67,8 +67,7 @@ void Settings::station_options(lv_obj_t* parent)
     Settings::station_dropdown = lv_dropdown_create(parent);
     lv_obj_align_to( Settings::station_dropdown, Settings::settings_label, LV_ALIGN_CENTER, -120, 60);
     lv_obj_set_size(Settings::station_dropdown, 350, 60);
-    //set_station_dropdown();
-    this->set_dropdown_to_all_stations(Settings::station_dropdown);
+    set_station_dropdown();
 
     //lv_obj_add_event_cb(Settings::confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
 }
@@ -121,16 +120,6 @@ void Settings::buttons_create(lv_obj_t *parent)
     lv_obj_add_flag(Settings::load_btn, LV_OBJ_FLAG_CLICKABLE);
 }
 
-// void Settings::on_save_btn_clicked(lv_event_t *event)
-// {
-//     controller->save_settings(Settings::selected_station_option, Settings::selected_transport_option);
-// }
-
-// void Settings::on_load_btn_clicked(lv_event_t *event)
-// {
-//     controller->load_settings(Settings::selected_station_option, Settings::selected_transport_option);
-// }
-
 void Settings::on_station_value_change(lv_event_t* event)
 {
     Settings* self = static_cast<Settings*>(lv_event_get_user_data(event));
@@ -146,11 +135,6 @@ void Settings::on_transport_value_change(lv_event_t* event)
 
 void Settings::set_station_dropdown()
 {
-    for(auto data : station_id_table)
-    {
-        station_names += data.first + "\n";
-    }
-    station_names.trim();
     lv_dropdown_set_options(Settings::station_dropdown, station_names.c_str());
 }
 

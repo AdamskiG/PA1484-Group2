@@ -25,7 +25,7 @@ private:
     //Storing all the stations and their ID together with their transportation types
     
     //Here the current selected options are stored as an array of characters.
-    static constexpr uint32_t buff_size = 64;
+    
     String selected_station_option;
     String selected_station_id;
     String selected_transport_option;

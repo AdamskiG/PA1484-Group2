@@ -46,20 +46,6 @@ static void connect_wifi()
   }
 }
 
-// functionality added to create ui function, this function probably won't be needed
-// unclear if wifi name should also be included
-// std::string status_string = "CONNECTED";
-// void check_wifi()
-// {
-//   if(WiFi.status() == WL_CONNECTED)
-//     if(status_string != "CONNECTED")
-//       status_string = "CONNECTED";
-
-//   if(WiFi.status() == WL_CONNECTION_LOST)
-//     if(status_string != "CONNECTION LOST")
-//       status_string = "CONNECTION LOST";
-// }
-
 // Must have function: Setup is run once on startup
 void setup()
 {
@@ -77,6 +63,12 @@ void setup()
   create_ui();
 }
 
+const long interval_time_UI = 5000; // update wifi status every 5 seconds
+unsigned long time_last_updated_WiFi_status = 0;
+
+const long interval_time_departure_data = 60000; // fetch new departure data every 60 seconds
+unsigned long time_last_fetched_data = 0;
+
 // Must have function: Loop runs continously on device after setup
 void loop()
 {
@@ -85,11 +77,6 @@ void loop()
 
   // might work, should update the parts of the ui that need it, i.e data
   unsigned long current_time = millis();
-  int interval_time_UI = 5000; // update wifi status every 5 seconds
-  int time_last_updated_WiFi_status = 0;
-
-  int interval_time_departure_data = 60000; // fetch new departure data every 60 seconds
-  int time_last_fetched_data = 0;
 
   if(current_time - time_last_updated_WiFi_status >= interval_time_UI)
   {
