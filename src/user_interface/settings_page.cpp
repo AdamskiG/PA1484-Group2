@@ -30,7 +30,6 @@ void Settings::create()
     lv_obj_add_event_cb(Settings::transport_dropdown, Settings::on_transport_value_change, LV_EVENT_VALUE_CHANGED, this);
 
     // Create a label that shows WiFi status
-    // MIGHT work based on the same solution used in project.ino.
     if (WiFi.status() == WL_CONNECTED) 
     {
         this->wifi_status = " Connected";
@@ -68,7 +67,8 @@ void Settings::station_options(lv_obj_t* parent)
     Settings::station_dropdown = lv_dropdown_create(parent);
     lv_obj_align_to( Settings::station_dropdown, Settings::settings_label, LV_ALIGN_CENTER, -120, 60);
     lv_obj_set_size(Settings::station_dropdown, 350, 60);
-    set_station_dropdown();
+    //set_station_dropdown();
+    this->set_dropdown_to_all_stations(Settings::station_dropdown);
 
     //lv_obj_add_event_cb(Settings::confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
 }
