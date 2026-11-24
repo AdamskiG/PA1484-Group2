@@ -67,7 +67,7 @@ void Controller::init()
 void Controller::on_confirm_btn_clicked(lv_event_t* event)
 {
     Controller* self = static_cast<Controller*>(lv_event_get_user_data(event));
-    self->confirm_settings();
+    self->update_departure_page();
 }
 
 void Controller::on_save_btn_clicked(lv_event_t *event)
