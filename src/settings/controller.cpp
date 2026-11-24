@@ -181,4 +181,5 @@ void Controller::update_WiFi_status()
 
 void Controller::update_departure_page()
 {
+    // Empty Function
 }
