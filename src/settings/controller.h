@@ -12,6 +12,7 @@
 #include "user_interface/front_page.h"
 #include "user_interface/settings_page.h"
 #include "user_interface/departure_page.h"
+#include "user_interface/journey_page.h"
 #include "data_sort.h"
 
 #define SAVE_BUF 256
@@ -25,6 +26,7 @@ class Controller
     const String key_departure;
     const String key_lookup;
 
+    Journey_Page* journey_p;
     Settings* settings_p;
     Departure* departure_p;
     Front_Page* front_p;
