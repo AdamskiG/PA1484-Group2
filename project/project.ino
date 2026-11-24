@@ -101,5 +101,6 @@ void loop()
   {
     main_control->update_departure_page();
     time_last_fetched_data = current_time;
+    Serial.println("Updated departure data"); // for testing
   }
 }
