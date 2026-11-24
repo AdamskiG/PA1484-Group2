@@ -46,7 +46,6 @@ class Controller
     bool save_settings(const String& selected_station_option, const String& selected_transport_option);
     bool load_settings(String& selected_station_option, String& selected_transport_option);
 
-
     public:
     Controller(const String& key_departure, const String& key_lookup);
     ~Controller();
