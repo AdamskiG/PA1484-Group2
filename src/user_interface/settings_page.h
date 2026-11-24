@@ -23,8 +23,6 @@ private:
     inline static lv_obj_t* wifi_status_label = nullptr;
 
     //Storing all the stations and their ID together with their transportation types
- 
-    std::map<String, std::map<String, String>> station_id_table;
     
     //Here the current selected options are stored as an array of characters.
     static constexpr uint32_t buff_size = 64;
@@ -44,7 +42,6 @@ private:
     void set_station_dropdown();
     void set_transport_dropdown();
 
-    String station_names = "";
     String transport_names = "";
     std::string wifi_status;
 
@@ -59,7 +56,6 @@ public:
     ~Settings();
     void create();
     void update_WiFi_status();
-    void set_station_id_table(std::map<String, std::map<String, String>> sorted_data);
 
     // Button getters
     lv_obj_t* get_confirmed_button();

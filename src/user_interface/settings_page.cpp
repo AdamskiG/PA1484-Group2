@@ -144,11 +144,6 @@ void Settings::on_transport_value_change(lv_event_t* event)
     lv_dropdown_set_text(Settings::transport_dropdown, NULL);
 }
 
-void Settings::set_station_id_table(std::map<String, std::map<String, String>> sorted_data)
-{
-    this->station_id_table = sorted_data;
-}
-
 void Settings::set_station_dropdown()
 {
     for(auto data : station_id_table)

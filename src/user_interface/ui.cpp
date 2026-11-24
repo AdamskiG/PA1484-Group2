@@ -28,3 +28,7 @@ void Ui::apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark)
   // colours to Text
     lv_obj_set_style_text_color(label, dark ? lv_color_white() : lv_color_black(), 0);
 }
+void Ui::set_station_id_table(std::map<String, std::map<String, String>> sorted_data)
+{
+    this->station_id_table = sorted_data;
+}

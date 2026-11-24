@@ -35,6 +35,7 @@ void Controller::init()
     String stations_string = api->fetch_all_stations();
     Serial.printf("Station/Transport Data Fetched\n");
     std::map<String, std::map<String, String>> station_map = sort->get_all_stations(stations_string);
+
     settings_p->set_station_id_table(station_map);
     Serial.printf("Station/Transport Data stored\n");
     settings_p->create();
