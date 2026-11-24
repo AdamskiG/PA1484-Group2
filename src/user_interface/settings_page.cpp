@@ -30,7 +30,6 @@ void Settings::create()
     lv_obj_add_event_cb(Settings::transport_dropdown, Settings::on_transport_value_change, LV_EVENT_VALUE_CHANGED, this);
 
     // Create a label that shows WiFi status
-    // MIGHT work based on the same solution used in project.ino.
     if (WiFi.status() == WL_CONNECTED) 
     {
         this->wifi_status = " Connected";
@@ -68,7 +67,8 @@ void Settings::station_options(lv_obj_t* parent)
     Settings::station_dropdown = lv_dropdown_create(parent);
     lv_obj_align_to( Settings::station_dropdown, Settings::settings_label, LV_ALIGN_CENTER, -120, 60);
     lv_obj_set_size(Settings::station_dropdown, 350, 60);
-    set_station_dropdown();
+    //set_station_dropdown();
+    this->set_dropdown_to_all_stations(Settings::station_dropdown);
 
     //lv_obj_add_event_cb(Settings::confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
 }
@@ -144,20 +144,20 @@ void Settings::on_transport_value_change(lv_event_t* event)
     lv_dropdown_set_text(Settings::transport_dropdown, NULL);
 }
 
-void Settings::set_station_id_table(std::map<String, std::map<String, String>> sorted_data)
-{
-    this->station_id_table = sorted_data;
-}
+// void Settings::set_station_id_table(std::map<String, std::map<String, String>> sorted_data)
+// {
+//     this->station_id_table = sorted_data;
+// }
 
-void Settings::set_station_dropdown()
-{
-    for(auto data : station_id_table)
-    {
-        station_names += data.first + "\n";
-    }
-    station_names.trim();
-    lv_dropdown_set_options(Settings::station_dropdown, station_names.c_str());
-}
+// void Settings::set_station_dropdown()
+// {
+//     for(auto data : station_id_table)
+//     {
+//         station_names += data.first + "\n";
+//     }
+//     station_names.trim();
+//     lv_dropdown_set_options(Settings::station_dropdown, station_names.c_str());
+// }
 
 void Settings::set_transport_dropdown()
 {

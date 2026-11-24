@@ -29,5 +29,6 @@ void Journey_Page::create_orgin_dropdown(lv_obj_t* parent)
     Journey_Page::orgin_dropdown = lv_dropdown_create(parent);
     lv_obj_set_size(Journey_Page::orgin_dropdown, 350, 60);
     lv_obj_align(Journey_Page::orgin_dropdown, LV_ALIGN_TOP_LEFT, 10, 10);
+    this->set_dropdown_to_all_stations(Journey_Page::orgin_dropdown);
 
 }

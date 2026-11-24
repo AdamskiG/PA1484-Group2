@@ -1,5 +1,7 @@
 #pragma once
 #include "lvgl.h"
+#include <Arduino.h>
+#include <map>
 
 class Ui 
 {
@@ -8,7 +10,11 @@ class Ui
     virtual ~Ui();
     virtual void create(); // Creates different Tiles
     void apply_tile_colors(lv_obj_t* tile, lv_obj_t* label, bool dark); //Apply colors to tile and text
+    void set_dropdown_to_all_stations(lv_obj_t* dropdown);
+    void set_station_id_table(std::map<String, std::map<String, String>> sorted_data);
 
     protected:
     inline static lv_obj_t* tileview = nullptr;
+    String station_names = "";
+    std::map<String, std::map<String, String>> station_id_table;
 };
