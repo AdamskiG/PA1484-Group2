@@ -159,7 +159,7 @@ bool Controller::load_settings(String& selected_station_option, String& selected
     return true;
 }
 
-void Controller::confirm_settings()
+void Controller::update_departure_page()
 {
     settings_p->get_selected();
 
@@ -179,7 +179,3 @@ void Controller::update_WiFi_status()
     Controller::settings_p->update_WiFi_status();
 }
 
-void Controller::update_departure_page()
-{
-    // Empty Function
-}
