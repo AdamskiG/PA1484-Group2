@@ -41,7 +41,6 @@ struct Journey_Data
     String departure_time;
     String arrival_time;
     String vehicle_number;
-    String destination_name;
 
     // Constructors
     Journey_Data(Journey_Data& other);
@@ -55,11 +54,11 @@ struct Journey_Data
 struct Journey_Data_Holder
 {
     std::vector<Journey_Data*> data;
-    String station;
+    String origin_station;
 
-    String vehicle_filter;
+    String desination_station;
 
     // Functions to load and clear data
-    void load_from_json(const String& json, String area_name, String in_vehicle_filter);
+    void load_from_json(const String& json, String origin, String destination);
     void clear();
 };

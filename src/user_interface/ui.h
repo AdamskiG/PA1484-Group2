@@ -11,7 +11,7 @@ class Ui
     static constexpr uint32_t buff_size = 64;
     inline static String station_names = "";
     inline static lv_obj_t* tileview = nullptr;
-    inline static std::map<String, std::map<String, String>> station_id_table = std::map<String, std::map<String, String>>();
+    inline static std::map<String, std::map<String, String>> station_id_table{};
     static void set_all_station_options();
     
     public:

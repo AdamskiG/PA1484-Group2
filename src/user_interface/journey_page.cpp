@@ -16,8 +16,8 @@ void Journey_Page::create()
     Journey_Page::journey_label = lv_label_create(Journey_Page::journey_tile);
     lv_label_set_text(Journey_Page::journey_label, "Journey Selection");
     lv_obj_set_style_text_font(Journey_Page::journey_label, &lv_font_montserrat_28, 0);
-    lv_obj_center(Journey_Page::journey_label);
-    apply_tile_colors(Journey_Page::journey_tile ,journey_label, /*dark=*/false);
+    lv_obj_set_align(Journey_Page::journey_label, LV_ALIGN_TOP_MID);
+    apply_tile_colors(Journey_Page::journey_tile, journey_label, /*dark=*/false);
 
     this->create_orgin_dropdown(Journey_Page::journey_tile);
     create_destination_dropdown(Journey_Page::journey_tile);
@@ -74,9 +74,10 @@ void Journey_Page::create_orgin_dropdown(lv_obj_t* parent)
     Journey_Page::origin_dropdown = lv_dropdown_create(parent);
     lv_obj_t* origin_label = lv_label_create(parent);
     lv_obj_set_size(Journey_Page::origin_dropdown, 350, 60);
-    lv_obj_align_to(Journey_Page::origin_dropdown, Journey_Page::journey_label, LV_ALIGN_CENTER, -120, 60);
+    lv_obj_align_to(Journey_Page::origin_dropdown, Journey_Page::journey_label, LV_ALIGN_CENTER, -100, 120);
     lv_obj_align_to(origin_label, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -120, -60);
     lv_label_set_text(origin_label, "From:");
+
     set_origin_dropdown();
 }
 
@@ -85,9 +86,9 @@ void Journey_Page::create_destination_dropdown(lv_obj_t* parent)
     //create a dropdown with transport options
     Journey_Page::destination_dropdown = lv_dropdown_create(parent);
     lv_obj_t* destination_label = lv_label_create(parent);
-    lv_obj_align_to(Journey_Page::destination_dropdown, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -115, 180);
+    lv_obj_align_to(Journey_Page::destination_dropdown, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -110, 90);
     lv_obj_set_size(Journey_Page::destination_dropdown, 350, 60);
-    lv_obj_align_to(destination_label, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -120, -60);
+    lv_obj_align_to(destination_label, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -120, 60);
     lv_label_set_text(destination_label, "To:");
     set_destination_dropdown();
 }

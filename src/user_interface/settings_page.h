@@ -56,7 +56,6 @@ public:
     ~Settings();
     void create();
     void update_WiFi_status();
-    void set_station_id_table(std::map<String, std::map<String, String>> sorted_data);
 
     // Button getters
     lv_obj_t* get_confirmed_button();
