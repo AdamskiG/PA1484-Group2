@@ -47,6 +47,13 @@ String Api::fetch_departures(String id)
     return response;
 }
 
+String Api::fetch_journey(String origin_id, String destination_id)
+{
+    String fetch_url = journey_url + origin_id + "&destId=" + destination_id + "&passlist=true&showPassingPoints=true&accessId=" + key_departure;
+    String response = fetch_data_string(fetch_url);
+    return response;
+}
+
 String Api::fetch_all_stations()
 {
     String fetch_url = stations_url + key_lookup;

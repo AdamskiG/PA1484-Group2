@@ -31,7 +31,7 @@ void Departure::show_departure(Departure_Data_Holder& data)
     lv_table_set_cell_value(Departure::departure_table, 0, 0, station_text.c_str());
     lv_table_set_cell_value(Departure::departure_table, 0, 1, departure_text.c_str());
     lv_table_set_cell_value(Departure::departure_table, 0, 2, "Platform ");
-    lv_table_set_cell_value(Departure::departure_table, 0, 3, "Mot ");
+    lv_table_set_cell_value(Departure::departure_table, 0, 3, "To ");
 
     int colums = 1;
     for(Departure_Data* departure_data : data.data)
@@ -43,5 +43,25 @@ void Departure::show_departure(Departure_Data_Holder& data)
         lv_table_set_cell_value(Departure::departure_table, colums, 3, departure_data->destination_name.c_str());
         colums++;
     }
-    lv_table_set_row_cnt(Departure::departure_table, colums);
+}
+
+void Departure::show_journey(Journey_Data_Holder& data)
+{
+    Departure::station_text = "Departure from: " + data.station;
+    String departure_text = " Line Nr: ";
+    lv_table_set_cell_value(Departure::departure_table, 0, 0, station_text.c_str());
+    lv_table_set_cell_value(Departure::departure_table, 0, 1, departure_text.c_str());
+    lv_table_set_cell_value(Departure::departure_table, 0, 2, "Platform ");
+    lv_table_set_cell_value(Departure::departure_table, 0, 3, "To ");
+
+    int colums = 1;
+    for(Journey_Data* departure_data : data.data)
+    {
+        Serial.printf("I'm here_ inside");
+        lv_table_set_cell_value(Departure::departure_table, colums, 0, departure_data->departure_time.c_str());
+        lv_table_set_cell_value(Departure::departure_table, colums, 1, departure_data->vehicle_number.c_str());
+        // lv_table_set_cell_value(Departure::departure_table, colums, 2, departure_data->platform.c_str());
+        lv_table_set_cell_value(Departure::departure_table, colums, 3, departure_data->destination_name.c_str());
+        colums++;
+    }
 }

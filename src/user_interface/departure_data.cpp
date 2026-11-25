@@ -37,6 +37,7 @@ Departure_Data &Departure_Data::copy(Departure_Data &other)
     vehicle_type = other.vehicle_type;
     vehicle_number = other.vehicle_number;
     destination_name = other.destination_name;
+    platform = other.platform;
     return *this;
 }
 
@@ -89,4 +90,45 @@ void Departure_Data_Holder::clear()
     for (Departure_Data* departure_data : data)
         delete departure_data;
     data.clear();
+}
+
+Journey_Data::Journey_Data(Journey_Data &other)
+{
+    copy(other);
+}
+
+Journey_Data::Journey_Data(JsonVariant& journey_data)
+{
+    String departure = journey_data["Origin"]["time"];
+    this->departure_time = departure.substring(0,4);
+    String arrival = journey_data["Destination"]["time"];
+    this->arrival_time = arrival.substring(0,4);
+    this->vehicle_number = journey_data["Leglist"]["Leg"]["Product"]["line"].as<String>();
+}
+
+Journey_Data &Journey_Data::operator=(Journey_Data &other)
+{
+    return copy(other);
+}
+
+Journey_Data &Journey_Data::copy(Journey_Data &other)
+{
+    departure_time = other.departure_time;
+    arrival_time = other.arrival_time;
+    vehicle_number = other.vehicle_number;
+
+    return *this;
+}
+
+void Journey_Data_Holder::load_from_json(const String &json, String area_name, String in_vehicle_filter)
+{
+    JsonDocument doc;
+    deserializeJson(doc, json);
+    JsonArray journey = doc["Trip"];
+
+    for(JsonVariant journey_info : journey)
+    {
+        Journey_Data* journey_stats = new Journey_Data(journey_info);
+        data.push_back(journey_stats);
+    }
 }

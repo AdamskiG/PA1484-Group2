@@ -26,9 +26,6 @@ void Settings::create()
     transport_options(Settings::settings_tile);
     buttons_create(Settings::settings_tile);
 
-    lv_obj_add_event_cb(Settings::station_dropdown, Settings::on_station_value_change, LV_EVENT_VALUE_CHANGED, this);
-    lv_obj_add_event_cb(Settings::transport_dropdown, Settings::on_transport_value_change, LV_EVENT_VALUE_CHANGED, this);
-
     // Create a label that shows WiFi status
     if (WiFi.status() == WL_CONNECTED) 
     {
@@ -69,7 +66,7 @@ void Settings::station_options(lv_obj_t* parent)
     lv_obj_set_size(Settings::station_dropdown, 350, 60);
     set_station_dropdown();
 
-    //lv_obj_add_event_cb(Settings::confirm_btn, on_confirm_btn_clicked, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(Settings::station_dropdown, Settings::on_station_value_change, LV_EVENT_VALUE_CHANGED, this);
 }
 
 
@@ -190,17 +187,11 @@ bool Settings::set_transport_dropdown_option(const String &new_transport)
 void Settings::set_station_text(const String &saved_station)
 {
     lv_dropdown_set_text(Settings::station_dropdown, saved_station.c_str());
-
-    //Changes the displayed selected option in the dropdown.
-    lv_obj_add_event_cb(Settings::station_dropdown, on_station_value_change, LV_EVENT_VALUE_CHANGED, NULL);
 }
 
 void Settings::set_transport_text(const String& saved_transport)
 {
     lv_dropdown_set_text(Settings::transport_dropdown, saved_transport.c_str());
-
-    //Changes the displayed selected option in the dropdown.
-    lv_obj_add_event_cb(Settings::transport_dropdown, on_transport_value_change, LV_EVENT_VALUE_CHANGED, NULL);
 }
 
 void Settings::get_selected()
@@ -259,7 +250,7 @@ void Settings::set_station(const String &new_station)
 
 void Settings::set_transport(const String &new_transport)
 {
-    if (set_transport_dropdown_option(new_transport));
+    if (set_transport_dropdown_option(new_transport))
         selected_transport_option = new_transport;
 }
 

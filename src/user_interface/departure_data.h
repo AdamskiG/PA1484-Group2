@@ -35,3 +35,31 @@ struct Departure_Data_Holder
     void load_from_json(const String& json, String area_name, String in_vehicle_filter);
     void clear();
 };
+
+struct Journey_Data
+{
+    String departure_time;
+    String arrival_time;
+    String vehicle_number;
+    String destination_name;
+
+    // Constructors
+    Journey_Data(Journey_Data& other);
+    Journey_Data(JsonVariant& journey_data);
+
+    Journey_Data& operator=(Journey_Data& other);
+
+    Journey_Data& copy(Journey_Data& other);
+};
+
+struct Journey_Data_Holder
+{
+    std::vector<Journey_Data*> data;
+    String station;
+
+    String vehicle_filter;
+
+    // Functions to load and clear data
+    void load_from_json(const String& json, String area_name, String in_vehicle_filter);
+    void clear();
+};

@@ -15,6 +15,8 @@ class Api
 
     const String base_url = "https://realtime-api.trafiklab.se";
     const String stations_url = "https://api.resrobot.se/v2.1/location.nearbystops?originCoordLat=56.2845&originCoordLong=15.5575&r=20000&maxNo=1000&format=json&accessId=";
+    const String journey_url = "https://api.resrobot.se/v2.1/trip?format=json&originId=";
+    String arrival_time;
     String key_departure;
     String key_lookup;
 
@@ -23,5 +25,6 @@ class Api
     public:
     Api(const String& key_departure, const String& key_lookup);
     String fetch_departures(String id);
+    String fetch_journey(String origin_id, String destination_id);
     String fetch_all_stations();
 };

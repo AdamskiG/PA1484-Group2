@@ -33,7 +33,7 @@ String Data_Sort::clean_name(String station_name, String& rest_name)
     {
         rest_name = station_name.substring(i);
     }
-    
+    cleaned_str.trim();
     return cleaned_str;
 }
 
@@ -84,7 +84,6 @@ std::map<String, std::map<String, String>> Data_Sort::get_all_stations(String js
         String transport_options = decipher_transport(stop_location["products"].as<int>());
         this->station_id_table[name][id] = transport_options;
     }
-
     return this->station_id_table;
 }
 
