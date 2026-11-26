@@ -12,12 +12,21 @@ Journey_Page::~Journey_Page()
 
 void Journey_Page::create()
 {
+<<<<<<< Updated upstream
     Journey_Page::journey_tile = lv_tileview_add_tile(Ui::tileview, 3, 0, LV_DIR_HOR);
     Journey_Page::journey_label = lv_label_create(Journey_Page::journey_tile);
     lv_label_set_text(Journey_Page::journey_label, "Journey Selection");
     lv_obj_set_style_text_font(Journey_Page::journey_label, &lv_font_montserrat_28, 0);
     lv_obj_set_align(Journey_Page::journey_label, LV_ALIGN_TOP_MID);
     apply_tile_colors(Journey_Page::journey_tile, journey_label, /*dark=*/false);
+=======
+    Journey_Page::front_tile = lv_tileview_add_tile(Ui::tileview, 3, 0, LV_DIR_HOR);
+    Journey_Page::front_label = lv_label_create(Journey_Page::front_tile);
+    lv_label_set_text(Journey_Page::front_label, "Journey Selection");
+    lv_obj_set_style_text_font(Journey_Page::front_label, &font_scandi_28, 0);
+    lv_obj_center(Journey_Page::front_label);
+    apply_tile_colors(Journey_Page::front_tile , front_label, /*dark=*/false);
+>>>>>>> Stashed changes
 
     this->create_orgin_dropdown(Journey_Page::journey_tile);
     create_destination_dropdown(Journey_Page::journey_tile);

@@ -16,7 +16,7 @@ void Departure::create()
     Departure::departure_table = lv_table_create(Departure::departure_tile);
     Departure::departure_label = lv_label_create(Departure::departure_tile);
     lv_label_set_text(Departure::departure_label, "Departures");
-    lv_obj_set_style_text_font(Departure::departure_label, &lv_font_montserrat_28, 0);
+    lv_obj_set_style_text_font(Departure::departure_label, &font_scandi_28, 0);
     lv_obj_set_align(Departure::departure_label, LV_ALIGN_TOP_MID);
     apply_tile_colors(Departure::departure_tile, Departure::departure_label, /*dark=*/false);
     lv_table_set_col_width(Departure::departure_table, 0, 200);

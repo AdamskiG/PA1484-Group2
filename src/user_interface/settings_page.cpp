@@ -18,7 +18,7 @@ void Settings::create()
     // Create a label for the settings UI
     Settings::settings_label = lv_label_create(Settings::settings_tile);
     lv_label_set_text(Settings::settings_label, "Settings page, change stations here");
-    lv_obj_set_style_text_font(Settings::settings_label, &lv_font_montserrat_28, 0);
+    lv_obj_set_style_text_font(Settings::settings_label, &font_scandi_28, 0);
     lv_obj_set_align(Settings::settings_label, LV_ALIGN_TOP_MID);
     apply_tile_colors(Settings::settings_tile, Settings::settings_label, /*dark=*/false);
 
@@ -39,7 +39,7 @@ void Settings::create()
     std::string wifi_status_string = "WiFi status:" + this->wifi_status;
     Settings::wifi_status_label = lv_label_create(Settings::settings_tile);
     lv_label_set_text(Settings::wifi_status_label, wifi_status_string.c_str());
-    lv_obj_set_style_text_font(Settings::wifi_status_label, &lv_font_montserrat_28, 0);
+    lv_obj_set_style_text_font(Settings::wifi_status_label, &font_scandi_28, 0);
     lv_obj_set_align(Settings::wifi_status_label, LV_ALIGN_BOTTOM_LEFT);
 }
 

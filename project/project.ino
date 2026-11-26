@@ -49,6 +49,8 @@ static void connect_wifi()
 // Must have function: Setup is run once on startup
 void setup()
 {
+  
+  
   Serial.begin(115200);
   delay(200);
 

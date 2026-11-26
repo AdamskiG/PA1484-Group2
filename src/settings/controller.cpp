@@ -28,6 +28,8 @@ void Controller::init()
     // Allocate memory for save
     EEPROM.begin(SAVE_BUF);
 
+
+
     // Initialize Front Page
     front_p.create();
     Serial.printf("Front page created\n");

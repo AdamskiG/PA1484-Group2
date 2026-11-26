@@ -17,7 +17,7 @@ void Front_Page::create()
     Front_Page::front_tile = lv_tileview_add_tile(Ui::tileview, 0, 0, LV_DIR_HOR);
     Front_Page::front_label = lv_label_create(Front_Page::front_tile);
     lv_label_set_text(Front_Page::front_label, "Public Transport Information\n and\n Interaction on ESP32\n Group 2 Version 1.3\n Napatpong Chokwatthananon\n Li Holma, Tim Säterby\n Adam Gunnarsson, Kimi Grubisic");
-    lv_obj_set_style_text_font(Front_Page::front_label, &lv_font_montserrat_28, 0);
+    lv_obj_set_style_text_font(Front_Page::front_label, &font_scandi_28, 0);
     lv_obj_center(Front_Page::front_label);
     apply_tile_colors(Front_Page::front_tile , front_label, /*dark=*/false);
 }
