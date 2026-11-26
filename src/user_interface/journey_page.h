@@ -38,5 +38,7 @@ class Journey_Page : public Ui
 
     void get_selected();
     String get_time();
+    String get_origin_station();
+    String get_destination_station();
 
 };

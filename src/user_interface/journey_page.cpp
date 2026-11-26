@@ -21,6 +21,7 @@ void Journey_Page::create()
 
     this->create_orgin_dropdown(Journey_Page::journey_tile);
     create_destination_dropdown(Journey_Page::journey_tile);
+    create_time_dropdown(Journey_Page::journey_tile);
     create_confirm_btn(Journey_Page::journey_tile);
     
 }
@@ -62,9 +63,9 @@ void Journey_Page::set_time_dropdown()
             minutes_string << i << "\n";
         }
     }
-    std::string minutes = hour_string.str();
-    hours.pop_back();
-    lv_dropdown_set_options(Journey_Page::hour_dropdown, minutes.c_str());
+    std::string minutes = minutes_string.str();
+    minutes.pop_back();
+    lv_dropdown_set_options(Journey_Page::minutes_dropdown, minutes.c_str());
 }
 
 // Creates a dropdown option for the stations to chose between.
@@ -74,10 +75,9 @@ void Journey_Page::create_orgin_dropdown(lv_obj_t* parent)
     Journey_Page::origin_dropdown = lv_dropdown_create(parent);
     lv_obj_t* origin_label = lv_label_create(parent);
     lv_obj_set_size(Journey_Page::origin_dropdown, 350, 60);
-    lv_obj_align_to(Journey_Page::origin_dropdown, Journey_Page::journey_label, LV_ALIGN_CENTER, -100, 120);
-    lv_obj_align_to(origin_label, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -120, -60);
+    lv_obj_align_to(origin_label, Journey_Page::journey_label, LV_ALIGN_CENTER, -150, 40);
+    lv_obj_align_to(Journey_Page::origin_dropdown, origin_label, LV_ALIGN_CENTER, 150, 50);
     lv_label_set_text(origin_label, "From:");
-
     set_origin_dropdown();
 }
 
@@ -86,10 +86,10 @@ void Journey_Page::create_destination_dropdown(lv_obj_t* parent)
     //create a dropdown with transport options
     Journey_Page::destination_dropdown = lv_dropdown_create(parent);
     lv_obj_t* destination_label = lv_label_create(parent);
-    lv_obj_align_to(Journey_Page::destination_dropdown, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -110, 90);
-    lv_obj_set_size(Journey_Page::destination_dropdown, 350, 60);
-    lv_obj_align_to(destination_label, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -120, 60);
+    lv_obj_align_to(destination_label, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -150, 40);
     lv_label_set_text(destination_label, "To:");
+    lv_obj_align_to(Journey_Page::destination_dropdown, destination_label, LV_ALIGN_CENTER, 45, 40);
+    lv_obj_set_size(Journey_Page::destination_dropdown, 350, 60);
     set_destination_dropdown();
 }
 
@@ -99,14 +99,15 @@ void Journey_Page::create_time_dropdown(lv_obj_t* parent)
     Journey_Page::minutes_dropdown = lv_dropdown_create(parent);
     lv_obj_t* time_label = lv_label_create(parent);
     lv_obj_t* time_dot = lv_label_create(parent);
-    lv_obj_align_to(Journey_Page::hour_dropdown, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -115, 60);
-    lv_obj_align_to(Journey_Page::minutes_dropdown, Journey_Page::hour_dropdown, LV_ALIGN_CENTER, 50, 0);
-    lv_obj_align_to(time_dot, Journey_Page::hour_dropdown, LV_ALIGN_CENTER, 25, 0);
-    lv_obj_set_size(Journey_Page::hour_dropdown, 175, 60);
-    lv_obj_set_size(Journey_Page::minutes_dropdown, 175, 60);
-    lv_obj_align_to(time_label, Journey_Page::origin_dropdown, LV_ALIGN_CENTER, -120, -60);
-    lv_label_set_text(time_label, "To:");
-    lv_label_set_text(time_label, " : ");
+    lv_obj_set_size(Journey_Page::hour_dropdown, 100, 60);
+    lv_obj_set_size(Journey_Page::minutes_dropdown, 100, 60);
+    lv_obj_align_to(time_label, Journey_Page::destination_dropdown, LV_ALIGN_CENTER, -40, 40);
+    lv_obj_align_to(Journey_Page::hour_dropdown, time_label, LV_ALIGN_CENTER, -30, 50);
+    lv_obj_align_to(time_dot, Journey_Page::hour_dropdown, LV_ALIGN_RIGHT_MID, 60, 0);
+    lv_obj_align_to(Journey_Page::minutes_dropdown, time_dot, LV_ALIGN_LEFT_MID, 20, 0);
+    lv_label_set_text(time_label, "Arrival Time:");
+    lv_label_set_text(time_dot, " : ");
+    set_time_dropdown();
 }
 
 void Journey_Page::create_confirm_btn(lv_obj_t* parent)
@@ -116,7 +117,7 @@ void Journey_Page::create_confirm_btn(lv_obj_t* parent)
     btn_label = lv_label_create(journey_confirm_btn);
     lv_label_set_text(btn_label, "Select");
     lv_obj_center(btn_label);
-    lv_obj_align_to(Journey_Page::journey_confirm_btn, Journey_Page::destination_dropdown, LV_ALIGN_CENTER, -50, 60);
+    lv_obj_align_to(Journey_Page::journey_confirm_btn, Journey_Page::hour_dropdown, LV_ALIGN_CENTER, 40, 60);
     lv_obj_set_size(Journey_Page::journey_confirm_btn, 150, 50);
     lv_obj_add_flag(Journey_Page::journey_confirm_btn, LV_OBJ_FLAG_CLICKABLE);
 }
@@ -167,4 +168,14 @@ String Journey_Page::get_time()
     String minutes = String(minutes_buffer);
     this->time = hours + ":" + minutes;
     return this->time;
+}
+
+String Journey_Page::get_origin_station()
+{
+    return selected_origin_id;
+}
+
+String Journey_Page::get_destination_station()
+{
+    return selected_destination_id;
 }

@@ -69,7 +69,7 @@ void Controller::init()
 void Controller::on_confirm_btn_clicked(lv_event_t* event)
 {
     Controller* self = static_cast<Controller*>(lv_event_get_user_data(event));
-    self->update_departure_page();
+    self->update_departure();
 }
 
 void Controller::on_save_btn_clicked(lv_event_t *event)
@@ -165,6 +165,23 @@ bool Controller::load_settings(String& selected_station_option, String& selected
     selected_transport_option = data_vehicle;
 
     return true;
+}
+
+void Controller::update_departure()
+{
+    settings_p.get_selected();
+
+    this->departure_or_journey = true;
+
+    String station_id = settings_p.get_station_id();
+
+    String selected_station = settings_p.get_station();
+    String selected_transport = settings_p.get_transport();
+
+    String depature_json_str = api.fetch_departures(station_id);
+    Departure_Data_Holder data = sort.get_departure_times(depature_json_str, selected_station, selected_transport);
+
+    departure_p.show_departure(data);
 }
 
 void Controller::update_departure_page()

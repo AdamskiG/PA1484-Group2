@@ -35,6 +35,7 @@ void Settings::create()
     {
         this->wifi_status = " Disconnected";
     }
+
     std::string wifi_status_string = "WiFi status:" + this->wifi_status;
     Settings::wifi_status_label = lv_label_create(Settings::settings_tile);
     lv_label_set_text(Settings::wifi_status_label, wifi_status_string.c_str());
